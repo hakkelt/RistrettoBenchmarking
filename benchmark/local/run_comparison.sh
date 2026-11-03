@@ -10,7 +10,11 @@
 #                                     [--small] [--no-pin] [run_all.jl flags...]
 #
 #   --threads=LIST    thread counts, comma separated (default: 1..N-physical-cores, powers of two)
-#   --backends=LIST   openblas and/or mkl (default: openblas)
+#   --backends=LIST   openblas, mkl and/or cuda (default: openblas). cuda runs every section but kspace
+#                     on the GPU (run_all.jl --device=cuda) at one host thread, whatever --threads says,
+#                     unpinned (the driver's and the toolkits' host threads need more than one core),
+#                     with the BART build RISTRETTO_BENCH_BART_CUDA names and the Python interpreter
+#                     RISTRETTO_BENCH_GPU_PYTHON names (CuPy and a CUDA build of PyTorch), from site.env
 #   --prepare         instantiate the Julia environment, then exit
 #   --small           RISTRETTO_BENCH_SMALL=1 smoke sizes (minutes instead of hours)
 #   --smt             allow SMT siblings: thread counts up to the logical CPU count (default list then
@@ -155,18 +159,35 @@ done
 # BART modes: "estimate" is BART's default FFTW_ESTIMATE planning; "measure" sets
 # RISTRETTO_BENCH_BART_MEASURE=1 (FFTW_MEASURE, wisdom emptied before every run) and labels its rows
 # "BART (<backend>, MEASURE)". Without a BART build the modes would measure the same thing: one pass.
-bart_bin() { [ "$1" = mkl ] && echo "${RISTRETTO_BENCH_BART_MKL:-}" || echo "${RISTRETTO_BENCH_BART_OPENBLAS:-}"; }
+bart_bin() {
+    case $1 in
+        mkl) echo "${RISTRETTO_BENCH_BART_MKL:-}" ;;
+        cuda) echo "${RISTRETTO_BENCH_BART_CUDA:-}" ;;
+        *) echo "${RISTRETTO_BENCH_BART_OPENBLAS:-}" ;;
+    esac
+}
+for b in "${BACKENDS[@]}"; do
+    case $b in openblas | mkl | cuda) ;; *) echo "### --backends: unknown backend $b" >&2; exit 2 ;; esac
+done
 
 UNITS=()   # threads:backend:mode:section
 for t in "${THREADS[@]}"; do
     for b in "${BACKENDS[@]}"; do
+        # A GPU run has one host thread (_setup.jl refuses more), so it is one set of units, not one per
+        # thread count; FFTW's planner mode means nothing to BART's cuFFT, and GRAPPA has no GPU rows.
+        tt=$t
+        if [ "$b" = cuda ]; then
+            [ "$t" = "${THREADS[0]}" ] || continue
+            tt=1
+        fi
         modes=("${BART_MODES[@]}")
-        [ -f "$(bart_bin "$b")" ] || modes=(estimate)
+        { [ "$b" = cuda ] || [ ! -f "$(bart_bin "$b")" ]; } && modes=(estimate)
         for m in "${modes[@]}"; do
             for sec in "${SECTIONS[@]}"; do
                 # MEASURE changes only BART, so that pass times BART alone; base and kspace have no timed BART rows
                 [ "$m" = measure ] && [[ "$sec" == base || "$sec" == kspace ]] && continue
-                UNITS+=("$t:$b:$m:$sec")
+                [ "$b" = cuda ] && [ "$sec" = kspace ] && continue
+                UNITS+=("$tt:$b:$m:$sec")
             done
         done
     done
@@ -225,9 +246,13 @@ for u in "${UNITS[@]}"; do
     first=0
     args=(--threads="$t" --sections="$sec")
     [ "$b" = mkl ] && args+=(--use-mkl)
+    [ "$b" = cuda ] && args+=(--device=cuda)
     cpus="$(IFS=,; echo "${CPU_ORDER[*]:0:t}")"
     pin=()
-    if [ "$PIN" = 1 ]; then
+    # A GPU unit is not pinned: its one Julia thread is still pinned by _setup.jl, but the CUDA driver's
+    # threads and the Python toolkits' would otherwise share that core with it, and starved of it the
+    # host side that feeds the device ran a 13 ms CG-SENSE in 17 s.
+    if [ "$PIN" = 1 ] && [ "$b" != cuda ]; then
         if command -v numactl >/dev/null; then pin=(numactl --physcpubind="$cpus" --membind=0)
         elif command -v taskset >/dev/null; then pin=(taskset -c "$cpus"); fi
     fi

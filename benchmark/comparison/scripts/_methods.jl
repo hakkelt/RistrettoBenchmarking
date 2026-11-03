@@ -177,13 +177,32 @@ function _score_image(c::BenchCase, method::Symbol, x)
 end
 
 """
+    has_gpu_rival(c, method; toolkits = COMPETITORS) -> Bool
+
+Whether a `--device=cuda` run times `method` on `c` at all: only when at least one competitor in
+`toolkits` [`supports`](@ref) it on the GPU, since a GPU row is there to compare Ristretto with another
+toolkit, and a row only Ristretto runs on the device says nothing a CPU run does not. The rule is
+the static support table, not what this process can run (a missing BART build, `--frameworks=`),
+so the set of GPU rows is the same on every machine. Always `true` on the CPU.
+"""
+function has_gpu_rival(c::BenchCase, method::Symbol; toolkits = COMPETITORS)
+    ON_GPU || return true
+    any(tk -> supports(tk, c, method), toolkits) && return true
+    println("--> $(c.id): $(METHOD_LABEL[method]) not timed on the GPU: no other toolkit runs it there")
+    return false
+end
+
+"""
     run_method_rows!(section, c, method; maxit, toolkits, λ_default) -> Ristretto image or nothing
 
 Time Ristretto's reconstruction of case `c` by `method` (with `ristretto_reconstructor`, the same call the Ristretto
 harness times), then every competitor in `toolkits` that `supports` it, each at its own calibrated
 λ and ADMM penalty (`load_lambda`, `load_rho`), and push one
 `BenchResult` per toolkit. `nrmse_gt` is against the case's reference, `nrmse_ristretto` against Ristretto's
-own result. A competitor that throws is logged and dropped from the row.
+own result. A competitor that throws is logged and dropped from the row. On the GPU a row no competitor
+can run is skipped ([`has_gpu_rival`](@ref)), and so is the whole row when Ristretto's own
+reconstruction throws (a device out of memory, typically): with nothing to score them against,
+the competitors' rows would be half a comparison.
 """
 function run_method_rows!(
         section::AbstractString, c::BenchCase, method::Symbol;
@@ -192,11 +211,19 @@ function run_method_rows!(
     )
     label = method_label(method, maxit)
     should_run(c.id, label) || should_run(section, label) || return nothing
+    has_gpu_rival(c, method; toolkits) || return nothing
     println("--> $(c.id): $label")
     runs = timed_runs(c)
     λ = load_lambda(c, method, "Ristretto", λ_default)
     rho = something(load_rho(c, method, "Ristretto"), admm_rho(c))
-    tm, _, xm = time_run(ristretto_reconstructor(c, method; λ, rho, maxit, device = RISTRETTO_DEVICE); runs)
+    tm, _, xm = try
+        time_run(ristretto_reconstructor(c, method; λ, rho, maxit, device = RISTRETTO_DEVICE); runs)
+    catch err
+        ON_GPU || rethrow()
+        @warn "$FW $label on $(c.id) failed; the row is skipped" exception = (err, catch_backtrace())
+        release_device_memory()
+        return nothing
+    end
     xm = _score_image(c, method, parent(xm))
     push!(results, BenchResult(section, label, FW, NUM_THREADS, tm * 1000, mag_nrmse(xm, c.reference), 0.0, c.id, c.source))
     release_device_memory()

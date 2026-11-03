@@ -20,20 +20,29 @@ const NFFT_TENSOR = isdefined(Ristretto, :NFFT) ? Ristretto.NFFT.TENSOR : nothin
 for c in section_cases(c -> c.trajectory === :noncartesian)
     xm = run_method_rows!("Non-Cartesian", c, :gridding)
     xm === nothing && continue
-    # The host NFFT at a second operating point; a GPU run has no counterpart of it.
-    ON_GPU && continue
-    # Ristretto at MRIReco's NFFT operating point, same acquisition and DCF.
+    # Ristretto at MRIReco's NFFT operating point, same acquisition and DCF. On the GPU the operator
+    # is planned on the device (MRIReco's GPU row grids at the same point), and the timed region
+    # holds the copies of the k-space to the device and of the image back, as every GPU row does.
     try
         acq = ristretto_acquisition(c; dcf = true)
+        y = acq.kspace_data   # host copy, taken before the acquisition moves to the device
+        ON_GPU && (acq = Ristretto.Adapt.adapt(RISTRETTO_DEVICE, acq))
         E = Ristretto.get_encoding_operator(acq; m = 3, sigma = 1.25, precompute = NFFT_TENSOR)
-        y = acq.kspace_data
-        t, _, x = time_run(() -> E' * y; runs = timed_runs(c))
+        adjoint_run = if ON_GPU
+            # NamedDims has no Adapt rule, so the names are carried over by hand: the operator is named
+            names = Ristretto.NamedDims.dimnames(y)
+            () -> Array(parent(E' * Ristretto.NamedDims.NamedDimsArray{names}(RISTRETTO_DEVICE(parent(y)))))
+        else
+            () -> E' * y
+        end
+        t, _, x = time_run(adjoint_run; runs = timed_runs(c))
         x = _score_image(c, :gridding, parent(x))
         push!(results, BenchResult("Non-Cartesian", method_label(:gridding, 0), "$FW (m=3, σ=1.25)", NUM_THREADS, t * 1000, mag_nrmse(x, c.reference), mag_nrmse(xm, x), c.id, c.source))
         flush_results!("non_cartesian")
     catch err
         @warn "Ristretto at MRIReco's NFFT operating point failed on $(c.id)" exception = (err, catch_backtrace())
     end
+    release_device_memory()
 end
 
 write_section("noncart")

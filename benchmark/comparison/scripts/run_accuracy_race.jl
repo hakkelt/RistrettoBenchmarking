@@ -94,6 +94,7 @@ end
 
 for c in section_cases(_ -> true), method in race_methods(c)
     should_run(c.id, METHOD_LABEL[method]) || should_run("Accuracy race", METHOD_LABEL[method]) || continue
+    has_gpu_rival(c, method) || continue
     λ_default = default_lambda(c, method)
     ristretto_rho = something(load_rho(c, method, "Ristretto"), admm_rho(c))
     ristretto_run = ristretto_race_run(c, method, load_lambda(c, method, "Ristretto", λ_default), ristretto_rho)
@@ -106,6 +107,7 @@ for c in section_cases(_ -> true), method in race_methods(c)
     println("--> $(c.id): $(METHOD_LABEL[method])  (target NRMSE ≤ $(round(target; sigdigits = 4)))")
 
     addrow!(c, method, target, FW, race("Ristretto $(c.id) $method", c, method, ladder(c, method), target, ristretto_run))
+    release_device_memory()
 
     for tk in COMPETITORS
         fw = framework_label(tk)
@@ -124,6 +126,7 @@ for c in section_cases(_ -> true), method in race_methods(c)
             )
         end
         addrow!(c, method, target, fw, r)
+        release_device_memory()
     end
     flush_results!("accuracy_race")
 end

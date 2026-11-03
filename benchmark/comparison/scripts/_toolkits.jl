@@ -643,7 +643,9 @@ end
 FFTW threads MIRT's transforms run with: `NUM_THREADS`, at most 8. On Julia 1.13 a transform
 planned with 16 FFTW threads and executed from the root task segfaults intermittently inside
 FFTW.jl's task callback (12 did not in 6 runs); MIRT runs its operators from the root task, so its
-transforms are capped. See [`with_mirt_fftw`](@ref).
+transforms are capped. See [`with_mirt_fftw`](@ref). MRIReco, which runs its per-coil transforms on
+concurrent tasks, faults in the same callback already at 8 Julia threads and plans with one FFTW
+thread: [`MRIRECO_FFTW_THREADS`](@ref).
 """
 const MIRT_FFTW_THREADS = min(NUM_THREADS, 8)
 
@@ -1030,7 +1032,7 @@ the host is left out rather than timed as a GPU row.
 
 | toolkit | on the GPU |
 |---|---|
-| BART | every `pics` row (`-g`); not the direct rows, whose `fft` / `nufft` calls are not timed anyway |
+| BART | every `pics` row (`-g`) but the primal-dual ones; not the direct rows, whose `fft` / `nufft` calls are not timed anyway. BART 1.0.01's `pics -a --precond -g` aborts in `mem_device_free` (`src/num/mem.c`), and without `--precond` `-a` is not the solver the CPU rows time (see `bart_cmd`) |
 | SigPy | every row, through CuPy (`device = sigpy.Device(0)`). Its wavelet transform runs on the host through PyWavelets, so the L1-wavelet row copies every iterate to the host and back: that is SigPy on a GPU, and timed as such |
 | MRIReco | every row, through `arrayType = CuArray` (RegularizedLeastSquares' and NFFT's GPU extensions); correct only at one Julia thread, which a GPU run enforces (see `DEVICE`) |
 | MRpro | every row, its tensors on `"cuda"` |
@@ -1038,7 +1040,7 @@ the host is left out rather than timed as a GPU row.
 """
 function gpu_supports(tk::Symbol, c::BenchCase, m::Symbol)
     tk === :mirt && return false
-    tk === :bart && return !(m in (:adjoint, :gridding))
+    tk === :bart && return !(m in (:adjoint, :gridding) || haskey(PDHG_METHODS, m))
     return true
 end
 
@@ -1266,7 +1268,11 @@ end
 
 # ---------------------------------------------------------------- MRIReco
 
-function mrireco_run(c::BenchCase, m::Symbol; λ, maxit, ρ = CMP_RHO)
+# The whole row under MRIReco's threading, so the plans the FISTA step estimate builds outside the
+# timed region get `MRIRECO_FFTW_THREADS` too (see there).
+mrireco_run(c::BenchCase, m::Symbol; λ, maxit, ρ = CMP_RHO) = with_mrireco_blas(() -> _mrireco_run(c, m; λ, maxit, ρ))
+
+function _mrireco_run(c::BenchCase, m::Symbol; λ, maxit, ρ)
     if c.family === :cine
         acq = c.trajectory === :cartesian ? _mrireco_cine_acq(cine_stack(c)) : _mrireco_nc_acq(c)
         return mrireco_dynamic(m, acq, c.smaps, c.image_size, size(c.reference, 3); λ, iterations = maxit, ρ)
@@ -1327,7 +1333,8 @@ end
 #
 # Every functional here is MRpro's `‖·‖²` without the ½, and its FFT is orthonormal; the per-toolkit
 # λ calibration absorbs both.
-pyexec(
+# Defined only when MRpro imports (`MRPRO_AVAILABLE`), so a machine without it skips MRpro rows.
+MRPRO_AVAILABLE && pyexec(
     """
     import numpy as np
     import torch

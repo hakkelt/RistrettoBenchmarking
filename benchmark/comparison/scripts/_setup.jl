@@ -9,9 +9,9 @@
 # `results/runs/` via `ResultsStore.jl`. `query_results.jl` reads that directory back for
 # analysis -- there is no merge step (see `ResultsStore.jl`'s module docstring for why).
 
-using Printf
-using JSON
-
+# No package is loaded before the GPU overlay below is active: it resolves this environment again
+# with CUDA.jl added, possibly at newer versions, and a package already loaded from this environment
+# would then meet its dependents' overlay versions (JSON 1.10 against the overlay's StructUtils, say).
 const USE_MKL = "--use-mkl" in ARGS
 let i = findfirst(a -> startswith(a, "--threads="), ARGS)
     global const NUM_THREADS = i === nothing ? Threads.nthreads() : parse(Int, split(ARGS[i], "=")[2])
@@ -56,6 +56,8 @@ if ON_GPU
     using CUDA
     CUDA.functional() || error("--device=cuda but CUDA is not functional on $(gethostname())")
 end
+using Printf
+using JSON
 
 # Which BART build to time against: one per BLAS backend, and one for the GPU. With no build
 # configured for this run, BART is left out of every section (see `should_run_framework`).
@@ -86,8 +88,9 @@ using ThreadPinning
 let
     # The allowed CPUs come from the kernel's list, not from `getaffinity()`: that mask has one slot per
     # ONLINE cpu, so with the SMT siblings offline (CPUs 0,2 online) it reports CPU 2 as CPU 1.
+    # Elsewhere (Windows: benchmark/local/run_comparison.ps1) `getaffinity()` is the process mask.
     allowed = Int[]
-    m = match(r"Cpus_allowed_list:\s*(\S+)", read("/proc/self/status", String))
+    m = Sys.islinux() ? match(r"Cpus_allowed_list:\s*(\S+)", read("/proc/self/status", String)) : nothing
     if m !== nothing
         for part in split(m.captures[1], ',')
             lo, hi = occursin('-', part) ? split(part, '-') : (part, part)
@@ -102,7 +105,21 @@ let
     length(physical) >= Threads.nthreads() || error("only $(length(physical)) physical cores among the allowed CPUs $allowed, $(Threads.nthreads()) threads requested")
     global const PINNED_CPUS = physical[1:Threads.nthreads()]
 end
-pinthreads(PINNED_CPUS)
+if Sys.iswindows()
+    # ThreadPinning cannot pin on Windows (it needs `sched_getcpu`). The process affinity mask
+    # (run_comparison.ps1) already keeps the run on its own cores; within it, each default-pool thread
+    # only gets its CPU as the *ideal* processor (`:static` runs iteration i on the i-th thread). A hard
+    # SetThreadAffinityMask per thread made the 2D TV and PDHG rows 5-50x slower at 2 and 4 threads: a
+    # pinned thread cannot move off a core that an OpenBLAS, FFTW or GC thread of the same process
+    # occupies, so it waits out Windows' 15.6 ms scheduling quantum.
+    Threads.@threads :static for i in 1:Threads.nthreads()
+        h = ccall((:GetCurrentThread, "kernel32"), Ptr{Cvoid}, ())
+        ccall((:SetThreadIdealProcessor, "kernel32"), UInt32, (Ptr{Cvoid}, UInt32), h, PINNED_CPUS[i]) == typemax(UInt32) &&
+            error("SetThreadIdealProcessor to CPU $(PINNED_CPUS[i]) failed")
+    end
+else
+    pinthreads(PINNED_CPUS)
+end
 # No `mkl_set_dynamic(0)`: timed with and without it, MKL's own dynamic adjustment measured the same.
 const CPU_STR = join(PINNED_CPUS, ",")
 @info "Julia threads pinned" CPU_STR
@@ -210,6 +227,22 @@ single-threaded case still gets `NUM_THREADS` (which is 1 there anyway).
 """
 const MRIRECO_BLAS_THREADS = Threads.nthreads() > 1 ? BLAS.get_num_threads() : NUM_THREADS
 
+"""
+    MRIRECO_FFTW_THREADS
+
+FFTW threads MRIReco's transforms are planned with: 1. MRIReco parallelises over coils itself — its
+multi-coil encoding is a `DiagOp` of per-coil `FFTOp`s, applied on concurrent tasks by OhMyThreads'
+`DynamicScheduler` — so a multithreaded plan only nests a second level of threads under the first.
+That nesting also crashes: with 8 Julia threads and plans of more than one FFTW thread, the
+concurrent executions fault in FFTW.jl's task callback (`EXCEPTION_ACCESS_VIOLATION` in
+`spawn_apply` / `fftwf_threads_set_callback`, `FFTW/src/providers.jl:49`) on the 8-coil Cartesian
+anisotropic-TV row, every run, and Julia's crash handler then deadlocks instead of exiting.
+Measured on Windows, Julia 1.12, Xeon W-2245: 4 FFTW threads crashed on the first repetition, 1 passed
+3 of 3; at 1, 2 and 4 Julia threads the row passed with `FFTW` at `NUM_THREADS`. See
+[`MIRT_FFTW_THREADS`](@ref) for the same callback failing at 16 threads on Linux.
+"""
+const MRIRECO_FFTW_THREADS = 1
+
 # Everything else runs at the thread count under test. `with_mrireco_blas` puts MRIReco's own
 # choice back for the duration of an MRIReco call, and restores this afterwards.
 BLAS.set_num_threads(NUM_THREADS)
@@ -225,11 +258,16 @@ invalidates the numbers rather than crashing anything -- exactly the kind of thi
 exists to catch in a toolkit, not commit on its own.
 """
 function check_environment()
-    cpus_allowed = let line = ""
-        for l in eachline("/proc/self/status")
-            startswith(l, "Cpus_allowed_list:") && (line = strip(split(l, ":")[2]))
+    # Windows has no /proc: there the process affinity mask (run_comparison.ps1) is the allowed list.
+    cpus_allowed = if Sys.iswindows()
+        join(findall(==(1), getaffinity()) .- 1, ",")
+    else
+        let line = ""
+            for l in eachline("/proc/self/status")
+                startswith(l, "Cpus_allowed_list:") && (line = strip(split(l, ":")[2]))
+            end
+            line
         end
-        line
     end
     n_allowed = sum(
         r -> (p = split(r, "-"); length(p) == 1 ? 1 : parse(Int, p[2]) - parse(Int, p[1]) + 1),
@@ -258,19 +296,24 @@ check_environment()
 """
     with_mrireco_blas(f)
 
-Run `f()` with BLAS at [`MRIRECO_BLAS_THREADS`](@ref) — what MRIReco set for itself — and restore
-`NUM_THREADS` afterwards, including on exception.
+Run `f()` with BLAS at [`MRIRECO_BLAS_THREADS`](@ref) — what MRIReco set for itself — and FFTW at
+[`MRIRECO_FFTW_THREADS`](@ref), and restore the previous counts afterwards, including on exception.
+It nests: `mrireco_run` wraps a whole row in it, plans built outside the timed region included, and
+the timed calls inside wrap themselves again.
 
-Every timed MRIReco call goes through this, so MRIReco is measured under its own threading policy
+Every MRIReco call goes through this, so MRIReco is measured under its own threading policy
 and Ristretto under its own, rather than both under whichever one happened to be set last.
 """
 function with_mrireco_blas(f)
-    MRIRECO_BLAS_THREADS == NUM_THREADS && return f()
+    blas, fftw = BLAS.get_num_threads(), FFTW.get_num_threads()
+    blas == MRIRECO_BLAS_THREADS && fftw == MRIRECO_FFTW_THREADS && return f()
     BLAS.set_num_threads(MRIRECO_BLAS_THREADS)
+    FFTW.set_num_threads(MRIRECO_FFTW_THREADS)
     try
         return f()
     finally
-        BLAS.set_num_threads(NUM_THREADS)
+        BLAS.set_num_threads(blas)
+        FFTW.set_num_threads(fftw)
     end
 end
 

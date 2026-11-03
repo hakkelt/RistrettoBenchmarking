@@ -65,7 +65,7 @@ one, under the same row labels with a `(CUDA)` suffix and recorded under backend
 | toolkit | on the GPU |
 |---|---|
 | Ristretto | the acquisition moved with `adapt(CuArray, ·)`; everything runs on the device |
-| BART | `pics -g`, from the build `RISTRETTO_BENCH_BART_CUDA` names; not the direct rows, which are not timed on the CPU either |
+| BART | `pics -g`, from the build `RISTRETTO_BENCH_BART_CUDA` names; not the direct rows, which are not timed on the CPU either, nor the PDHG rows: BART 1.0.01's `pics -a --precond -g` aborts in `mem_device_free`, and without `--precond` `-a` is a different solver from the one the CPU rows time |
 | SigPy | CuPy, with the k-space, maps and trajectory on `sigpy.Device(0)`. Its wavelet transform is PyWavelets on the host, so its L1-wavelet row copies every iterate to the host and back |
 | MRIReco | `arrayType = CuArray`, through RegularizedLeastSquares' and NFFT's GPU extensions |
 | MRpro | its tensors on `"cuda"`; cufinufft for the NUFFT |
@@ -95,6 +95,18 @@ The BART build needs `CUDA = 1`, OpenBLAS and the device's architecture in its `
 (`GPUARCH_FLAGS = -gencode arch=compute_80,code=sm_80` for an A100). A toolkit whose GPU build is
 missing is skipped with a warning.
 
+On Windows two things differ, both because every toolkit shares one process. Windows matches an
+already loaded DLL by its file name, so PyTorch's CUDA libraries resolve to the ones CUDA.jl loaded
+first (`cufft64_11.dll`, `cublas64_12.dll`, ...): PyTorch's `torch\lib\cufftw64_11.dll`, which it
+preloads but does not call, fails against CUDA.jl's cuFFT and has to be renamed away (to
+`cufftw64_11.dll.disabled`). And the PyTorch and CuPy builds have to suit the NVIDIA driver: on a
+driver of CUDA 12.2 (537.58), PyTorch's CUDA 12.6 builds cannot create a context and CuPy 14's
+runtime is too new, so that machine runs `torch==2.5.1` from the `cu121` index with
+`cupy-cuda12x==13.6.0`, CuPy taking its cuBLAS/cuFFT/NVRTC from `torch\lib` and its headers from an
+`nvidia-cuda-runtime-cu12` wheel (`CUDA_PATH`); the venv's `sitecustomize.py` sets both up. A recent
+driver needs none of that. BART runs inside WSL 2 there (see `benchmark/local/bart_wsl/`), built with
+CUDA from conda-forge (`cuda-nvcc`, `libcufft-dev`, `libcublas-dev`; GCC 14 needs CUDA ≥ 12.8).
+
 A GPU run has one host thread and OpenBLAS as the host BLAS (`-t 1 --threads=1`, no `--use-mkl`),
 and refuses to start otherwise. The device does the work, and MRIReco's GPU path is wrong with more than one
 Julia thread: its operators issue kernels from parallel tasks on unordered CUDA streams, which
@@ -105,8 +117,21 @@ one thread every row matched the CPU. The SLURM script passes those flags itself
 benchmark/slurm/submit.sh comparison_gpu.sh --sections=cgsense,sparsity
 ```
 
-The `kspace` section has no GPU rows (GRAPPA runs on a host copy), nor does the non-Cartesian
-section's second Ristretto operating point.
+A GPU run times a (case, method) row only when at least one other toolkit supports it on the GPU
+(`has_gpu_rival` in `_methods.jl`, read from the static support table, so the set of rows does not
+depend on which builds a machine has): the GPU rows are there to compare Ristretto with another
+toolkit. That is every method of every section but `kspace`, whose GRAPPA runs on a host copy and
+which no other toolkit implements. The non-Cartesian section's second Ristretto operating point
+(`m = 3, σ = 1.25`) runs on the device too, against MRIReco's GPU row at the same point. A row whose
+Ristretto reconstruction fails on the device (out of memory, on a small GPU) is skipped whole, with
+a warning, rather than leaving the competitors' rows unscored.
+
+On a workstation the local runners take the GPU as one more backend, one host thread and every
+section but `kspace` (see `benchmark/README.md`, *Local runs*):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File benchmark\local\run_comparison.ps1 --backends=cuda
+```
 
 ## Filtering a rerun
 
