@@ -8,14 +8,14 @@
 #   julia --project=benchmark/comparison benchmark/comparison/scripts/query_results.jl --backend=mkl --threads=16 --case=shepp_logan_2d
 using Printf
 
-include(joinpath(@__DIR__, "..", "..", "utils", "results_store.jl"))
+include(joinpath(@__DIR__, "..", "..", "..", "Ristretto", "benchmark", "utils", "results_store.jl"))
 using .ResultsStore: load_rows, latest_per_case
 
 const ARG = Dict(
     m.captures[1] => m.captures[2] for m in (match(r"^--(\w+)=(.*)$", a) for a in ARGS) if m !== nothing
 )
 
-rows = load_rows()
+rows = load_rows(normpath(joinpath(@__DIR__, "..", "results")))
 isempty(rows) && (@info "no current-schema rows in results/runs/ (run a comparison section first)"; exit(0))
 
 haskey(ARG, "backend") && filter!(r -> r.backend == ARG["backend"], rows)

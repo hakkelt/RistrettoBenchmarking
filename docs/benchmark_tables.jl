@@ -1,6 +1,6 @@
 # Markdown tables of the committed cross-toolkit benchmark snapshots
-# (`benchmark/comparison/results/benchmark_<backend>_<n>threads.json`), for the "Related packages"
-# page and the README. Re-exporting the snapshots (`export_snapshot.jl`) updates both.
+# (`benchmark/comparison/results/benchmark_<backend>_<n>threads.json`), for the "Benchmarks" page
+# of the site. Re-exporting the snapshots (`export_snapshot.jl`) updates it.
 module BenchmarkTables
 
 using JSON: JSON

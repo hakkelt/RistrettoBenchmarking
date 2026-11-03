@@ -27,7 +27,7 @@ keeps them.
 
 Each toolkit's solve is a standalone script (`solve_<toolkit>.jl` / `.py`) that loads only that
 toolkit and repeats the call the comparison harness times (`../comparison/scripts/_toolkits.jl`,
-`../utils/ristretto_methods.jl`) with the same parameters and calibrated λ; the NRMSE each reports
+`../../Ristretto/benchmark/utils/ristretto_methods.jl`) with the same parameters and calibrated λ; the NRMSE each reports
 matches the harness's row. `prepare.jl` writes the case once, from the case catalog, as raw arrays
 and BART `.cfl` files.
 

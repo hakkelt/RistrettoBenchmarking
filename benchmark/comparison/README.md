@@ -1,9 +1,9 @@
 # benchmark/comparison/
 
 Cross-toolkit MRI reconstruction benchmark: Ristretto vs BART / SigPy / MRIReco / MIRT / MRpro, on the
-cases of the benchmark case catalog (`benchmark/utils/`, see [`benchmark/README.md`](../README.md)),
+cases of Ristretto's benchmark case catalog (`Ristretto/benchmark/utils/` in the submodule, see [its README](../../Ristretto/benchmark/README.md)),
 at matched effort or matched accuracy. Comparing one checkout of Ristretto against another is the Ristretto
-harness's job (`benchmark/run.jl`), not this suite's.
+harness's job (`Ristretto/benchmark/run.jl`), not this suite's.
 
 ## Python toolkits
 
@@ -127,7 +127,7 @@ Ristretto reconstruction fails on the device (out of memory, on a small GPU) is 
 a warning, rather than leaving the competitors' rows unscored.
 
 On a workstation the local runners take the GPU as one more backend, one host thread and every
-section but `kspace` (see `benchmark/README.md`, *Local runs*):
+section but `kspace` (see the top-level `README.md`, *Local runs*):
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File benchmark\local\run_comparison.ps1 --backends=cuda
@@ -161,7 +161,7 @@ on a login node:
 RISTRETTO_BENCH_SMALL=1 julia --project=benchmark/comparison -t 4 benchmark/comparison/scripts/run_all.jl --threads=4 --frameworks=none
 ```
 
-## Results storage (`benchmark/utils/results_store.jl`)
+## Results storage (`Ristretto/benchmark/utils/results_store.jl`)
 
 Every recorded run is its own immutable JSON file under `results/runs/`, never overwritten —
 concurrent writers (different SLURM nodes, or a login-node smoke test run alongside a cluster job)
@@ -231,7 +231,7 @@ NRMSE × 1.10, the target `run_accuracy_race.jl` races to. The ADMM and PDHG row
 the larger of their two targets, so their times are to the same accuracy. `load_lambda` falls back
 from a case to its synthetic analogue, then to the pre-catalog `results/lambda_calibration.json`,
 then to the default
-in `benchmark/utils/ristretto_methods.jl`. Under `RISTRETTO_BENCH_SMALL=1` the files go to `results/lambda_small/`
+in `Ristretto/benchmark/utils/ristretto_methods.jl`. Under `RISTRETTO_BENCH_SMALL=1` the files go to `results/lambda_small/`
 (gitignored) instead. Rerun calibration for a case whose problem or regularization changed. It
 takes one SLURM array task per case:
 
@@ -242,4 +242,4 @@ benchmark/slurm/submit.sh --array=0-6 calibrate.sh
 ## Real scanner data
 
 The real-data analogues of the catalog cases, where they come from and how their references are
-built, are described in [`benchmark/README.md`](../README.md#real-data).
+built, are described in [Ristretto's `benchmark/README.md`](../../Ristretto/benchmark/README.md#real-data).

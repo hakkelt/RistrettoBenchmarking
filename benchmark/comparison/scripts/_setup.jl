@@ -44,7 +44,7 @@ ON_GPU && (NUM_THREADS != 1 || Threads.nthreads() != 1) &&
 
 # Machine paths (BART builds, SigPy's interpreter, the data cache) come from the environment, filled
 # from the untracked `benchmark/slurm/site.env` for anything not already set.
-include(joinpath(@__DIR__, "..", "..", "utils", "config.jl"))
+include(joinpath(@__DIR__, "..", "..", "..", "Ristretto", "benchmark", "utils", "config.jl"))
 load_site_env!()
 
 # CUDA.jl comes from a GPUEnv overlay of this environment rather than from its own dependencies, so
@@ -322,7 +322,7 @@ using .ComparisonHarness: check_nrmse, run_bart, run_bart_timed
 
 # The case catalog, Ristretto's reconstruction of each method, `time_run` and the result store, shared
 # with the Ristretto harness (benchmark/run.jl). No section prepares data of its own.
-include(joinpath(@__DIR__, "..", "..", "utils", "bench_utils.jl"))
+include(joinpath(@__DIR__, "..", "..", "..", "Ristretto", "benchmark", "utils", "bench_utils.jl"))
 using .BenchUtils
 
 const sigpy = pyimport("sigpy")
@@ -531,7 +531,7 @@ real-data solve, a hung toolkit subprocess -- does not lose the cases that alrea
 function flush_results!(name::AbstractString)
     isempty(results) && return nothing
     path = record_run(
-        name, BACKEND, NUM_THREADS, results;
+        name, BACKEND, NUM_THREADS, results; root = normpath(joinpath(@__DIR__, "..", "results")),
         hostname = gethostname(), cpu_model = Sys.cpu_info()[1].model, cpu_threads = Sys.CPU_THREADS,
         julia_version = string(VERSION),
         julia_threads = Threads.nthreads(), blas_vendor = BLAS.get_config().loaded_libs[1].libname,

@@ -1,0 +1,14 @@
+Manifest.toml
+# Site configuration of the SLURM and local runners: paths of one machine (copy site.env.example).
+/benchmark/slurm/site.env
+# Local sessions, logs and SLURM output (local working data).
+/benchmark/results/
+/benchmark/**/slurm_*.txt
+# results/runs/: one immutable file per benchmark run (see Ristretto's benchmark/utils/results_store.jl);
+# local working data, not the same thing as a committed snapshot
+/benchmark/comparison/results/runs/
+# λ calibrated on the RISTRETTO_BENCH_SMALL=1 smoke cases; meaningless at full size
+/benchmark/comparison/results/lambda_small/
+# the environment GPUEnv writes for a --device=cuda run
+/benchmark/comparison/gpu_env/
+/docs/build/

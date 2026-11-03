@@ -14,8 +14,9 @@
 #   julia --project=benchmark/comparison benchmark/comparison/scripts/export_snapshot.jl --cpu-model="AMD EPYC 7763 64-Core Processor"
 using JSON
 
-include(joinpath(@__DIR__, "..", "..", "utils", "results_store.jl"))
-using .ResultsStore: load_rows, latest_per_case, load_run_files, RESULTS_DIR
+include(joinpath(@__DIR__, "..", "..", "..", "Ristretto", "benchmark", "utils", "results_store.jl"))
+using .ResultsStore: load_rows, latest_per_case, load_run_files
+const RESULTS_DIR = normpath(joinpath(@__DIR__, "..", "results"))
 
 const SNAPSHOT_SCHEMA_VERSION = 3
 

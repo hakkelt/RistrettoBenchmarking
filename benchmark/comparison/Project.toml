@@ -19,8 +19,8 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 ThreadPinning = "811555cd-349b-4f26-b7bc-1f208b848042"
 
 [sources]
-FFTW = {url = "https://github.com/hakkelt/FFTW.jl", rev = "e1cba76e1478c35265bc2c51610c52302284ee4d"}
-Ristretto = {path = "../.."}
+FFTW = {rev = "e1cba76e1478c35265bc2c51610c52302284ee4d", url = "https://github.com/hakkelt/FFTW.jl"}
+Ristretto = {path = "../../Ristretto"}
 
 [compat]
 GPUEnv = "0.2.2"

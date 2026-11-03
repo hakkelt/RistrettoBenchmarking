@@ -1,0 +1,2 @@
+# Shell scripts also run inside WSL and on Linux nodes, where a CR breaks them.
+*.sh text eol=lf

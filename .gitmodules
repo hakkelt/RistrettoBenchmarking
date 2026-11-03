@@ -1,0 +1,4 @@
+[submodule "Ristretto"]
+	path = Ristretto
+	url = https://github.com/hakkelt/Ristretto.jl
+	branch = master

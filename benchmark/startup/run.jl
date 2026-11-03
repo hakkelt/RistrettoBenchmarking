@@ -11,7 +11,7 @@
 using Dates, JSON, Printf, Statistics, TOML
 using BartIO: read_cfl
 
-include(joinpath(@__DIR__, "..", "utils", "config.jl"))
+include(joinpath(@__DIR__, "..", "..", "Ristretto", "benchmark", "utils", "config.jl"))
 load_site_env!()
 
 const REPO = normpath(joinpath(@__DIR__, "..", ".."))

@@ -11,7 +11,7 @@
 using BartIO: write_cfl
 using JSON
 
-include(joinpath(@__DIR__, "..", "utils", "bench_utils.jl"))
+include(joinpath(@__DIR__, "..", "..", "Ristretto", "benchmark", "utils", "bench_utils.jl"))
 using .BenchUtils
 
 const DIR = ARGS[1]

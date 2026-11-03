@@ -1,5 +1,5 @@
 #!/bin/bash
-# Non-HPC counterpart of benchmark/slurm/matrix.sh --suite=comparison, for a single workstation or
+# Non-HPC counterpart of benchmark/slurm/matrix.sh, for a single workstation or
 # laptop (no SLURM, no NUMA, no root). Runs benchmark/comparison/scripts/run_all.jl once per
 # (BLAS backend, thread count), one run at a time, each pinned with `numactl`/`taskset` to its own
 # physical cores (never an SMT sibling, same rule as _setup.jl). Results go where the SLURM runs
