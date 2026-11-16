@@ -1,0 +1,48 @@
+{
+  "FISTA": {
+    "nrmse_phantom": 0.26651467249267907,
+    "nrmse_vs_fista": 0.0,
+    "status": "ok"
+  },
+  "OptISTA": {
+    "nrmse_phantom": 0.23308125403958455,
+    "nrmse_vs_fista": 0.0681682916742184,
+    "status": "ok"
+  },
+  "POGM": {
+    "nrmse_phantom": 0.23125219808759015,
+    "nrmse_vs_fista": 0.07637363751108106,
+    "status": "ok"
+  },
+  "case": "shepp_logan_2d_8ch_cartesian",
+  "lambda": 0.0015811388300841895,
+  "misspelled": {
+    "identical_to_unmisspelled": true,
+    "identical_with_warning_on": true,
+    "logs_kwargWarning_false": [
+      [
+        "Info",
+        "The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true"
+      ]
+    ],
+    "logs_kwargWarning_true": [
+      [
+        "Info",
+        "The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true"
+      ],
+      [
+        "Warn",
+        "The following arguments were passed but filtered out: absTol, tolInner, densityWeighting, S, iteration, reco, iterationsCG, vary_rho. Please watch closely if this introduces unexpexted behaviour in your code."
+      ]
+    ],
+    "max_abs_diff_vs_unmisspelled": 0.0,
+    "nrmse_vs_3_iterations": 0.25358463150896515
+  },
+  "step": 0.4091744215874155,
+  "versions": {
+    "LinearOperatorCollection": "2.3.2",
+    "MRIOperators": "0.4.2",
+    "MRIReco": "0.9.2",
+    "RegularizedLeastSquares": "0.16.13"
+  }
+}
