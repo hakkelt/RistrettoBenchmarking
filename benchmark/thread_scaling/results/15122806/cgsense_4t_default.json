@@ -1,0 +1,141 @@
+{
+  "case": "shepp_logan_3d_8ch_cartesian",
+  "method": "cgsense",
+  "nrmse": 0.29357928,
+  "profile": {
+    "delay_s": 0.005,
+    "other_top": {
+      "#_pw_kernel!##2 @ threadingconstructs.jl": 1
+    },
+    "per_thread": {
+      "1": {
+        "blas": 4,
+        "fft": 156,
+        "gc": 26,
+        "idle": 63,
+        "operators_other": 1,
+        "pointwise": 18,
+        "solver_other": 1
+      },
+      "2": {
+        "fft": 130,
+        "idle": 76,
+        "operators_other": 21,
+        "pointwise": 42
+      },
+      "3": {
+        "fft": 128,
+        "idle": 82,
+        "operators_other": 19,
+        "pointwise": 40
+      },
+      "4": {
+        "fft": 100,
+        "idle": 110,
+        "operators_other": 19,
+        "pointwise": 40
+      },
+      "5": {
+        "fft": 105,
+        "idle": 103,
+        "operators_other": 20,
+        "other": 1,
+        "pointwise": 40
+      },
+      "6": {
+        "gc": 24,
+        "idle": 245
+      },
+      "7": {
+        "gc": 23,
+        "idle": 246
+      },
+      "8": {
+        "gc": 24,
+        "idle": 245
+      }
+    },
+    "samples": 2152,
+    "share": {
+      "blas": 0.0018587360594795538,
+      "fft": 0.28763940520446096,
+      "gc": 0.04507434944237918,
+      "idle": 0.5436802973977695,
+      "operators_other": 0.03717472118959108,
+      "other": 0.00046468401486988845,
+      "pointwise": 0.08364312267657993,
+      "solver_other": 0.00046468401486988845
+    },
+    "thread_seconds": {
+      "blas": 0.012706820022304832,
+      "fft": 1.9663803984516728,
+      "gc": 0.3081403855408922,
+      "idle": 3.716744856524163,
+      "operators_other": 0.25413640044609664,
+      "other": 0.003176705005576208,
+      "pointwise": 0.5718069010037174,
+      "solver_other": 0.003176705005576208
+    },
+    "wall_s": 1.709067293
+  },
+  "provenance": {
+    "benchmarking": {
+      "commit": "5ad851adb8472a6a0765639cc7b832240182dc7a",
+      "branch": "paper-measurements",
+      "dirty": false
+    },
+    "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+    "blas_threads": 4,
+    "cpus": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "date": "2026-11-16T17:10:15.207",
+    "deps_subtree_split": {
+      "AbstractOperators": "94b9c2b5588b2eb97bef29582a7a96327acd94a1",
+      "NFFT": "5b8ad7ae42ae25580f9da80cf42bb11ac80414da",
+      "OperatorCore": "ff43eb9367121db62396bdc7522363cca087f9df",
+      "ProximalAlgorithms": "bbd8bd512bfc1b3fa7bd2cacbbf44edfd64cc4eb",
+      "ProximalOperators": "5c38fbbb88e0924814548a6ba1ff250ee80c3b47",
+      "StructuredOptimization": "40720478ff5e7dd8db19ae5bb5449f3fe0782f6f"
+    },
+    "env": {
+      "CMP_CG_ITERS": "",
+      "CMP_OUTER": "",
+      "JULIA_EXCLUSIVE": "",
+      "KMP_BLOCKTIME": "0",
+      "MKL_DYNAMIC": "",
+      "OMP_WAIT_POLICY": "",
+      "OPENBLAS_THREAD_TIMEOUT": "",
+      "RISTRETTO_BENCH_PLACEMENT": "",
+      "RISTRETTO_BENCH_SNR_DB": "",
+      "TMPDIR": "/dev/shm"
+    },
+    "fftw_provider": "fftw",
+    "fftw_threads": 4,
+    "host": "x1001c1s2b0n1",
+    "julia": "1.13.1",
+    "node_class": "AMD EPYC 7763 64-Core Processor / cpu-short",
+    "numactl": "policy: bind\npreferred node: 1\nphyscpubind: 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 \ncpubind: 1 \nnodebind: 1 \nmembind: 1 \npreferred: 1",
+    "ristretto": {
+      "commit": "c949d8e2adf0fd4d304583385e475dd38eba7f05",
+      "branch": "HEAD",
+      "dirty": false
+    },
+    "slurm_job": "15122806",
+    "small": "",
+    "spread": "0"
+  },
+  "single_run": {
+    "bytes": 1511563728,
+    "compile_s": 0.002639927,
+    "gc_s": 0.0,
+    "time_s": 1.395401712
+  },
+  "threads": 4,
+  "time_median_s": 1.564322247,
+  "time_min_s": 1.564322247,
+  "variant": "default"
+}

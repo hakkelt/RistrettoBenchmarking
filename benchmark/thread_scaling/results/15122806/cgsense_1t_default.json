@@ -1,0 +1,103 @@
+{
+  "case": "shepp_logan_3d_8ch_cartesian",
+  "method": "cgsense",
+  "nrmse": 0.29357925,
+  "profile": {
+    "delay_s": 0.005,
+    "other_top": {
+      "* @ int.jl": 1,
+      "__memmove_avx_unaligned_erms @ libc.so.6": 1
+    },
+    "per_thread": {
+      "1": {
+        "blas": 6,
+        "fft": 274,
+        "fft_plan": 306,
+        "gc": 52,
+        "operators_other": 7,
+        "other": 2,
+        "pointwise": 121,
+        "solver_other": 1
+      }
+    },
+    "samples": 769,
+    "share": {
+      "blas": 0.007802340702210663,
+      "fft": 0.3563068920676203,
+      "fft_plan": 0.39791937581274384,
+      "gc": 0.06762028608582575,
+      "operators_other": 0.009102730819245773,
+      "other": 0.002600780234070221,
+      "pointwise": 0.15734720416124837,
+      "solver_other": 0.0013003901170351106
+    },
+    "thread_seconds": {
+      "blas": 0.03375193366970091,
+      "fft": 1.5413383042496749,
+      "fft_plan": 1.7213486171547465,
+      "gc": 0.2925167584707412,
+      "operators_other": 0.03937725594798439,
+      "other": 0.01125064455656697,
+      "pointwise": 0.6806639956723016,
+      "solver_other": 0.005625322278283485
+    },
+    "wall_s": 4.325872832
+  },
+  "provenance": {
+    "benchmarking": {
+      "commit": "5ad851adb8472a6a0765639cc7b832240182dc7a",
+      "branch": "paper-measurements",
+      "dirty": false
+    },
+    "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+    "blas_threads": 1,
+    "cpus": [
+      16
+    ],
+    "date": "2026-11-16T17:09:33.849",
+    "deps_subtree_split": {
+      "AbstractOperators": "94b9c2b5588b2eb97bef29582a7a96327acd94a1",
+      "NFFT": "5b8ad7ae42ae25580f9da80cf42bb11ac80414da",
+      "OperatorCore": "ff43eb9367121db62396bdc7522363cca087f9df",
+      "ProximalAlgorithms": "bbd8bd512bfc1b3fa7bd2cacbbf44edfd64cc4eb",
+      "ProximalOperators": "5c38fbbb88e0924814548a6ba1ff250ee80c3b47",
+      "StructuredOptimization": "40720478ff5e7dd8db19ae5bb5449f3fe0782f6f"
+    },
+    "env": {
+      "CMP_CG_ITERS": "",
+      "CMP_OUTER": "",
+      "JULIA_EXCLUSIVE": "",
+      "KMP_BLOCKTIME": "0",
+      "MKL_DYNAMIC": "",
+      "OMP_WAIT_POLICY": "",
+      "OPENBLAS_THREAD_TIMEOUT": "",
+      "RISTRETTO_BENCH_PLACEMENT": "",
+      "RISTRETTO_BENCH_SNR_DB": "",
+      "TMPDIR": "/dev/shm"
+    },
+    "fftw_provider": "fftw",
+    "fftw_threads": 1,
+    "host": "x1001c1s2b0n1",
+    "julia": "1.13.1",
+    "node_class": "AMD EPYC 7763 64-Core Processor / cpu-short",
+    "numactl": "policy: bind\npreferred node: 1\nphyscpubind: 16 \ncpubind: 1 \nnodebind: 1 \nmembind: 1 \npreferred: 1",
+    "ristretto": {
+      "commit": "c949d8e2adf0fd4d304583385e475dd38eba7f05",
+      "branch": "HEAD",
+      "dirty": false
+    },
+    "slurm_job": "15122806",
+    "small": "",
+    "spread": "0"
+  },
+  "single_run": {
+    "bytes": 1914039336,
+    "compile_s": 0.002592375,
+    "gc_s": 0.361469686,
+    "time_s": 3.841345221
+  },
+  "threads": 1,
+  "time_median_s": 3.929884349,
+  "time_min_s": 3.929884349,
+  "variant": "default"
+}

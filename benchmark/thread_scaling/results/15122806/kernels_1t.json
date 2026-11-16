@@ -1,0 +1,17 @@
+{
+  "axpy_ms_blas1": 10.414777,
+  "axpy_ms_blasN": 10.408365,
+  "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+  "copy_GBps": 8.503501735020585,
+  "cpus": [
+    16
+  ],
+  "date": "2026-11-16T17:08:19.536",
+  "dot_ms_blas1": 6.773503,
+  "dot_ms_blasN": 6.947801,
+  "fft_batched_ms": 60.379032,
+  "fft_percoil_serial_ms": 61.398946,
+  "fft_percoil_tasks_ms": 59.888403,
+  "host": "x1001c1s2b0n1",
+  "threads": 1
+}

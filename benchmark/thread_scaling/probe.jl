@@ -17,6 +17,13 @@
 #   cg_blas_grant     ProximalAlgorithms.CG_BLAS_THREAD_BYTES = 8 MiB: CG's dot/axpy! take BLAS threads
 #   no_inner_threads  reconstruct(...; threaded = false)
 #   gc_off            GC disabled during each timed run (collected between runs)
+#
+# Categories (first match wins): gc, fft_plan, fft, nfft, blas, alloc, prox (proximal maps),
+# finite_diff (the TV gradient and its adjoint), solver_vec (the solver's own vector updates, no
+# operator on the stack), pointwise (fused element-wise runs, diagonals, broadcasts),
+# operators_other, solver_other, idle (thread asleep or in the scheduler), other (mostly
+# Polyester workers spin-waiting). "where" lists, per category, the innermost frame in
+# Ristretto's own or vendored code, for the main thread and the workers apart.
 
 const ARGD = Dict(split(a[3:end], "="; limit = 2)[1] => (occursin("=", a) ? split(a, "="; limit = 2)[2] : "1") for a in ARGS if startswith(a, "--"))
 const CASE = get(ARGD, "case", "shepp_logan_3d_8ch_cartesian")
@@ -119,16 +126,19 @@ const CATEGORIES = [
     "blas" => fr -> any(s -> occursin(r"libopenblas|libmkl", s.file_s) || occursin(r"^(c|z|s|d)(axpy|dot|scal|nrm2|copy)|_k$|axpy!|dotc|BLAS\.", s.func_s), fr),
     "alloc" => fr -> any(s -> occursin(r"jl_gc_alloc|jl_alloc_genericmemory|jl_alloc_array|_new_genericmemory|ijl_gc_|malloc|calloc|memset|__memset|jl_gc_pool_alloc|jl_gc_big_alloc", s.func_s), fr),
     "prox" => fr -> any(s -> occursin("ProximalOperators", s.file_s), fr),
+    "finite_diff" => fr -> any(s -> occursin(r"Variation\.jl|FiniteDiff\.jl", s.file_s), fr),
+    "solver_vec" => fr -> any(s -> occursin(r"ProximalAlgorithms|StructuredOptimization", s.file_s), fr) &&
+        !any(s -> occursin(r"AbstractOperators|FFTWOperators|NFFT", s.file_s), fr),
     "pointwise" => fr -> any(s -> occursin(r"pointwise\.jl|DiagOp\.jl|broadcast\.jl", s.file_s), fr),
     "operators_other" => fr -> any(s -> occursin(r"AbstractOperators|FFTWOperators", s.file_s), fr),
     "solver_other" => fr -> any(s -> occursin(r"ProximalAlgorithms|StructuredOptimization", s.file_s), fr),
     "idle" => fr -> isempty(fr) || any(s -> occursin(r"jl_task_wait|ijl_task_get_next|poptask|jl_safepoint|wait_forever|task_done_hook|jl_wait|uv_run|sched_yield|futex|pthread_cond|epoll", s.func_s), fr),
 ]
 
-const LOOKUP = Dict{UInt64, Vector{NamedTuple{(:func_s, :file_s), Tuple{String, String}}}}()
+const LOOKUP = Dict{UInt64, Vector{NamedTuple{(:func_s, :file_s, :line), Tuple{String, String, Int}}}}()
 function frames(ip)
     get!(LOOKUP, ip) do
-        [(func_s = string(s.func), file_s = string(s.file)) for s in Profile.lookup(ip)]
+        [(func_s = string(s.func), file_s = string(s.file), line = s.line) for s in Profile.lookup(ip)]
     end
 end
 
@@ -155,11 +165,23 @@ function samples(data)
     return out
 end
 
+# The innermost frame of the stack that lies in Ristretto or one of its vendored packages, as
+# func @ file:line: where in the reconstruction's own code a sample was spent.
+function attribution_frame(fr)
+    for s in fr
+        if occursin(r"/(src|deps|ext)/", s.file_s) && occursin(r"Ristretto|AbstractOperators|FFTWOperators|ProximalOperators|ProximalAlgorithms|StructuredOptimization|NestedThreading|NFFT", s.file_s)
+            m = match(r"(deps/[^/]+/.*|src/.*|ext/.*)$", s.file_s)
+            return s.func_s * " @ " * (m === nothing ? basename(s.file_s) : m.captures[1]) * ":" * string(s.line)
+        end
+    end
+    return isempty(fr) ? "(empty)" : fr[end].func_s
+end
+where_t = Dict{String, Dict{String, Int}}()
 S = samples(data)
 counts = Dict{Int, Dict{String, Int}}()
 other_leaf = Dict{String, Int}()
 for (tid, sleeping, ips) in S
-    fr = reduce(vcat, (frames(ip) for ip in ips); init = NamedTuple{(:func_s, :file_s), Tuple{String, String}}[])
+    fr = reduce(vcat, (frames(ip) for ip in ips); init = NamedTuple{(:func_s, :file_s, :line), Tuple{String, String, Int}}[])
     cat = sleeping ? "idle" : "other"
     if !sleeping
         for (name, pred) in CATEGORIES
@@ -169,6 +191,11 @@ for (tid, sleeping, ips) in S
             end
         end
     end
+    if cat != "idle" && cat != "gc"
+        k = attribution_frame(fr)
+        dd = get!(where_t, (tid == 1 ? "main" : "workers") * ":" * cat, Dict{String, Int}())
+        dd[k] = get(dd, k, 0) + 1
+    end
     if cat == "other" && !isempty(fr)
         k = fr[1].func_s * " @ " * basename(fr[1].file_s)
         other_leaf[k] = get(other_leaf, k, 0) + 1
@@ -177,12 +204,16 @@ for (tid, sleeping, ips) in S
     d[cat] = get(d, cat, 0) + 1
 end
 
+# Julia threads 1 .. nthreads(:interactive) + nthreads(:default) run tasks; the profiler also
+# samples the GC's own threads, which are counted apart.
+const NCOMPUTE = Threads.nthreads(:interactive) + Threads.nthreads(:default)
 total = Dict{String, Int}()
-for d in values(counts), (k, v) in d
+for (tid, d) in counts, (k, v) in d
+    tid <= NCOMPUTE || continue
     total[k] = get(total, k, 0) + v
 end
 nsamp = sum(values(total); init = 0)
-thread_seconds = Dict(k => v / nsamp * t_prof * NT for (k, v) in total)
+thread_seconds = Dict(k => v / nsamp * t_prof * NCOMPUTE for (k, v) in total)
 
 # --- provenance ----------------------------------------------------------------------------------
 _sh(cmd) = try strip(read(pipeline(cmd; stderr = devnull), String)) catch; "" end
@@ -201,7 +232,9 @@ res = Dict(
     "profile" => Dict("wall_s" => t_prof, "delay_s" => PROFILE_DELAY, "samples" => nsamp,
         "share" => Dict(k => v / nsamp for (k, v) in total), "thread_seconds" => thread_seconds,
         "per_thread" => Dict(string(k) => v for (k, v) in counts),
-        "other_top" => first(sort(collect(other_leaf); by = last, rev = true), min(25, length(other_leaf)))),
+        "other_top" => first(sort(collect(other_leaf); by = last, rev = true), min(25, length(other_leaf))),
+        "compute_threads" => NCOMPUTE,
+        "where" => Dict(k => first(sort(collect(v); by = last, rev = true), min(15, length(v))) for (k, v) in where_t)),
     "provenance" => Dict(
         "ristretto" => BenchUtils.git_ref(rdir), "benchmarking" => BenchUtils.git_ref(normpath(joinpath(@__DIR__, "..", ".."))),
         "deps_subtree_split" => subtree, "host" => gethostname(), "node_class" => BenchUtils.node_class(),

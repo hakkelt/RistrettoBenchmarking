@@ -1,0 +1,294 @@
+{
+  "case": "shepp_logan_3d_8ch_cartesian",
+  "method": "tv",
+  "nrmse": 0.15752731,
+  "profile": {
+    "delay_s": 0.005,
+    "other_top": {
+      "< @ int.jl": 427,
+      "+ @ int.jl": 104,
+      "unsafe_store! @ pointer.jl": 30,
+      "== @ Base_compiler.jl": 17,
+      "ThreadTask @ threadtasks.jl": 7,
+      "_atomic_load @ atomics.jl": 5,
+      "unsafe_load @ pointer.jl": 3,
+      "jl_lookup_generic_ @ gf.c": 2,
+      "load @ ManualMemory.jl": 1
+    },
+    "per_thread": {
+      "1": {
+        "alloc": 1,
+        "blas": 5,
+        "fft": 109,
+        "gc": 9,
+        "idle": 80,
+        "pointwise": 129
+      },
+      "10": {
+        "fft": 23,
+        "idle": 238,
+        "operators_other": 28,
+        "other": 35,
+        "pointwise": 10
+      },
+      "11": {
+        "fft": 23,
+        "idle": 206,
+        "operators_other": 45,
+        "other": 45,
+        "pointwise": 14
+      },
+      "12": {
+        "fft": 28,
+        "idle": 218,
+        "operators_other": 42,
+        "other": 36,
+        "pointwise": 10
+      },
+      "13": {
+        "fft": 17,
+        "idle": 227,
+        "operators_other": 39,
+        "other": 41,
+        "pointwise": 10
+      },
+      "14": {
+        "fft": 24,
+        "idle": 215,
+        "operators_other": 38,
+        "other": 44,
+        "pointwise": 13
+      },
+      "15": {
+        "fft": 28,
+        "idle": 222,
+        "operators_other": 35,
+        "other": 41,
+        "pointwise": 8
+      },
+      "16": {
+        "fft": 24,
+        "idle": 228,
+        "operators_other": 38,
+        "other": 34,
+        "pointwise": 10
+      },
+      "17": {
+        "fft": 10,
+        "idle": 308,
+        "operators_other": 5,
+        "pointwise": 10
+      },
+      "18": {
+        "gc": 6,
+        "idle": 327
+      },
+      "19": {
+        "gc": 7,
+        "idle": 327
+      },
+      "2": {
+        "fft": 25,
+        "idle": 225,
+        "operators_other": 40,
+        "other": 37,
+        "pointwise": 7
+      },
+      "20": {
+        "gc": 6,
+        "idle": 328
+      },
+      "21": {
+        "gc": 7,
+        "idle": 327
+      },
+      "22": {
+        "gc": 7,
+        "idle": 327
+      },
+      "23": {
+        "gc": 7,
+        "idle": 327
+      },
+      "24": {
+        "gc": 6,
+        "idle": 328
+      },
+      "25": {
+        "gc": 7,
+        "idle": 327
+      },
+      "26": {
+        "gc": 6,
+        "idle": 328
+      },
+      "27": {
+        "gc": 7,
+        "idle": 327
+      },
+      "28": {
+        "gc": 7,
+        "idle": 327
+      },
+      "29": {
+        "gc": 6,
+        "idle": 327
+      },
+      "3": {
+        "fft": 24,
+        "idle": 205,
+        "operators_other": 52,
+        "other": 46,
+        "pointwise": 6
+      },
+      "30": {
+        "gc": 4,
+        "idle": 330
+      },
+      "31": {
+        "gc": 6,
+        "idle": 328
+      },
+      "32": {
+        "gc": 8,
+        "idle": 326
+      },
+      "4": {
+        "fft": 32,
+        "idle": 211,
+        "operators_other": 47,
+        "other": 34,
+        "pointwise": 10
+      },
+      "5": {
+        "fft": 28,
+        "idle": 206,
+        "operators_other": 53,
+        "other": 41,
+        "pointwise": 5
+      },
+      "6": {
+        "fft": 19,
+        "idle": 217,
+        "operators_other": 40,
+        "other": 50,
+        "pointwise": 7
+      },
+      "7": {
+        "fft": 36,
+        "idle": 206,
+        "operators_other": 44,
+        "other": 42,
+        "pointwise": 6
+      },
+      "8": {
+        "fft": 29,
+        "idle": 226,
+        "operators_other": 35,
+        "other": 36,
+        "pointwise": 8
+      },
+      "9": {
+        "fft": 17,
+        "idle": 247,
+        "operators_other": 31,
+        "other": 34,
+        "pointwise": 5
+      }
+    },
+    "samples": 10680,
+    "share": {
+      "alloc": 9.363295880149813e-5,
+      "blas": 0.00046816479400749064,
+      "fft": 0.04644194756554307,
+      "gc": 0.009925093632958801,
+      "idle": 0.8048689138576779,
+      "operators_other": 0.05730337078651685,
+      "other": 0.05580524344569288,
+      "pointwise": 0.025093632958801498
+    },
+    "thread_seconds": {
+      "alloc": 0.03684034458726592,
+      "blas": 0.1842017229363296,
+      "fft": 18.272810915283895,
+      "gc": 3.905076526250187,
+      "idle": 316.6796020721378,
+      "operators_other": 22.54629088740674,
+      "other": 21.956845374010488,
+      "pointwise": 9.873212349387266
+    },
+    "wall_s": 24.590930012
+  },
+  "provenance": {
+    "benchmarking": {
+      "commit": "5b1e9be397a65ce15e5314863f84b210590e6cf7",
+      "branch": "paper-measurements",
+      "dirty": false
+    },
+    "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+    "blas_threads": 16,
+    "cpus": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "date": "2026-11-16T17:21:21.154",
+    "deps_subtree_split": {
+      "AbstractOperators": "94b9c2b5588b2eb97bef29582a7a96327acd94a1",
+      "NFFT": "5b8ad7ae42ae25580f9da80cf42bb11ac80414da",
+      "OperatorCore": "ff43eb9367121db62396bdc7522363cca087f9df",
+      "ProximalAlgorithms": "bbd8bd512bfc1b3fa7bd2cacbbf44edfd64cc4eb",
+      "ProximalOperators": "5c38fbbb88e0924814548a6ba1ff250ee80c3b47",
+      "StructuredOptimization": "40720478ff5e7dd8db19ae5bb5449f3fe0782f6f"
+    },
+    "env": {
+      "CMP_CG_ITERS": "",
+      "CMP_OUTER": "",
+      "JULIA_EXCLUSIVE": "",
+      "KMP_BLOCKTIME": "0",
+      "MKL_DYNAMIC": "",
+      "OMP_WAIT_POLICY": "",
+      "OPENBLAS_THREAD_TIMEOUT": "",
+      "RISTRETTO_BENCH_PLACEMENT": "",
+      "RISTRETTO_BENCH_SNR_DB": "",
+      "TMPDIR": "/dev/shm"
+    },
+    "fftw_provider": "fftw",
+    "fftw_threads": 16,
+    "host": "x1001c1s2b0n1",
+    "julia": "1.13.1",
+    "node_class": "AMD EPYC 7763 64-Core Processor / cpu-short",
+    "numactl": "policy: bind\npreferred node: 1\nphyscpubind: 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 \ncpubind: 1 \nnodebind: 1 \nmembind: 1 \npreferred: 1",
+    "ristretto": {
+      "commit": "c949d8e2adf0fd4d304583385e475dd38eba7f05",
+      "branch": "HEAD",
+      "dirty": false
+    },
+    "slurm_job": "15122806",
+    "small": "",
+    "spread": "0"
+  },
+  "single_run": {
+    "bytes": 2140732016,
+    "compile_s": 0.002947011,
+    "gc_s": 0.155985421,
+    "time_s": 20.907089892
+  },
+  "threads": 16,
+  "time_median_s": 21.861535461,
+  "time_min_s": 21.861535461,
+  "variant": "default"
+}
