@@ -1,0 +1,1042 @@
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/image.py:45: DeprecationWarning: Due to '_pack_', the 'ImageHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class ImageHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/waveform.py:10: DeprecationWarning: Due to '_pack_', the 'WaveformHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class WaveformHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+┌ Info: Julia threads pinned
+└   CPU_STR = "112,113,114,115,116,117,118,119"
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU name (from build time).
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +invpcid.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +pku.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +shstk.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vaes.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Info: BLAS/FFTW pinned
+│   blas_threads = 8
+│   fftw_threads = 8
+└   mrireco_blas_threads = 1
+┌ Warning: MATLAB is unavailable; the optional MATLAB reference cross-checks are disabled
+│   err =
+│    LoadError: ArgumentError: Package MATLAB not found in current path.
+│    - Run `import Pkg; Pkg.add("MATLAB")` to install the MATLAB package.
+│    in expression starting at /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/matlab_bridge.jl:1
+└ @ Main.ComparisonHarness /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/ComparisonHarness.jl:25
+┌ Info: comparison setup
+│   host = "x1000c6s3b1n0"
+│   julia = v"1.13.1"
+│   threads = 8
+│   blas = "/scratch/c_mrrecon/juliaup_depot/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/../lib/julia/libopenblas64_.so"
+│   mkl = false
+└   bart = "/project/c_mrrecon/bart-v1.0.01/openblas/bart"
+┌ Info: comparison precision
+└   ctype = ComplexF32 (alias for Complex{Float32})
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=8.2e-05  ρ=-         NRMSE=0.2196
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.21959154307842255
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.21959154307842255
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.0002593  ρ=-         NRMSE=0.2048
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.20475515723228455
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.20475515723228455
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.00082  ρ=-         NRMSE=0.1749
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.17494980990886688
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.17494980990886688
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.002593  ρ=-         NRMSE=0.1420
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.0082  ρ=-         NRMSE=0.1469
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.02593  ρ=-         NRMSE=0.1923
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.082  ρ=-         NRMSE=0.2493
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.2593  ρ=-         NRMSE=0.3503
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=8.2e-05  ρ=-         NRMSE=0.2278
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.22777678072452545
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.0002593  ρ=-         NRMSE=0.2267
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.22669488191604614
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.00082  ρ=-         NRMSE=0.2234
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.22339798510074615
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.002593  ρ=-         NRMSE=0.2138
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.21377874910831451
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.0082  ρ=-         NRMSE=0.1878
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.18775641918182373
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.02593  ρ=-         NRMSE=0.1348
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.082  ρ=-         NRMSE=0.1067
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.2593  ρ=-         NRMSE=0.1341
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=8.2e-05  ρ=-         NRMSE=0.2278
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.22781180662000933
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.0002593  ρ=-         NRMSE=0.2267
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.2267499292543237
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.00082  ρ=-         NRMSE=0.2236
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.22358356278929659
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.002593  ρ=-         NRMSE=0.2148
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.21481052704662557
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.0082  ρ=-         NRMSE=0.1940
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.19399178727310934
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.02593  ρ=-         NRMSE=0.1580
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15797174580818327
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.082  ρ=-         NRMSE=0.1356
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.2593  ρ=-         NRMSE=0.1580
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=8.2e-05  ρ=-         NRMSE=0.1573
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15730234160993167
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.0002593  ρ=-         NRMSE=0.1207
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.00082  ρ=-         NRMSE=0.1052
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.002593  ρ=-         NRMSE=0.1307
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.0082  ρ=-         NRMSE=0.3060
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.02593  ρ=-         NRMSE=0.6940
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.082  ρ=-         NRMSE=1.2159
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.2593  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1419987827539444
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=8.2e-5 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] (::var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}})(λ::Float64)
+│        @ Main ./none:-1
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate
+│        @ ./iterators.jl:1298 [inlined]
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:901
+│     [21] _collect
+│        @ ./array.jl:817 [inlined]
+│     [22] collect
+│        @ ./array.jl:759 [inlined]
+│     [23] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [24] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [25] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [26] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [27] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [28] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [29] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [30] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=8.2e-05  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=0.0002593067681338071 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] #232
+│        @ ./none:-1 [inlined]
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate
+│        @ ./iterators.jl:1316 [inlined]
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Nothing, Float64}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, st::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base ./array.jl:923
+│     [21] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:905
+│     [22] _collect
+│        @ ./array.jl:817 [inlined]
+│     [23] collect
+│        @ ./array.jl:759 [inlined]
+│     [24] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [25] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [26] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [27] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [28] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [29] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [30] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [31] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.0002593  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=0.00082 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] #232
+│        @ ./none:-1 [inlined]
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate(fl::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, state::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base.Iterators ./iterators.jl:1316
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Nothing, Float64}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, st::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base ./array.jl:932
+│     [21] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:905
+│     [22] _collect
+│        @ ./array.jl:817 [inlined]
+│     [23] collect
+│        @ ./array.jl:759 [inlined]
+│     [24] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [25] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [26] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [27] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [28] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [29] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [30] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [31] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.00082  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=0.002593067681338071 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] #232
+│        @ ./none:-1 [inlined]
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate(fl::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, state::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base.Iterators ./iterators.jl:1316
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Nothing, Float64}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, st::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base ./array.jl:932
+│     [21] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:905
+│     [22] _collect
+│        @ ./array.jl:817 [inlined]
+│     [23] collect
+│        @ ./array.jl:759 [inlined]
+│     [24] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [25] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [26] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [27] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [28] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [29] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [30] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [31] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.002593  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=0.0082 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] #232
+│        @ ./none:-1 [inlined]
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate(fl::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, state::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base.Iterators ./iterators.jl:1316
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Nothing, Float64}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, st::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base ./array.jl:932
+│     [21] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:905
+│     [22] _collect
+│        @ ./array.jl:817 [inlined]
+│     [23] collect
+│        @ ./array.jl:759 [inlined]
+│     [24] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [25] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [26] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [27] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [28] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [29] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [30] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [31] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.0082  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=0.025930676813380713 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] #232
+│        @ ./none:-1 [inlined]
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate(fl::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, state::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base.Iterators ./iterators.jl:1316
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Nothing, Float64}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, st::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base ./array.jl:932
+│     [21] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:905
+│     [22] _collect
+│        @ ./array.jl:817 [inlined]
+│     [23] collect
+│        @ ./array.jl:759 [inlined]
+│     [24] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [25] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [26] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [27] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [28] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [29] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [30] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [31] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.02593  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=0.082 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] #232
+│        @ ./none:-1 [inlined]
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate(fl::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, state::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base.Iterators ./iterators.jl:1316
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Nothing, Float64}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, st::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base ./array.jl:932
+│     [21] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:905
+│     [22] _collect
+│        @ ./array.jl:817 [inlined]
+│     [23] collect
+│        @ ./array.jl:759 [inlined]
+│     [24] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [25] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [26] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [27] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [28] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [29] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [30] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [31] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.082  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Warning: MRpro shepp_logan_2d_8ch_cartesian wavelet λ=0.2593067681338071 ρ=nothing failed
+│   exception =
+│    Python: NotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.
+│    Python stacktrace:
+│     [1] __init__
+│       @ mrpro.operators.WaveletOp /project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py:103
+│     [2] _mrpro_solve
+│       @ <string>:77
+│    Stacktrace:
+│      [1] pythrow()
+│        @ PythonCall.Core ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:77
+│      [2] errcheck
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/err.jl:10 [inlined]
+│      [3] pycallargs
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:194 [inlined]
+│      [4] #pycall#25
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:213 [inlined]
+│      [5] pycall
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/builtins.jl:203 [inlined]
+│      [6] Py
+│        @ ~/.julia/packages/PythonCall/trYos/src/Core/Py.jl:357 [inlined]
+│      [7] (::var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1491
+│      [8] (::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}})()
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:468
+│      [9] time_run(f::var"#_jl##0#_jl##1"{var"#190#191"{Float64, Symbol, Py, Int64, Int64, Nothing, Nothing, Nothing, Py, Py, Py}}; warmup::Int64, runs::Int64, cold_fft::Bool)
+│        @ Main.BenchUtils /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/utils/harness.jl:37
+│     [10] time_reconstruction
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_setup.jl:396 [inlined]
+│     [11] mrpro_run(c::BenchCase, m::Symbol; λ::Float64, maxit::Int64)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1490
+│     [12] mrpro_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1480 [inlined]
+│     [13] #toolkit_run#135
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1080 [inlined]
+│     [14] toolkit_run
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/_toolkits.jl:1071 [inlined]
+│     [15] nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:130
+│     [16] (::var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}})(λ::Float64, ρ::Nothing)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:199
+│     [17] #232
+│        @ ./none:-1 [inlined]
+│     [18] iterate
+│        @ ./generator.jl:48 [inlined]
+│     [19] iterate(fl::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, state::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base.Iterators ./iterators.jl:1316
+│     [20] grow_to!(dest::Vector{Tuple{Float64, Nothing, Float64}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}}, st::Tuple{Int64, Base.Generator{Vector{Float64}, var"#232#233"{Nothing, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}, Int64})
+│        @ Base ./array.jl:932
+│     [21] grow_to!(dest::Vector{Tuple{Float64, Any, Any}}, itr::Base.Iterators.Flatten{Base.Generator{Vector{Any}, var"#230#231"{Vector{Float64}, var"#measure#224"{var"#sweep##2#sweep##3"{BenchCase, Symbol, String}, BenchCase, Symbol, Symbol, String, Dict{Tuple{Float64, Any}, Float64}}}}})
+│        @ Base ./array.jl:905
+│     [22] _collect
+│        @ ./array.jl:817 [inlined]
+│     [23] collect
+│        @ ./array.jl:759 [inlined]
+│     [24] curve
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:210 [inlined]
+│     [25] sweep_toolkit(c::BenchCase, method::Symbol, tk::Symbol, key::String, λs::Vector{Float64}, ρs::Vector{Any}; known::Dict{Tuple{Float64, Any}, Float64}, checkpoint::var"#sweep##2#sweep##3"{BenchCase, Symbol, String})
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:216
+│     [26] sweep_toolkit
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:190 [inlined]
+│     [27] sweep(c::BenchCase, method::Symbol)
+│        @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:153
+│     [28] top-level scope
+│        @ /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:345
+│     [29] include(mod::Module, _path::String)
+│        @ Base ./Base.jl:309
+│     [30] exec_options(opts::Base.JLOptions)
+│        @ Base ./client.jl:344
+│     [31] _start()
+│        @ Base ./client.jl:577
+└ @ Main /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/scripts/calibrate_lambda.jl:201
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.2593  ρ=-         NRMSE=NaN
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1419987827539444
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = Inf
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n255/shepp_logan_2d_8ch_cartesian.json"

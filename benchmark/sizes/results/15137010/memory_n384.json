@@ -1,0 +1,102 @@
+{
+  "coils": 8,
+  "date": "2026-11-16T22:19:13.687",
+  "host": "x1000c6s3b1n0",
+  "numactl": "policy: bind\npreferred node: 5\nphyscpubind: 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 \ncpubind: 5 \nnodebind: 5 \nmembind: 5 \npreferred: 5 \n",
+  "nx": 384,
+  "ny": 384,
+  "rows": [
+    {
+      "error": null,
+      "max_rss_mb": 893.3359375,
+      "method": "cgsense",
+      "nrmse": 0.20793235,
+      "status": "ok",
+      "toolkit": "Ristretto",
+      "wall_s": 17.1
+    },
+    {
+      "error": null,
+      "max_rss_mb": 912.3671875,
+      "method": "wavelet",
+      "nrmse": 0.09894793,
+      "status": "ok",
+      "toolkit": "Ristretto",
+      "wall_s": 20.51
+    },
+    {
+      "error": null,
+      "max_rss_mb": 98.74609375,
+      "method": "cgsense",
+      "nrmse": null,
+      "status": "ok",
+      "toolkit": "BART",
+      "wall_s": 0.16
+    },
+    {
+      "error": null,
+      "max_rss_mb": 95.81640625,
+      "method": "wavelet",
+      "nrmse": null,
+      "status": "ok",
+      "toolkit": "BART",
+      "wall_s": 0.67
+    },
+    {
+      "error": null,
+      "max_rss_mb": 1017.23828125,
+      "method": "cgsense",
+      "nrmse": 0.20790796876150944,
+      "status": "ok",
+      "toolkit": "MRIReco",
+      "wall_s": 20.72
+    },
+    {
+      "error": null,
+      "max_rss_mb": 1163.87109375,
+      "method": "wavelet",
+      "nrmse": 0.15051863888491204,
+      "status": "ok",
+      "toolkit": "MRIReco",
+      "wall_s": 22.7
+    },
+    {
+      "error": null,
+      "max_rss_mb": 360.83203125,
+      "method": "cgsense",
+      "nrmse": 0.20790831744670868,
+      "status": "ok",
+      "toolkit": "SigPy",
+      "wall_s": 3.09
+    },
+    {
+      "error": null,
+      "max_rss_mb": 413.265625,
+      "method": "wavelet",
+      "nrmse": 0.0976269468665123,
+      "status": "ok",
+      "toolkit": "SigPy",
+      "wall_s": 6.43
+    },
+    {
+      "error": null,
+      "max_rss_mb": 534.42578125,
+      "method": "cgsense",
+      "nrmse": 0.2079082578420639,
+      "status": "ok",
+      "toolkit": "MRpro",
+      "wall_s": 3.57
+    },
+    {
+      "error": null,
+      "max_rss_mb": 576.6015625,
+      "method": "wavelet",
+      "nrmse": 0.1049618124961853,
+      "status": "ok",
+      "toolkit": "MRpro",
+      "wall_s": 4.72
+    }
+  ],
+  "slurm_job": "15137010",
+  "threads": 8
+}

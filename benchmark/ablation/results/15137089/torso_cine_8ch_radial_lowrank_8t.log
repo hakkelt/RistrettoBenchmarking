@@ -1,0 +1,74 @@
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU name (from build time).
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +invpcid.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +pku.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +shstk.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vaes.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Info: default
+│   row =
+│    Dict{String, Any} with 6 entries:
+│      "time_min_s"       => 6.44418
+│      "variant"          => "default"
+│      "nrmse_vs_default" => 0.0
+│      "nrmse_gt"         => 0.106984
+│      "status"           => "ok"
+└      "time_median_s"    => 6.44418
+┌ Info: no_task_splitting
+│   row =
+│    Dict{String, Any} with 7 entries:
+│      "time_min_s"       => 6.45421
+│      "variant"          => "no_task_splitting"
+│      "nrmse_vs_default" => 0.0
+│      "note"             => "the default already runs this case as one task"
+│      "nrmse_gt"         => 0.106984
+│      "status"           => "ok"
+└      "time_median_s"    => 6.45421
+┌ Info: no_fusion
+│   row =
+│    Dict{String, Any} with 6 entries:
+│      "time_min_s"       => 6.41655
+│      "variant"          => "no_fusion"
+│      "nrmse_vs_default" => 0.0
+│      "nrmse_gt"         => 0.106984
+│      "status"           => "ok"
+└      "time_median_s"    => 6.41655
+┌ Info: no_inner_threading
+│   row =
+│    Dict{String, Any} with 7 entries:
+│      "time_min_s"       => 28.3301
+│      "variant"          => "no_inner_threading"
+│      "nrmse_vs_default" => 6.89904f-5
+│      "note"             => "one task: threaded = false, so nothing threads"
+│      "nrmse_gt"         => 0.106989
+│      "status"           => "ok"
+└      "time_median_s"    => 28.3301
+┌ Info: fft_estimate
+│   row =
+│    Dict{String, Any} with 6 entries:
+│      "time_min_s"       => 26.2694
+│      "variant"          => "fft_estimate"
+│      "nrmse_vs_default" => 0.000127459
+│      "nrmse_gt"         => 0.106974
+│      "status"           => "ok"
+└      "time_median_s"    => 26.2694
+┌ Info: fft_measure
+│   row =
+│    Dict{String, Any} with 6 entries:
+│      "time_min_s"       => 6.38507
+│      "variant"          => "fft_measure"
+│      "nrmse_vs_default" => 0.0
+│      "nrmse_gt"         => 0.106984
+│      "status"           => "ok"
+└      "time_median_s"    => 6.38507

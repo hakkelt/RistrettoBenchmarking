@@ -1,0 +1,106 @@
+{
+  "backend": "openblas",
+  "bart_binary": "/project/c_mrrecon/bart-v1.0.01/openblas/bart",
+  "benchmarks": [
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "CG-SENSE",
+      "data_source": "synthetic",
+      "framework": "Ristretto (OpenBLAS)",
+      "method": "CG-SENSE (10 it)",
+      "nrmse_gt": 0.19379840791225433,
+      "nrmse_ristretto": 0.0,
+      "threads": 8,
+      "time_ms": 439.416948
+    },
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "CG-SENSE",
+      "data_source": "synthetic",
+      "framework": "BART (OpenBLAS)",
+      "method": "CG-SENSE (10 it)",
+      "nrmse_gt": 0.19378156960010529,
+      "nrmse_ristretto": 0.00022134828031994402,
+      "threads": 8,
+      "time_ms": 606.562
+    },
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "CG-SENSE",
+      "data_source": "synthetic",
+      "framework": "SigPy",
+      "method": "CG-SENSE (10 it)",
+      "nrmse_gt": 0.19378166551086612,
+      "nrmse_ristretto": 0.00022106284665057566,
+      "threads": 8,
+      "time_ms": 1068.977832
+    },
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "CG-SENSE",
+      "data_source": "synthetic",
+      "framework": "MRIReco",
+      "method": "CG-SENSE (10 it)",
+      "nrmse_gt": 0.19378156819190198,
+      "nrmse_ristretto": 0.00022167845869513927,
+      "threads": 8,
+      "time_ms": 734.180326
+    },
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "CG-SENSE",
+      "data_source": "synthetic",
+      "framework": "MIRT",
+      "method": "CG-SENSE (10 it)",
+      "nrmse_gt": 0.1937815902320113,
+      "nrmse_ristretto": 0.00022138488053569745,
+      "threads": 8,
+      "time_ms": 776.391931
+    },
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "CG-SENSE",
+      "data_source": "synthetic",
+      "framework": "MRpro",
+      "method": "CG-SENSE (10 it)",
+      "nrmse_gt": 0.19378156665048682,
+      "nrmse_ristretto": 0.00022124572318527614,
+      "threads": 8,
+      "time_ms": 337.656964
+    }
+  ],
+  "blas_vendor": "/scratch/c_mrrecon/juliaup_depot/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/../lib/julia/libopenblas64_.so",
+  "cases_filter": [
+    "shepp_logan_2d_8ch_cartesian"
+  ],
+  "cine_frames": 30,
+  "cpu_model": "AMD EPYC 7763 64-Core Processor",
+  "cpu_threads": 128,
+  "data": "synthetic",
+  "device": "cpu",
+  "frameworks_filter": null,
+  "gpu": null,
+  "hostname": "x1000c6s3b1n0",
+  "image_n": 512,
+  "julia_threads": 8,
+  "julia_version": "1.13.1",
+  "pinned_cpus": "80,81,82,83,84,85,86,87",
+  "placement": "isolated",
+  "run_id": "20261116-221456-242_openblas_8threads_cg_sense_slurm_job15137010_pid481216",
+  "schema_version": 2,
+  "section": "cg_sense",
+  "small": false,
+  "source": "slurm",
+  "threads": 8,
+  "toolkit_versions": {
+    "BART": "v1.0.01",
+    "MIRT": "0.18.3",
+    "MRIReco": "0.9.2",
+    "MRpro": "0.261015",
+    "PyTorch": "2.15.0+cpu",
+    "Ristretto": "0.1.0 (5faaa2e)",
+    "SigPy": "0.1.27"
+  },
+  "ts": "20261116-221456-242",
+  "use_mkl": false
+}

@@ -1,0 +1,478 @@
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/image.py:45: DeprecationWarning: Due to '_pack_', the 'ImageHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class ImageHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/waveform.py:10: DeprecationWarning: Due to '_pack_', the 'WaveformHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class WaveformHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+┌ Info: Julia threads pinned
+└   CPU_STR = "32,33,34,35,36,37,38,39"
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU name (from build time).
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +invpcid.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +pku.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +shstk.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vaes.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Info: BLAS/FFTW pinned
+│   blas_threads = 8
+│   fftw_threads = 8
+└   mrireco_blas_threads = 1
+┌ Warning: MATLAB is unavailable; the optional MATLAB reference cross-checks are disabled
+│   err =
+│    LoadError: ArgumentError: Package MATLAB not found in current path.
+│    - Run `import Pkg; Pkg.add("MATLAB")` to install the MATLAB package.
+│    in expression starting at /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/matlab_bridge.jl:1
+└ @ Main.ComparisonHarness /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/ComparisonHarness.jl:25
+┌ Info: comparison setup
+│   host = "x1000c6s3b1n0"
+│   julia = v"1.13.1"
+│   threads = 8
+│   blas = "/scratch/c_mrrecon/juliaup_depot/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/../lib/julia/libopenblas64_.so"
+│   mkl = false
+└   bart = "/project/c_mrrecon/bart-v1.0.01/openblas/bart"
+┌ Info: comparison precision
+└   ctype = ComplexF32 (alias for Complex{Float32})
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=8.2e-05  ρ=-         NRMSE=0.3031
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.30310407280921936
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.30310407280921936
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.0002593  ρ=-         NRMSE=0.2890
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.2890061140060425
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.2890061140060425
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.00082  ρ=-         NRMSE=0.2553
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.25526586174964905
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.25526586174964905
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.002593  ρ=-         NRMSE=0.1954
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.1954335719347
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.1954335719347
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.0082  ρ=-         NRMSE=0.1552
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15521912276744843
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.02593  ρ=-         NRMSE=0.2038
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15521912276744843
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.082  ρ=-         NRMSE=0.3136
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15521912276744843
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  Ristretto λ=0.2593  ρ=-         NRMSE=0.4197
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 1 entry: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15521912276744843
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=8.2e-05  ρ=-         NRMSE=0.3101
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.31006890535354614
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.0002593  ρ=-         NRMSE=0.3090
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.309038370847702
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.00082  ρ=-         NRMSE=0.3059
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.3058631420135498
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.002593  ρ=-         NRMSE=0.2963
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.29634588956832886
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.0082  ρ=-         NRMSE=0.2687
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.2686697244644165
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.02593  ρ=-         NRMSE=0.1982
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.19815240800380707
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.082  ρ=-         NRMSE=0.1060
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15521912276744843
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  BART    λ=0.2593  ρ=-         NRMSE=0.1329
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 2 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.15521912276744843
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=8.2e-05  ρ=-         NRMSE=0.3101
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.3101216667538548
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.0002593  ρ=-         NRMSE=0.3091
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.30907474270745666
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.00082  ρ=-         NRMSE=0.3059
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.30589692094779386
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.002593  ρ=-         NRMSE=0.2967
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.2967169235440613
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.0082  ρ=-         NRMSE=0.2727
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.2727018250558612
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.02593  ρ=-         NRMSE=0.2223
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.22231663138119312
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.082  ρ=-         NRMSE=0.1602
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  SigPy   λ=0.2593  ρ=-         NRMSE=0.1694
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 3 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=8.2e-05  ρ=-         NRMSE=0.2526
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.25255087943670734
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.0002593  ρ=-         NRMSE=0.1919
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.19188063063527683
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.00082  ρ=-         NRMSE=0.1577
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.002593  ρ=-         NRMSE=0.2146
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.0082  ρ=-         NRMSE=0.3264
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.02593  ρ=-         NRMSE=0.4383
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.082  ρ=-         NRMSE=0.5937
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRIReco λ=0.2593  ρ=-         NRMSE=0.8399
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 4 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=8.2e-05  ρ=-         NRMSE=0.3110
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.31104832645419944
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.0002593  ρ=-         NRMSE=0.3105
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.3105443929852799
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.00082  ρ=-         NRMSE=0.3090
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.30898281291364965
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.002593  ρ=-         NRMSE=0.3043
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.30431230986693714
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.0082  ρ=-         NRMSE=0.2912
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.29115469095218477
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.02593  ρ=-         NRMSE=0.2589
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.2588988144370427
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.082  ρ=-         NRMSE=0.1997
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.19970849092021922
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.2593  ρ=-         NRMSE=0.1540
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+[ Info: shepp_logan_2d_8ch_cartesian             wavelet  MRpro   λ=0.82  ρ=-         NRMSE=0.1970
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"
+┌ Info: calibrated
+│   c.id = "shepp_logan_2d_8ch_cartesian"
+│   method = "wavelet"
+│   target = 0.15521912276744843
+│   picks = Dict{String, Float64} with 5 entries: …
+│   rhos = Dict{Any, Any}()
+└   worst = 0.16016612167631913
+┌ Info: wrote
+└   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/lambda_n192/shepp_logan_2d_8ch_cartesian.json"

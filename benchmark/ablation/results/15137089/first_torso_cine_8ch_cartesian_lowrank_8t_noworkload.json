@@ -1,0 +1,19 @@
+{
+  "case": "torso_cine_8ch_cartesian",
+  "date": "2026-11-16T22:23:25.976",
+  "depot": [
+    "/project/c_mrrecon/paper-measurements/depot-noworkload",
+    "/scratch/c_mrrecon/julia_depot"
+  ],
+  "first_solve_s": 28.066492892,
+  "host": "x1000c2s3b0n0",
+  "load_s": 2.961271038,
+  "method": "lowrank",
+  "nrmse_gt": 0.15061319,
+  "precompile_workload": false,
+  "process_s": 54.67182397842407,
+  "project": "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison_noworkload/Project.toml",
+  "second_solve_s": 2.979238885,
+  "slurm_job": "15137089",
+  "threads": 8
+}

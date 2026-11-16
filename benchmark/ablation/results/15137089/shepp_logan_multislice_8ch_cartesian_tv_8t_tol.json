@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "benchmarking": {
+      "commit": "67ffa901283da4aa866fc6be9b4d3bfba6447f1b",
+      "branch": "paper-measurements",
+      "dirty": false
+    },
+    "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+    "case": "shepp_logan_multislice_8ch_cartesian",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "date": "2026-11-16T22:13:46.289",
+    "deps_trees": {
+      "AbstractOperators": "317e791eb36589bbd48844b3e3ba1cd22aa9ee48",
+      "NFFT": "e6cd902cb40dacea241ecb971134b4d3bf56350f",
+      "OperatorCore": "b23f830c676f8d1c1a3142e221c100c3de2a7310",
+      "ProximalAlgorithms": "a517b180d7cc331d5558a7d01827e583e333b91e",
+      "ProximalOperators": "76d44bef51aab6b39818a796f4db576fa9bbc5a4",
+      "StructuredOptimization": "e8b3ff861a8589409ce96c865de6a40f84bcf27d"
+    },
+    "host": "x1000c2s3b0n0",
+    "image_n": 128,
+    "julia": "1.13.1",
+    "maxit": 100,
+    "method": "tv",
+    "node_class": "AMD EPYC 7763 64-Core Processor / cpu",
+    "numactl": "policy: bind\npreferred node: 0\nphyscpubind: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 \ncpubind: 0 \nnodebind: 0 \nmembind: 0 \npreferred: 0 \n",
+    "reltol": 0.001,
+    "ristretto": {
+      "commit": "5faaa2e41bf821e5536fa8203a264d28891c9e5f",
+      "branch": "HEAD",
+      "dirty": false
+    },
+    "slurm_job": "15137089",
+    "tasks": 12,
+    "threads": 8
+  },
+  "rows": [
+    {
+      "nrmse_gt": 0.074803144,
+      "nrmse_vs_default": 0.0,
+      "status": "ok",
+      "time_median_s": 2.245124058,
+      "time_min_s": 2.234367707,
+      "variant": "default"
+    },
+    {
+      "nrmse_gt": 0.07530226,
+      "nrmse_vs_default": 0.004969826,
+      "status": "ok",
+      "time_median_s": 5.036250524,
+      "time_min_s": 4.626700662,
+      "variant": "no_task_splitting"
+    },
+    {
+      "nrmse_gt": 0.074803144,
+      "nrmse_vs_default": 0.0,
+      "status": "ok",
+      "time_median_s": 2.915419867,
+      "time_min_s": 2.897869561,
+      "variant": "no_fusion"
+    },
+    {
+      "note": "slices in parallel, each serial (MultiThreadingExecutor)",
+      "nrmse_gt": 0.074803144,
+      "nrmse_vs_default": 0.0,
+      "status": "ok",
+      "time_median_s": 2.306776489,
+      "time_min_s": 2.248697898,
+      "variant": "no_inner_threading"
+    },
+    {
+      "nrmse_gt": 0.07480315,
+      "nrmse_vs_default": 6.618109e-7,
+      "status": "ok",
+      "time_median_s": 2.929319502,
+      "time_min_s": 2.910398134,
+      "variant": "fft_estimate"
+    },
+    {
+      "nrmse_gt": 0.074803144,
+      "nrmse_vs_default": 0.0,
+      "status": "ok",
+      "time_median_s": 2.298000764,
+      "time_min_s": 2.297213966,
+      "variant": "fft_measure"
+    },
+    {
+      "note": "no switch: NFFTOperators.has_optimized_normalop(::NFFTOp) is fixed to true",
+      "status": "no_switch",
+      "variant": "no_toeplitz"
+    },
+    {
+      "note": "no switch: reconstruct does not forward m/sigma/precompute to the NFFT (get_fourier_operator takes them; DEFAULT_NFFT_M/SIGMA/PRECOMPUTE are constants)",
+      "status": "no_switch",
+      "variant": "nfft_library_default"
+    },
+    {
+      "note": "fftshift instead of sign alternation: no switch; the shift is replaced by a sign alternation or phase ramp whenever it sits next to a DFT",
+      "status": "no_switch",
+      "variant": "fftshift"
+    },
+    {
+      "note": "no switch: every iterative solve runs under with_serial_blas (only CG takes BLAS threads back, via ProximalAlgorithms.CG_BLAS_THREAD_BYTES; see Part 3)",
+      "status": "no_switch",
+      "variant": "blas_free"
+    }
+  ]
+}

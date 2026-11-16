@@ -1,0 +1,118 @@
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/image.py:45: DeprecationWarning: Due to '_pack_', the 'ImageHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class ImageHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/waveform.py:10: DeprecationWarning: Due to '_pack_', the 'WaveformHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class WaveformHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+┌ Info: Julia threads pinned
+└   CPU_STR = "48,49,50,51,52,53,54,55"
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU name (from build time).
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +invpcid.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +pku.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +shstk.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vaes.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Info: BLAS/FFTW pinned
+│   blas_threads = 8
+│   fftw_threads = 8
+└   mrireco_blas_threads = 1
+┌ Warning: MATLAB is unavailable; the optional MATLAB reference cross-checks are disabled
+│   err =
+│    LoadError: ArgumentError: Package MATLAB not found in current path.
+│    - Run `import Pkg; Pkg.add("MATLAB")` to install the MATLAB package.
+│    in expression starting at /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/matlab_bridge.jl:1
+└ @ Main.ComparisonHarness /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/ComparisonHarness.jl:25
+┌ Info: comparison setup
+│   host = "x1000c6s3b1n0"
+│   julia = v"1.13.1"
+│   threads = 8
+│   blas = "/scratch/c_mrrecon/juliaup_depot/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/../lib/julia/libopenblas64_.so"
+│   mkl = false
+└   bart = "/project/c_mrrecon/bart-v1.0.01/openblas/bart"
+┌ Info: comparison precision
+└   ctype = ComplexF32 (alias for Complex{Float32})
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+┌ Info: flushed run
+│   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/runs/20261116-221008-997_openblas_8threads_cg_sense_slurm_job15137010_pid477844.json"
+│   n = 6
+└   source = "slurm"
+--> shepp_logan_2d_8ch_cartesian: CG-SENSE (10 it)
+shepp_logan_2d_8ch_cartesian           | CG-SENSE (10 it)           | Ristretto (OpenBLAS)   |   8 |      26.32 ms |   3.23e-01 |   0.00e+00
+shepp_logan_2d_8ch_cartesian           | CG-SENSE (10 it)           | BART (OpenBLAS)        |   8 |     131.10 ms |   3.23e-01 |   2.37e-04
+shepp_logan_2d_8ch_cartesian           | CG-SENSE (10 it)           | SigPy                  |   8 |      83.91 ms |   3.23e-01 |   2.37e-04
+shepp_logan_2d_8ch_cartesian           | CG-SENSE (10 it)           | MRIReco                |   8 |     491.74 ms |   3.23e-01 |   2.37e-04
+shepp_logan_2d_8ch_cartesian           | CG-SENSE (10 it)           | MIRT                   |   8 |     120.12 ms |   3.23e-01 |   2.37e-04
+shepp_logan_2d_8ch_cartesian           | CG-SENSE (10 it)           | MRpro                  |   8 |      19.74 ms |   3.23e-01 |   2.37e-04
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/image.py:45: DeprecationWarning: Due to '_pack_', the 'ImageHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class ImageHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/waveform.py:10: DeprecationWarning: Due to '_pack_', the 'WaveformHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.
+  class WaveformHeader(FlagsMixin, EqualityMixin, ctypes.Structure):
+┌ Info: Julia threads pinned
+└   CPU_STR = "48,49,50,51,52,53,54,55"
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU name (from build time).
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +invpcid.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +pku.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +shstk.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vaes.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Info: BLAS/FFTW pinned
+│   blas_threads = 8
+│   fftw_threads = 8
+└   mrireco_blas_threads = 1
+┌ Warning: MATLAB is unavailable; the optional MATLAB reference cross-checks are disabled
+│   err =
+│    LoadError: ArgumentError: Package MATLAB not found in current path.
+│    - Run `import Pkg; Pkg.add("MATLAB")` to install the MATLAB package.
+│    in expression starting at /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/matlab_bridge.jl:1
+└ @ Main.ComparisonHarness /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/src/ComparisonHarness.jl:25
+┌ Info: comparison setup
+│   host = "x1000c6s3b1n0"
+│   julia = v"1.13.1"
+│   threads = 8
+│   blas = "/scratch/c_mrrecon/juliaup_depot/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/../lib/julia/libopenblas64_.so"
+│   mkl = false
+└   bart = "/project/c_mrrecon/bart-v1.0.01/openblas/bart"
+┌ Info: comparison precision
+└   ctype = ComplexF32 (alias for Complex{Float32})
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+[ Info: The 3rd dimension is encoded as a Multi-Slice acquisition because keyword enc2D = true
+┌ Info: flushed run
+│   path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/results/runs/20261116-221128-861_openblas_8threads_sparsity_slurm_job15137010_pid479075.json"
+│   n = 5
+└   source = "slurm"
+--> shepp_logan_2d_8ch_cartesian: L1-Wavelet (20 it)
+shepp_logan_2d_8ch_cartesian           | L1-Wavelet (20 it)         | Ristretto (OpenBLAS)   |   8 |      76.29 ms |   1.91e-01 |   0.00e+00
+shepp_logan_2d_8ch_cartesian           | L1-Wavelet (20 it)         | BART (OpenBLAS)        |   8 |     519.59 ms |   1.29e-01 |   1.23e-01
+shepp_logan_2d_8ch_cartesian           | L1-Wavelet (20 it)         | SigPy                  |   8 |     400.32 ms |   2.12e-01 |   1.04e-01
+shepp_logan_2d_8ch_cartesian           | L1-Wavelet (20 it)         | MRIReco                |   8 |     584.57 ms |   1.91e-01 |   1.66e-02
+shepp_logan_2d_8ch_cartesian           | L1-Wavelet (20 it)         | MRpro                  |   8 |     253.83 ms |   1.93e-01 |   1.01e-01
+[ Info: === section cgsense ===
+[ Info: === section sparsity ===

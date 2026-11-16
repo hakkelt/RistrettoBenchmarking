@@ -16,12 +16,12 @@ State on 2026-11-16; every table names its commit and node.
   (Part 2) but not fixed: the fix needs a change to Ristretto's source.
 - **Part 3.** Causes 4(a)-(c) and the knee's 4-thread run are observed, not resolved. The fixes in
   the last table are estimates; none was implemented (Ristretto's source was not to be changed).
-- **Part 4a.** The fork PR is updated (hakkelt/AbstractOperators.jl#50). The Ristretto branch is
-  committed locally but not pushed, and its PR is not open yet. The `:operators`/`:encoding` test
-  items pass on it (31 of 31, login node).
-- **Part 4b.** Not started. Switches known to be missing: `fftshift` instead of sign alternation,
-  and no-Toeplitz (no run-time option found so far).
-- **Part 5.** Not started.
+- **Part 4a.** Done. Fork PRs hakkelt/AbstractOperators.jl#50 (fusion switch) and #61 (odd fftshift);
+  Ristretto PR hakkelt/Ristretto.jl#16, open and not merged.
+- **Part 4b.** Four variants have no switch in Ristretto and were skipped: fftshift instead of sign
+  alternation, no Toeplitz, NFFT library defaults, and BLAS-free (see 4b).
+- **Part 5.** MRpro's L1-wavelet fails at the odd size (255²), a ptwt limitation. The planning
+  check at 512² was run on the login node only, and Ristretto's planning score was not changed.
 - **Part 6.** Waits for the go-ahead.
 - **Part 1, item 9.** The reported POGM/OptISTA failure was not reproduced; only the forms listed
   there were tried.
@@ -400,7 +400,225 @@ the job column says which row came from where.
 
 ### 4b. Ablation
 
+Job 15137089, `cpu` partition, exclusive 128-core node x1000c2s3b0n0 (AMD EPYC 7763), Julia
+1.13.1, OpenBLAS. Ristretto `5faaa2e41` (vendored AbstractOperators tree `317e791e`),
+RistrettoBenchmarking `67ffa90`. Script `benchmark/ablation/ablation.sh`, raw results in
+`benchmark/ablation/results/15137089/`. Each (case, thread count) is one process bound with
+numactl to a NUMA domain of its own (one process per domain at a time), threads pinned to its
+physical cores. All variants of a case run in that one process, each timed with the suite's
+`time_run` (one warm-up, FFTW wisdom dropped before every run, minimum of the timed runs).
+Iterations are the suite defaults: 20 (ADMM for TV and low rank, FISTA for L1-wavelet).
+
+Switches (run-time, in `benchmark/ablation/ablation.jl`):
+- no task splitting: `disable_task_splitting = true`
+- no fusion: `AbstractOperators.POINTWISE_FUSION[] = false` (Part 4a)
+- no inner threading: where the default splits the case into several tasks (only multislice,
+  12 tasks), `task_executor = MultiThreadingExecutor()`: the slices run in parallel, each serial.
+  Where it is one task, `threaded = false`, so nothing threads.
+- FFT planning: `fft_planning = :estimate` / `:measure` (the default is `:auto`, a score per problem)
+
+Missing switches, so these variants were skipped:
+- fftshift instead of sign alternation: a shift next to a DFT is always replaced (sign
+  alternation, or the phase ramp for odd lengths); there is no option to keep it.
+- no Toeplitz: `NFFTOperators.has_optimized_normalop(::NFFTOp)` is fixed to `true`.
+- NFFT library defaults (m=5, σ=2, POLYNOMIAL): `reconstruct` does not forward m/σ/precompute;
+  `get_fourier_operator` takes them, but the defaults are constants.
+- BLAS-free: every iterative solve runs under `with_serial_blas`; only CG takes BLAS threads
+  back (`CG_BLAS_THREAD_BYTES`, Part 3). Nothing switches that off.
+
+**Time of the timed minimum, in seconds unless marked ms, and ratio to the default**
+
+| case | threads | tasks | default | no_task_splitting | no_fusion | no_inner_threading | fft_estimate | fft_measure |
+|---|---|---|---|---|---|---|---|---|
+| multislice TV | 1 | 12 | 3.186 | 2.933 (0.92×) | 3.302 (1.04×) | 3.075 (0.97×) | 3.329 (1.05×) | 2.467 (0.77×) |
+| multislice TV | 8 | 12 | 667.3 ms | 1.045 (1.57×) | 753.7 ms (1.13×) | 646.7 ms (0.97×) | 652.8 ms (0.98×) | 682.0 ms (1.02×) |
+| multislice TV (reltol 1e-3, ≤100 it) | 1 | 12 | 9.026 | 14.079 (1.56×) | 9.755 (1.08×) | 9.030 (1.00×) | 12.819 (1.42×) | 8.891 (0.98×) |
+| multislice TV (reltol 1e-3, ≤100 it) | 8 | 12 | 2.234 | 4.627 (2.07×) | 2.898 (1.30×) | 2.249 (1.01×) | 2.910 (1.30×) | 2.297 (1.03×) |
+| 2D radial TV | 1 | 1 | 1.709 | 1.663 (0.97×) | 1.669 (0.98×) | 1.680 (0.98×) | 5.750 (3.36×) | 1.612 (0.94×) |
+| 2D radial TV | 8 | 1 | 973.0 ms | 972.9 ms (1.00×) | 975.1 ms (1.00×) | 1.729 (1.78×) | 852.2 ms (0.88×) | 988.2 ms (1.02×) |
+| 3D TV | 1 | 1 | 44.395 | 41.767 (0.94×) | 49.875 (1.12×) | 41.194 (0.93×) | 75.529 (1.70×) | 40.729 (0.92×) |
+| 3D TV | 8 | 1 | 20.974 | 21.022 (1.00×) | 28.922 (1.38×) | 40.375 (1.92×) | 22.574 (1.08×) | 21.085 (1.01×) |
+| Cartesian cine low rank | 1 | 1 | 8.100 | 8.153 (1.01×) | 8.100 (1.00×) | 7.974 (0.98×) | 11.316 (1.40×) | 8.018 (0.99×) |
+| Cartesian cine low rank | 8 | 1 | 3.499 | 3.425 (0.98×) | 3.420 (0.98×) | 7.960 (2.28×) | 3.410 (0.97×) | 3.220 (0.92×) |
+| radial cine low rank | 1 | 1 | 28.835 | 29.445 (1.02×) | 29.317 (1.02×) | 26.246 (0.91×) | 167.387 (5.81×) | 25.824 (0.90×) |
+| radial cine low rank | 8 | 1 | 6.444 | 6.454 (1.00×) | 6.417 (1.00×) | 28.330 (4.40×) | 26.269 (4.08×) | 6.385 (0.99×) |
+| 2D 8-coil L1-wavelet | 1 | 1 | 78.5 ms | 77.3 ms (0.98×) | 79.1 ms (1.01×) | 68.2 ms (0.87×) | 67.9 ms (0.87×) | 294.8 ms (3.76×) |
+| 2D 8-coil L1-wavelet | 8 | 1 | 53.4 ms | 53.6 ms (1.00×) | 53.0 ms (0.99×) | 76.6 ms (1.44×) | 53.2 ms (1.00×) | 284.4 ms (5.33×) |
+
+**NRMSE.** Every variant reaches the default's NRMSE against the truth to 4 digits, except no task splitting on
+multislice. Columns: the default's NRMSE against the truth, then the largest NRMSE between any variant's image and the
+default's image, with the variant that gives it.
+
+| case | threads | NRMSE vs truth (default) | largest NRMSE vs default, and variant |
+|---|---|---|---|
+| multislice TV | 1 | 0.0738 | 4.9e-03 (no_task_splitting) |
+| multislice TV | 8 | 0.0738 | 4.9e-03 (no_task_splitting) |
+| multislice TV tol | 1 | 0.0748 | 5.0e-03 (no_task_splitting) |
+| multislice TV tol | 8 | 0.0748 | 5.0e-03 (no_task_splitting) |
+| 2D radial TV | 1 | 0.0349 | 3.8e-06 (fft_estimate) |
+| 2D radial TV | 8 | 0.0349 | 3.8e-06 (fft_estimate) |
+| 3D TV | 1 | 0.1575 | 4.3e-07 (no_fusion) |
+| 3D TV | 8 | 0.1575 | 4.7e-07 (fft_estimate) |
+| Cartesian cine low rank | 1 | 0.1506 | 1.4e-05 (fft_estimate) |
+| Cartesian cine low rank | 8 | 0.1506 | 1.4e-05 (fft_measure) |
+| radial cine low rank | 1 | 0.1070 | 3.8e-04 (no_fusion) |
+| radial cine low rank | 8 | 0.1070 | 1.3e-04 (fft_estimate) |
+| 2D 8-coil L1-wavelet | 1 | 0.2784 | 1.3e-06 (fft_measure) |
+| 2D 8-coil L1-wavelet | 8 | 0.2784 | 1.3e-06 (fft_measure) |
+
+**Precompile workload.** Each run is a fresh process (`benchmark/ablation/first_solve.jl`, same node and job).
+`precompile_workload = false` was set in a copy of the environment, compiled into a depot of its own. Load is
+`using Ristretto` plus the harness. First solve includes compilation. Second solve is shown as workload / none.
+
+| case | threads | load, workload (s) | load, none (s) | first solve, workload (s) | first solve, none (s) | second solve (s) |
+|---|---|---|---|---|---|---|
+| multislice TV | 1 | 4.71 | 3.22 | 17.4 | 28.3 | 3.45 / 3.37 |
+| multislice TV | 8 | 4.66 | 3.18 | 9.8 | 17.4 | 0.69 / 0.78 |
+| 2D radial TV | 1 | 4.69 | 3.18 | 5.4 | 20.7 | 0.87 / 0.81 |
+| 2D radial TV | 8 | 4.57 | 3.16 | 12.9 | 23.5 | 0.22 / 0.21 |
+| 3D TV | 1 | 4.31 | 3.22 | 59.2 | 64.1 | 42.31 / 40.46 |
+| 3D TV | 8 | 4.24 | 2.86 | 37.9 | 44.9 | 18.43 / 18.64 |
+| Cartesian cine low rank | 1 | 4.36 | 2.97 | 18.7 | 34.4 | 7.20 / 7.11 |
+| Cartesian cine low rank | 8 | 4.21 | 2.96 | 17.5 | 28.1 | 2.95 / 2.98 |
+| radial cine low rank | 1 | 4.71 | 3.18 | 35.9 | 48.7 | 25.24 / 25.62 |
+| radial cine low rank | 8 | 4.23 | 3.22 | 21.0 | 32.7 | 5.31 / 4.88 |
+| 2D 8-coil L1-wavelet | 1 | 4.29 | 2.91 | 9.1 | 20.3 | 0.10 / 0.08 |
+| 2D 8-coil L1-wavelet | 8 | 4.42 | 2.88 | 13.6 | 20.7 | 0.08 / 0.16 |
+
+Findings:
+- **Task splitting** pays most with a stopping tolerance: each slice stops on its own. Joint
+  multislice with `reltol = 1e-3` is 1.56× slower at 1 thread and 2.07× at 8 threads. Without
+  a tolerance it is 0.92× at 1 thread (the joint solve is slightly faster) and 1.57× at 8 threads.
+  The joint solve is a different problem: one step size and one stopping test for all slices.
+  Its image differs from the default's by NRMSE 5e-3.
+- **Fusion** matters for the 3D TV case (1.12× at 1 thread, 1.38× at 8 threads) and the
+  multislice case at 8 threads (1.13×, 1.30× with the tolerance). It does not matter for the
+  radial and cine cases, whose time is in the NFFT or the SVD.
+- **Inner threading.** At 8 threads, single-task cases lose 1.4-4.4× when serial, as expected.
+  In multislice, running the 12 slices in parallel with each serial is as fast as the default
+  (0.97-1.01×), so the inner threading adds nothing there.
+- **FFT planning.** `:estimate` is 3.4× slower on 2D radial TV and 5.8× slower on radial cine at 1 thread.
+  It is 4.1× slower on radial cine at 8 threads, and 1.4-1.7× slower on 3D TV, Cartesian cine and multislice with a tolerance.
+  `:measure` costs 3.8-5.3× on the 2D L1-wavelet case, a 50-80 ms solve that its planning
+  dominates. The automatic choice is right in most rows, but not on multislice at 1 thread:
+  there `:measure` is 0.77× the default (2.47 s against 3.19 s), so the score picked ESTIMATE on
+  128² slices where MEASURE pays. The same happens at 512² in Part 5.
+- **Precompile workload.** It makes `using` 1.1-1.5 s slower (4.2-4.7 s against 2.9-3.2 s). It saves 5-16 s
+  of the first solve: 1-thread first solves drop by 8-74%. At 8 threads it saves less in the 2D cases (2D radial TV
+  12.9 s with the workload, 5.4 s at 1 thread), because the workload is compiled single-threaded and
+  the threaded code paths (the coil-fused operator behind `Threads.nthreads() > 1`) are not in it. This is the
+  same cause as the JuliaC finding in Part 2.
+- **Noise.** On the 2D L1-wavelet case at 1 thread, `threaded = false` (identical work at
+  1 thread) and `:estimate` were 13% below the default. Differences under about 10% in rows
+  under 100 ms are within run-to-run noise.
+
 ## Part 5. Problem size and memory
+
+Job 15137010, `cpu` partition, exclusive 128-core node x1000c6s3b1n0 (AMD EPYC 7763), Julia
+1.13.1, OpenBLAS. Ristretto `5faaa2e41`, RistrettoBenchmarking `67ffa90` (scripts unchanged
+since `c57e279`). Toolboxes as in the Part 6 table: BART v1.0.01 (OpenBLAS build), MRIReco 0.9.2, SigPy 0.1.27,
+MRpro 0.261015 with torch 2.15.0+cpu, and MIRT 0.18.3. Script `benchmark/sizes/part5.sh`, raw results in
+`benchmark/sizes/results/15137010/` (the suite's run files under `runs/`).
+
+Case `shepp_logan_2d_8ch_cartesian` at n² for n = 96, 128, 192, 255, 256, 320, 384, 512
+(`RISTRETTO_BENCH_N`; 255 is the odd size). The ACS width, undersampling and coil maps scale
+with n. Steps:
+1. The L1-wavelet λ is calibrated per toolbox and size (`results/lambda_n<n>/`, 30 iterations,
+   half-decade grid). CG-SENSE has no λ.
+2. Each size is timed by the comparison suite at 1 and 8 threads, one process per NUMA domain,
+   with the usual protocol (one warm-up, wisdom dropped, minimum).
+3. BART is timed a second time with MEASURE planning (`BART_USE_FFTW_WISDOM=1` with the
+   wisdom directory emptied before every run, so planning is in the time as for the others).
+4. Peak RSS (`/usr/bin/time` maximum resident set size) is measured for one fresh process per toolbox, method and
+   size at 8 threads. The process loads, sets up, solves once and solves again; the startup benchmark's solve scripts
+   (`benchmark/sizes/peak_memory.jl`) are used.
+
+**CG-SENSE (10 it), time in ms**
+
+| toolbox | threads | 96² | 128² | 192² | 255² | 256² | 320² | 384² | 512² |
+|---|---|---|---|---|---|---|---|---|---|
+| Ristretto | 1 | 12.7 | 18.4 | 78.0 | 230 | 312 | 184 | 477 | 2229 |
+| Ristretto | 8 | 8.2 | 10.3 | 26.3 | 63.8 | 83.5 | 54.5 | 114 | 439 |
+| BART | 1 | 21.1 | 31.3 | 115 | 214 | 371 | 281 | 591 | 2302 |
+| BART | 8 | 51.3 | 83.6 | 131 | 197 | 217 | 208 | 281 | 607 |
+| BART (MEASURE) | 1 | 333 | 280 | 565 | 266 | 472 | 853 | 1048 | 1125 |
+| BART (MEASURE) | 8 | 422 | 355 | 650 | 338 | 530 | 846 | 958 | 874 |
+| MRIReco | 1 | 304 | 247 | 500 | 328 | 411 | 747 | 950 | 1188 |
+| MRIReco | 8 | 301 | 236 | 492 | 145 | 372 | 680 | 775 | 734 |
+| SigPy | 1 | 22.8 | 40.5 | 86.1 | 180 | 164 | 247 | 382 | 930 |
+| SigPy | 8 | 22.8 | 41.7 | 83.9 | 167 | 145 | 239 | 439 | 1069 |
+| MRpro | 1 | 12.9 | 21.2 | 42.7 | 168 | 95.1 | 144 | 240 | 642 |
+| MRpro | 8 | 9.9 | 10.5 | 19.7 | 50.3 | 45.0 | 53.5 | 127 | 338 |
+| MIRT | 1 | 21.3 | 34.3 | 116 | 278 | 361 | 294 | 575 | 2458 |
+| MIRT | 8 | 42.1 | 28.7 | 120 | 150 | 160 | 194 | 405 | 776 |
+
+**L1-wavelet (20 it), time in ms**
+
+| toolbox | threads | 96² | 128² | 192² | 255² | 256² | 320² | 384² | 512² |
+|---|---|---|---|---|---|---|---|---|---|
+| Ristretto | 1 | 42.7 | 68.5 | 260 | 735 | 618 | 992 | 1276 | 2118 |
+| Ristretto | 8 | 36.7 | 57.0 | 76.3 | 224 | 270 | 249 | 427 | 1271 |
+| BART | 1 | 93.9 | 149 | 488 | 961 | 1662 | 1345 | 2758 | 10208 |
+| BART | 8 | 138 | 191 | 520 | 876 | 943 | 934 | 1176 | 2647 |
+| BART (MEASURE) | 1 | 383 | 351 | 807 | 1027 | 930 | 1567 | 2120 | 3280 |
+| BART (MEASURE) | 8 | 461 | 465 | 823 | 946 | 854 | 1468 | 1539 | 1933 |
+| MRIReco | 1 | 345 | 327 | 666 | 915 | 738 | 1289 | 1776 | 2435 |
+| MRIReco | 8 | 329 | 291 | 585 | 253 | 567 | 978 | 1256 | 1776 |
+| SigPy | 1 | 123 | 210 | 419 | 801 | 735 | 1131 | 1876 | 4654 |
+| SigPy | 8 | 122 | 200 | 400 | 862 | 1019 | 1152 | 2030 | 5313 |
+| MRpro | 1 | 159 | 269 | 594 | error | 1028 | 1318 | 1968 | 3717 |
+| MRpro | 8 | 131 | 191 | 254 | error | 409 | 618 | 967 | 1790 |
+
+**L1-wavelet NRMSE against the truth (20 it, λ calibrated per toolbox and size)**
+
+| toolbox | 96² | 128² | 192² | 255² | 256² | 320² | 384² | 512² |
+|---|---|---|---|---|---|---|---|---|
+| Ristretto | 0.297 | 0.278 | 0.191 | 0.170 | 0.169 | 0.140 | 0.125 | 0.108 |
+| BART | 0.332 | 0.328 | 0.129 | 0.179 | 0.181 | 0.154 | 0.092 | 0.073 |
+| MRIReco | 0.310 | 0.287 | 0.191 | 0.127 | 0.163 | 0.129 | 0.106 | 0.081 |
+| SigPy | 0.305 | 0.266 | 0.212 | 0.155 | 0.155 | 0.128 | 0.110 | 0.093 |
+| MRpro | 0.296 | 0.283 | 0.193 | error | 0.151 | 0.122 | 0.101 | 0.081 |
+
+**Peak RSS in MB, fresh process, 8 threads (CG-SENSE / L1-wavelet)**
+
+| toolbox | 96² | 128² | 192² | 255² | 256² | 320² | 384² | 512² |
+|---|---|---|---|---|---|---|---|---|
+| Ristretto | 765 / 739 | 782 / 817 | 798 / 781 | 825 / 903 | 821 / 874 | 885 / 901 | 893 / 912 | 962 / 1046 |
+| BART | 25 / 25 | 13 / 14 | 35 / 37 | 70 / 67 | 74 / 72 | 61 / 61 | 99 / 96 | 142 / 141 |
+| MRIReco | 850 / 755 | 831 / 795 | 892 / 838 | 935 / 963 | 900 / 932 | 991 / 1033 | 1017 / 1164 | 1226 / 1322 |
+| SigPy | 298 / 334 | 297 / 340 | 308 / 352 | 324 / 365 | 322 / 367 | 339 / 389 | 361 / 413 | 418 / 481 |
+| MRpro | 360 / 369 | 373 / 383 | 398 / 410 | 451 / error | 452 / 450 | 485 / 510 | 534 / 577 | 508 / 693 |
+
+Findings:
+- **Odd size.** MRpro's L1-wavelet fails at 255²: `NotImplementedError: ptwt only supports
+  wavelet transforms for tensors with even number of entries for all considered dimensions`.
+  Every other toolbox runs it. CG-SENSE NRMSE agrees across all toolboxes to 3 digits at every size.
+- **Power-of-two sizes under FFTW ESTIMATE.** In the FFTW-based toolboxes, 256² is slower than 320² at 1 thread
+  (Ristretto 312 ms against 184 ms, BART 371 against 281, MIRT 361 against 294). 512² is 4-5× slower than 384²
+  for 1.8× the pixels. This is FFTW's ESTIMATE plan. A bare 256²×8 FFT (login node, 1 thread) takes 17.1 ms with
+  ESTIMATE against 1.9 ms with MEASURE; 320² takes 7.2 ms against 3.3 ms, and 512² 140 ms with ESTIMATE. BART with
+  MEASURE does not show the step: 472 ms at 256² against 853 ms at 320².
+- **Ristretto's automatic planning at 512².** Ristretto's `:auto` scores MEASURE at −0.38 for
+  CG-SENSE at 512² (−0.68 at 256², −2.9 to −3.2 when threaded) and picks ESTIMATE. A login-node check at
+  1 thread, `threaded = false`, wisdom dropped, gave 3.18 s with `:auto`, 3.26 s with `:estimate` and 1.14 s
+  with `:measure`, planning included. On this case the score is too low for large power-of-two grids. The
+  ablation's multislice row (128² slices) shows the same thing. The score is not changed on this branch.
+- **Scaling, CG-SENSE.** Ristretto and MRpro are the two fastest. Up to 128², the two are level at both thread counts.
+  Above that MRpro is faster: at 1 thread by 1.3-3.5× (3.3× at 256², 3.5× at 512²), and at 8 threads by
+  1.0-1.9×, except at 384², where Ristretto is 1.1× faster. The worst rows are the power-of-two
+  sizes, where Ristretto plans with ESTIMATE (above). MRpro's FFT is torch's, not FFTW.
+- **Scaling, L1-wavelet.** Ristretto is the fastest at every size and both thread counts: 1.1-2.2× ahead of the
+  next toolbox at 1 thread, and 1.1-3.4× ahead at 8 threads.
+- **Thread scaling of the others.** SigPy does not scale with threads on the CPU, and MRIReco's CG-SENSE barely
+  does. MRIReco plans FFTW with MEASURE in every run (Part 2), which explains its flat 230-300 ms floor at small
+  sizes.
+- **Wavelet NRMSE** varies by up to a factor of 1.5 between toolboxes at large sizes (512²:
+  0.073 BART to 0.108 Ristretto). Each toolbox's λ is the best of a half-decade grid at 30 iterations, and the timed
+  rows run 20, so these are not converged-accuracy comparisons. In the 30-iteration sweep at 512², Ristretto
+  reaches 0.070 (BART 0.047, MRIReco 0.066, MRpro 0.066).
+- **Peak RSS** is dominated by the runtime. A Julia process (Ristretto, MRIReco) uses 0.74-0.85 GB at 96²; the
+  Python processes use 0.30-0.37 GB and BART 25 MB. From 96² to 512², Ristretto grows by about 0.2-0.3 GB,
+  MRIReco by 0.4-0.6 GB, SigPy by 0.12-0.15 GB, MRpro by 0.15-0.32 GB and BART by about 0.12 GB.
 
 ## Part 6. Consistent rerun
 

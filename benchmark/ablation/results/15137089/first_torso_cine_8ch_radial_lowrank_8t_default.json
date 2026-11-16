@@ -1,0 +1,18 @@
+{
+  "case": "torso_cine_8ch_radial",
+  "date": "2026-11-16T22:24:00.220",
+  "depot": [
+    "/scratch/c_mrrecon/julia_depot"
+  ],
+  "first_solve_s": 21.012002923,
+  "host": "x1000c2s3b0n0",
+  "load_s": 4.227088541,
+  "method": "lowrank",
+  "nrmse_gt": 0.10697889,
+  "precompile_workload": true,
+  "process_s": 43.960108041763306,
+  "project": "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/Project.toml",
+  "second_solve_s": 5.314421774,
+  "slurm_job": "15137089",
+  "threads": 8
+}

@@ -1,0 +1,102 @@
+{
+  "coils": 8,
+  "date": "2026-11-16T22:19:04.852",
+  "host": "x1000c6s3b1n0",
+  "numactl": "policy: bind\npreferred node: 7\nphyscpubind: 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 \ncpubind: 7 \nnodebind: 7 \nmembind: 7 \npreferred: 7 \n",
+  "nx": 255,
+  "ny": 255,
+  "rows": [
+    {
+      "error": null,
+      "max_rss_mb": 825.1875,
+      "method": "cgsense",
+      "nrmse": 0.23678577,
+      "status": "ok",
+      "toolkit": "Ristretto",
+      "wall_s": 15.58
+    },
+    {
+      "error": null,
+      "max_rss_mb": 902.765625,
+      "method": "wavelet",
+      "nrmse": 0.1543813,
+      "status": "ok",
+      "toolkit": "Ristretto",
+      "wall_s": 18.98
+    },
+    {
+      "error": null,
+      "max_rss_mb": 69.98046875,
+      "method": "cgsense",
+      "nrmse": null,
+      "status": "ok",
+      "toolkit": "BART",
+      "wall_s": 0.08
+    },
+    {
+      "error": null,
+      "max_rss_mb": 67.3125,
+      "method": "wavelet",
+      "nrmse": null,
+      "status": "ok",
+      "toolkit": "BART",
+      "wall_s": 0.31
+    },
+    {
+      "error": null,
+      "max_rss_mb": 934.5390625,
+      "method": "cgsense",
+      "nrmse": 0.23677539283410962,
+      "status": "ok",
+      "toolkit": "MRIReco",
+      "wall_s": 20.05
+    },
+    {
+      "error": null,
+      "max_rss_mb": 963.09765625,
+      "method": "wavelet",
+      "nrmse": 0.11780774397228164,
+      "status": "ok",
+      "toolkit": "MRIReco",
+      "wall_s": 21.03
+    },
+    {
+      "error": null,
+      "max_rss_mb": 324.2109375,
+      "method": "cgsense",
+      "nrmse": 0.23677532374858856,
+      "status": "ok",
+      "toolkit": "SigPy",
+      "wall_s": 2.81
+    },
+    {
+      "error": null,
+      "max_rss_mb": 364.875,
+      "method": "wavelet",
+      "nrmse": 0.1508743315935135,
+      "status": "ok",
+      "toolkit": "SigPy",
+      "wall_s": 4.83
+    },
+    {
+      "error": null,
+      "max_rss_mb": 451.05078125,
+      "method": "cgsense",
+      "nrmse": 0.23677529394626617,
+      "status": "ok",
+      "toolkit": "MRpro",
+      "wall_s": 3.56
+    },
+    {
+      "error": "/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/image.py:45: DeprecationWarning: Due to '_pack_', the 'ImageHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.\n  class ImageHeader(FlagsMixin, EqualityMixin, ctypes.Structure):\n/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/ismrmrd/waveform.py:10: DeprecationWarning: Due to '_pack_', the 'WaveformHeader' Structure will use memory layout compatible with MSVC (Windows). If this is intended, set _layout_ to 'ms'. The implicit default is deprecated and slated to become an error in Python 3.19.\n  class WaveformHeader(FlagsMixin, EqualityMixin, ctypes.Structure):\nTraceback (most recent call last):\n  File \"/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/startup/solve_mrpro.py\", line 46, in <module>\n    measure(np, solve, t_import, t_setup, ref)\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/startup/child_common.py\", line 40, in measure\n    x = solve()\n  File \"/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/startup/solve_mrpro.py\", line 38, in solve\n    W = WaveletOp(domain_shape=tuple(b.shape[-2:]), dim=(-2, -1), wavelet_name=WAVELET_NAME, level=WAVELET_LEVELS)\n  File \"/project/c_mrrecon/venvs/py314-paper/lib/python3.14/site-packages/mrpro/operators/WaveletOp.py\", line 103, in __init__\n    raise NotImplementedError(\n    ...<2 lines>...\n    )\nNotImplementedError: ptwt only supports wavelet transforms for tensors with even number of entries for all considered dimensions.\n",
+      "max_rss_mb": 400.52734375,
+      "method": "wavelet",
+      "nrmse": null,
+      "status": "error",
+      "toolkit": "MRpro",
+      "wall_s": 3.55
+    }
+  ],
+  "slurm_job": "15137010",
+  "threads": 8
+}

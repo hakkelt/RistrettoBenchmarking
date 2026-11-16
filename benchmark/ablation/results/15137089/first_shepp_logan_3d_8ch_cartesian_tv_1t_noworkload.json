@@ -1,0 +1,19 @@
+{
+  "case": "shepp_logan_3d_8ch_cartesian",
+  "date": "2026-11-16T22:24:10.126",
+  "depot": [
+    "/project/c_mrrecon/paper-measurements/depot-noworkload",
+    "/scratch/c_mrrecon/julia_depot"
+  ],
+  "first_solve_s": 64.107792792,
+  "host": "x1000c2s3b0n0",
+  "load_s": 3.217424876,
+  "method": "tv",
+  "nrmse_gt": 0.15752731,
+  "precompile_workload": false,
+  "process_s": 128.69309902191162,
+  "project": "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison_noworkload/Project.toml",
+  "second_solve_s": 40.45903383,
+  "slurm_job": "15137089",
+  "threads": 1
+}

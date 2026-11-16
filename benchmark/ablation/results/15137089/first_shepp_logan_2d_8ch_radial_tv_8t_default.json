@@ -1,0 +1,18 @@
+{
+  "case": "shepp_logan_2d_8ch_radial",
+  "date": "2026-11-16T22:21:59.227",
+  "depot": [
+    "/scratch/c_mrrecon/julia_depot"
+  ],
+  "first_solve_s": 12.868937356,
+  "host": "x1000c2s3b0n0",
+  "load_s": 4.574864346,
+  "method": "tv",
+  "nrmse_gt": 0.034874454,
+  "precompile_workload": true,
+  "process_s": 27.978291988372803,
+  "project": "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/Project.toml",
+  "second_solve_s": 0.216952742,
+  "slurm_job": "15137089",
+  "threads": 8
+}

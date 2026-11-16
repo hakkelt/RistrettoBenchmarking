@@ -1,0 +1,80 @@
+┌ Info: Ristretto
+│   m = "cgsense"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "Ristretto"
+│      "method"  => "cgsense"
+│      "wall_s"  => 16.69
+└      ⋮         => ⋮
+┌ Info: Ristretto
+│   m = "wavelet"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "Ristretto"
+│      "method"  => "wavelet"
+│      "wall_s"  => 20.15
+└      ⋮         => ⋮
+┌ Info: BART
+│   m = "cgsense"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "BART"
+│      "method"  => "cgsense"
+│      "wall_s"  => 0.07
+└      ⋮         => ⋮
+┌ Info: BART
+│   m = "wavelet"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "BART"
+│      "method"  => "wavelet"
+│      "wall_s"  => 0.26
+└      ⋮         => ⋮
+┌ Info: MRIReco
+│   m = "cgsense"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "MRIReco"
+│      "method"  => "cgsense"
+│      "wall_s"  => 20.09
+└      ⋮         => ⋮
+┌ Info: MRIReco
+│   m = "wavelet"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "MRIReco"
+│      "method"  => "wavelet"
+│      "wall_s"  => 21.33
+└      ⋮         => ⋮
+┌ Info: SigPy
+│   m = "cgsense"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "SigPy"
+│      "method"  => "cgsense"
+│      "wall_s"  => 2.59
+└      ⋮         => ⋮
+┌ Info: SigPy
+│   m = "wavelet"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "SigPy"
+│      "method"  => "wavelet"
+│      "wall_s"  => 3.78
+└      ⋮         => ⋮
+┌ Info: MRpro
+│   m = "cgsense"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "MRpro"
+│      "method"  => "cgsense"
+│      "wall_s"  => 3.54
+└      ⋮         => ⋮
+┌ Info: MRpro
+│   m = "wavelet"
+│   rows[var"end"] =
+│    Dict{String, Any} with 7 entries:
+│      "toolkit" => "MRpro"
+│      "method"  => "wavelet"
+│      "wall_s"  => 3.94
+└      ⋮         => ⋮

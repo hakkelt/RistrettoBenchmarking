@@ -1,0 +1,64 @@
+{
+  "backend": "openblas",
+  "bart_binary": "/project/c_mrrecon/bart-v1.0.01/openblas/bart",
+  "benchmarks": [
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "Sparsity",
+      "data_source": "synthetic",
+      "framework": "Ristretto (OpenBLAS)",
+      "method": "L1-Wavelet (20 it)",
+      "nrmse_gt": 0.27839428186416626,
+      "nrmse_ristretto": 0.0,
+      "threads": 8,
+      "time_ms": 60.306818
+    },
+    {
+      "case_id": "shepp_logan_2d_8ch_cartesian",
+      "category": "Sparsity",
+      "data_source": "synthetic",
+      "framework": "BART (OpenBLAS, MEASURE)",
+      "method": "L1-Wavelet (20 it)",
+      "nrmse_gt": 0.32811352610588074,
+      "nrmse_ristretto": 0.142519012093544,
+      "threads": 8,
+      "time_ms": 465.006
+    }
+  ],
+  "blas_vendor": "/scratch/c_mrrecon/juliaup_depot/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/../lib/julia/libopenblas64_.so",
+  "cases_filter": [
+    "shepp_logan_2d_8ch_cartesian"
+  ],
+  "cine_frames": 30,
+  "cpu_model": "AMD EPYC 7763 64-Core Processor",
+  "cpu_threads": 128,
+  "data": "synthetic",
+  "device": "cpu",
+  "frameworks_filter": [
+    "bart"
+  ],
+  "gpu": null,
+  "hostname": "x1000c6s3b1n0",
+  "image_n": 128,
+  "julia_threads": 8,
+  "julia_version": "1.13.1",
+  "pinned_cpus": "112,113,114,115,116,117,118,119",
+  "placement": "isolated",
+  "run_id": "20261116-220851-666_openblas_8threads_sparsity_slurm_job15137010_pid477014",
+  "schema_version": 2,
+  "section": "sparsity",
+  "small": false,
+  "source": "slurm",
+  "threads": 8,
+  "toolkit_versions": {
+    "BART": "v1.0.01",
+    "MIRT": "0.18.3",
+    "MRIReco": "0.9.2",
+    "MRpro": "0.261015",
+    "PyTorch": "2.15.0+cpu",
+    "Ristretto": "0.1.0 (5faaa2e)",
+    "SigPy": "0.1.27"
+  },
+  "ts": "20261116-220851-666",
+  "use_mkl": false
+}

@@ -1,0 +1,18 @@
+{
+  "case": "shepp_logan_multislice_8ch_cartesian",
+  "date": "2026-11-16T22:22:08.390",
+  "depot": [
+    "/scratch/c_mrrecon/julia_depot"
+  ],
+  "first_solve_s": 17.358871864,
+  "host": "x1000c2s3b0n0",
+  "load_s": 4.705251813,
+  "method": "tv",
+  "nrmse_gt": 0.073790155,
+  "precompile_workload": true,
+  "process_s": 36.94279885292053,
+  "project": "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/benchmark/comparison/Project.toml",
+  "second_solve_s": 3.450685041,
+  "slurm_job": "15137089",
+  "threads": 1
+}
