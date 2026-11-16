@@ -22,7 +22,9 @@ State on 2026-11-16; every table names its commit and node.
   alternation, no Toeplitz, NFFT library defaults, and BLAS-free (see 4b).
 - **Part 5.** MRpro's L1-wavelet fails at the odd size (255²), a ptwt limitation. The planning
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
-- **Part 6.** Waits for the go-ahead.
+- **Part 6.** Not run yet; it is the next step. The 128² L1-wavelet recalibration in Part 5 (new toolbox versions)
+  puts every toolbox's λ within one half-decade grid step of the stored refined values (BART and Ristretto equal).
+  So the stored λ are kept and not recalibrated.
 - **Part 1, item 9.** The reported POGM/OptISTA failure was not reproduced; only the forms listed
   there were tried.
 - **Part 1, item 10.** The printed snippet is derived from the measured call, not run on its own.
@@ -407,7 +409,11 @@ RistrettoBenchmarking `67ffa90`. Script `benchmark/ablation/ablation.sh`, raw re
 numactl to a NUMA domain of its own (one process per domain at a time), threads pinned to its
 physical cores. All variants of a case run in that one process, each timed with the suite's
 `time_run` (one warm-up, FFTW wisdom dropped before every run, minimum of the timed runs).
-Iterations are the suite defaults: 20 (ADMM for TV and low rank, FISTA for L1-wavelet).
+Iterations are the suite defaults: 20 (ADMM for TV and low rank, FISTA for L1-wavelet). λ and ρ are the
+catalogue defaults (`default_lambda`, `admm_rho`), as in Ristretto's own harness, not the per-toolbox
+calibrated values of the comparison tables. For TV the default λ is about 30× the calibrated one
+(0.0164 against 5.4e-4), so the "NRMSE vs truth" column does not match the comparison rows. The ratios
+and the NRMSE against the default variant are unaffected.
 
 Switches (run-time, in `benchmark/ablation/ablation.jl`):
 - no task splitting: `disable_task_splitting = true`
@@ -421,8 +427,11 @@ Missing switches, so these variants were skipped:
 - fftshift instead of sign alternation: a shift next to a DFT is always replaced (sign
   alternation, or the phase ramp for odd lengths); there is no option to keep it.
 - no Toeplitz: `NFFTOperators.has_optimized_normalop(::NFFTOp)` is fixed to `true`.
-- NFFT library defaults (m=5, σ=2, POLYNOMIAL): `reconstruct` does not forward m/σ/precompute;
-  `get_fourier_operator` takes them, but the defaults are constants.
+- NFFT library defaults (m=5, σ=2, POLYNOMIAL): `get_encoding_operator` takes `m`/`sigma`/`precompute`.
+  The suite uses this to time the gridding row at MRIReco's operating point. `reconstruct`'s own path
+  (`build_encoding_operator` and `model_encoding_operator`) does not pass them on, and the defaults are
+  constants (`DEFAULT_NFFT_M` and friends). So no keyword or configuration field reaches them in an
+  iterative solve. Only redefining a method in the process would, and that was not done.
 - BLAS-free: every iterative solve runs under `with_serial_blas`; only CG takes BLAS threads
   back (`CG_BLAS_THREAD_BYTES`, Part 3). Nothing switches that off.
 
@@ -501,13 +510,14 @@ Findings:
   It is 4.1× slower on radial cine at 8 threads, and 1.4-1.7× slower on 3D TV, Cartesian cine and multislice with a tolerance.
   `:measure` costs 3.8-5.3× on the 2D L1-wavelet case, a 50-80 ms solve that its planning
   dominates. The automatic choice is right in most rows, but not on multislice at 1 thread:
-  there `:measure` is 0.77× the default (2.47 s against 3.19 s), so the score picked ESTIMATE on
-  128² slices where MEASURE pays. The same happens at 512² in Part 5.
+  there `:measure` is 0.77× the default (2.47 s against 3.19 s). This was not traced. The score of
+  the whole acquisition at 1 thread favors MEASURE (+2.4, login node), but the score of each
+  12-way split task was not checked. At 512² in Part 5 the score does pick ESTIMATE where MEASURE pays.
 - **Precompile workload.** It makes `using` 1.1-1.5 s slower (4.2-4.7 s against 2.9-3.2 s). It saves 5-16 s
   of the first solve: 1-thread first solves drop by 8-74%. At 8 threads it saves less in the 2D cases (2D radial TV
   12.9 s with the workload, 5.4 s at 1 thread), because the workload is compiled single-threaded and
-  the threaded code paths (the coil-fused operator behind `Threads.nthreads() > 1`) are not in it. This is the
-  same cause as the JuliaC finding in Part 2.
+  the threaded code paths (the coil-fused operator behind `Threads.nthreads() > 1`) are likely
+  not in it. This is the cause found for JuliaC in Part 2; it was not traced here.
 - **Noise.** On the 2D L1-wavelet case at 1 thread, `threaded = false` (identical work at
   1 thread) and `:estimate` were 13% below the default. Differences under about 10% in rows
   under 100 ms are within run-to-run noise.
@@ -515,8 +525,8 @@ Findings:
 ## Part 5. Problem size and memory
 
 Job 15137010, `cpu` partition, exclusive 128-core node x1000c6s3b1n0 (AMD EPYC 7763), Julia
-1.13.1, OpenBLAS. Ristretto `5faaa2e41`, RistrettoBenchmarking `67ffa90` (scripts unchanged
-since `c57e279`). Toolboxes as in the Part 6 table: BART v1.0.01 (OpenBLAS build), MRIReco 0.9.2, SigPy 0.1.27,
+1.13.1, OpenBLAS. Ristretto `5faaa2e41`. RistrettoBenchmarking `c57e279`: the job started on it, and the λ files
+record it. `67ffa90`, committed while the job ran, changes only `first_solve.jl`, which Part 5 does not run. Toolboxes as in the Part 6 table: BART v1.0.01 (OpenBLAS build), MRIReco 0.9.2, SigPy 0.1.27,
 MRpro 0.261015 with torch 2.15.0+cpu, and MIRT 0.18.3. Script `benchmark/sizes/part5.sh`, raw results in
 `benchmark/sizes/results/15137010/` (the suite's run files under `runs/`).
 
@@ -531,7 +541,8 @@ with n. Steps:
    wisdom directory emptied before every run, so planning is in the time as for the others).
 4. Peak RSS (`/usr/bin/time` maximum resident set size) is measured for one fresh process per toolbox, method and
    size at 8 threads. The process loads, sets up, solves once and solves again; the startup benchmark's solve scripts
-   (`benchmark/sizes/peak_memory.jl`) are used.
+   (`benchmark/sizes/peak_memory.jl`) are used. BART's `pics` is one process per solve, so its row is a
+   single solve.
 
 **CG-SENSE (10 it), time in ms**
 
