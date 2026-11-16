@@ -20,5 +20,13 @@ set -euo pipefail
 source "${SLURM_SUBMIT_DIR:-$(pwd)}/benchmark/slurm/common.sh"
 
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv
-"$JULIA_BIN" --project=benchmark/comparison -t 1 benchmark/comparison/scripts/run_all.jl \
+# GPUEnv writes its overlay (gpu_env/) into the active environment's directory, so each job runs in
+# a copy of the environment of its own, at the same depth (the relative [sources] path to Ristretto
+# resolves the same), and concurrent jobs never rewrite one another's overlay.
+ENV_DIR="$REPO_ROOT/benchmark/comparison_gpu_${SLURM_JOB_ID:-local}"
+rm -rf "$ENV_DIR"; mkdir -p "$ENV_DIR"
+cp benchmark/comparison/Project.toml benchmark/comparison/Manifest.toml "$ENV_DIR/"
+[ -f benchmark/comparison/LocalPreferences.toml ] && cp benchmark/comparison/LocalPreferences.toml "$ENV_DIR/"
+trap 'rm -rf "$ENV_DIR"' EXIT
+"$JULIA_BIN" --project="$ENV_DIR" -t 1 benchmark/comparison/scripts/run_all.jl \
     --threads=1 --device=cuda "$@"
