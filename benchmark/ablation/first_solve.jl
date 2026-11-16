@@ -20,11 +20,7 @@ method = Symbol(ARGD["method"])
 f = ristretto_reconstructor(c, method)
 t_first = @elapsed img = f()
 t_second = @elapsed f()
-prefs = try
-    Base.get_preferences(Base.PkgId(Base.UUID("5999b5f3-4ffc-4695-817d-461c6e99e3c0"), "Ristretto"))
-catch
-    Dict()
-end
+prefs = Base.get_preferences(Base.PkgId(Ristretto).uuid)
 open(ARGD["out"], "w") do io
     JSON.print(
         io, Dict(
