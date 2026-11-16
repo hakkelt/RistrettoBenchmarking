@@ -24,5 +24,5 @@ Ristretto = {path = "../../Ristretto"}
 
 [compat]
 GPUEnv = "0.2.2"
-LinearOperators = "~2.11"
+LinearOperators = "2.13"
 MRITestData = "0.1"

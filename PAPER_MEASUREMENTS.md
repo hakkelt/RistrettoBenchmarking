@@ -365,6 +365,57 @@ the job column says which row came from where.
 
 ## Part 4. Fusion switch and ablation
 
+### 4a. Run-time switch for pointwise fusion (done)
+
+- AbstractOperators fork, branch `perf/fused-pointwise` (PR hakkelt/AbstractOperators.jl#50):
+  `AbstractOperators.POINTWISE_FUSION[] = false` makes `Compose` run every operator of a
+  fusable run on its own, through its own buffer. Documented in the fork's docstring and at the
+  end of `docs/src/performance.md`; test item "Pointwise fusion: POINTWISE_FUSION switches it
+  off at run time" (forward and adjoint equal, buffers untouched when fused and all written when
+  not).
+- Re-vendored into Ristretto on branch `paper-measurements` (PR hakkelt/Ristretto.jl#16). The
+  `:operators` and `:encoding` test items pass (31 of 31, login node).
+
+### Odd-length fftshift as a phase ramp (added on request, included in every paper run)
+
+- AbstractOperators fork, branch `feat/odd-fftshift-phase-ramp` (PR hakkelt/AbstractOperators.jl#61),
+  re-vendored into the same Ristretto PR (integration `6528049f`, Ristretto `5faaa2e41`).
+- An odd-length FFTShift/IFFTShift next to a DFT becomes a `DiagOp` holding the phase ramp
+  exp(σ·2πi·s·k/N) on the other side of the transform, instead of a shift that copies the
+  array on every application. Even lengths keep `SignAlternation`.
+- Two existing bugs in the even path were fixed on the same branch:
+  - With shifts on both sides of a DFT, `fftshift_op`/`ifftshift_op` returned the negated
+    operator for lengths ≡ 2 (mod 4). This was checked on the unmodified `unified-threading` for
+    N = 6 and 10. In Ristretto it flips the image phase by π for such a dimension; magnitudes
+    are unchanged.
+  - An even-length shift along a dimension the DFT does not transform became a
+    `SignAlternation`, which gives a wrong result.
+- Checks: the fork's FFTW test items pass on the branch (1,916) and on the rebuilt integration
+  (4,071). Ristretto's `:operators`/`:encoding` items pass (31 of 31). A 127² CG-SENSE
+  reconstruction gives the same NRMSE as before (0.386919), and its encoding operator contains
+  no shift.
+- Login node, 1 thread, 8 coils: the shifted operator's overhead over the bare DFT is 0.64 ms
+  against 2.4 ms for the old shift at 255², and about equal at 127² (0.42 vs 0.37 ms). This is
+  indicative only.
+
+### 4b. Ablation
+
 ## Part 5. Problem size and memory
 
 ## Part 6. Consistent rerun
+
+Decisions (2026-11-16): one-domain placement as in `matrix.sh`; current toolbox releases; no
+MKL runs; the odd-length fftshift change is included.
+
+| toolbox | version for Part 6 | where |
+|---|---|---|
+| Ristretto | `paper-measurements` (`5faaa2e41` or later; PR #16) | submodule of this branch |
+| BART | v1.0.01 (`381039c4`), OpenBLAS build **without CUDA** (the earlier CPU builds were CUDA builds), and a CUDA 12.4 build for the A100 | `/project/c_mrrecon/bart-v1.0.01/{openblas,cuda}` |
+| SigPy / MRpro (CPU) | SigPy 0.1.27, MRpro 0.261015, torch 2.15.0+cpu, NumPy 2.5.5 | `/project/c_mrrecon/venvs/py314-paper` |
+| SigPy / MRpro (GPU) | the same, torch 2.15.0+cu132 (torch 2.15 GPU wheels exist only on the cu132 index), CuPy 14.2.0 | `/project/c_mrrecon/venvs/py314-gpu-paper` |
+
+BART v1.0.01 build notes:
+- Its Makefile defines `FFTW_H` but never adds it to `CPPFLAGS`, so an FFTW outside `/usr` needs
+  its include path in `Makefile.local`.
+- The CUDA build needs GCC 12 (`gcc-toolset-12`), because nvcc 12.4 rejects GCC 13's `floatn.h`.
+- Script: `build_bart_1001.sh` in the working directory.
