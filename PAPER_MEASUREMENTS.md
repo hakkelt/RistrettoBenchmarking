@@ -11,13 +11,13 @@ State on 2026-11-16; every table names its commit and node.
 
 - **Part 2.4 / start-up numbers.** The JuliaC and static-BART start-up rows are login-node
   measurements only. The harness numbers on a compute node, at the Part 6 commit, are not done.
-- **Part 2, JuliaC with threads.** The fix for the multi-threaded first solve (workload with
-  `threaded = true`) is being built; not measured yet.
+- **Part 2, JuliaC with threads.** The 15-18 s first solve at more than one thread is explained
+  (Part 2) but not fixed: the fix needs a change to Ristretto's source.
 - **Part 3.** Causes 4(a)-(c) and the knee's 4-thread run are observed, not resolved. The fixes in
   the last table are estimates; none was implemented (Ristretto's source was not to be changed).
 - **Part 4a.** The fork PR is updated (hakkelt/AbstractOperators.jl#50). The Ristretto branch is
   committed locally but not pushed, and its PR is not open yet. The `:operators`/`:encoding` test
-  items on the re-vendored branch are running.
+  items pass on it (31 of 31, login node).
 - **Part 4b.** Not started. Switches known to be missing: `fftshift` instead of sign alternation,
   and no-Toeplitz (no run-time option found so far).
 - **Part 5.** Not started.
