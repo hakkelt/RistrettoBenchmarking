@@ -215,6 +215,7 @@ function run_method_rows!(
         maxit::Int = default_maxit(method), toolkits = COMPETITORS,
         λ_default::Real = default_lambda(c, method),
     )
+    METHOD_FILTER === nothing || method in METHOD_FILTER || return nothing
     label = method_label(method, maxit)
     should_run(c.id, label) || should_run(section, label) || return nothing
     has_gpu_rival(c, method; toolkits) || return nothing

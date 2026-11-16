@@ -64,16 +64,6 @@ const LAMBDA_SHARD = let s = get(ENV, "LAMBDA_SHARD", "")
 end
 
 """
-    METHOD_FILTER
-
-Parsed from `--methods=m1,m2,...` (method symbols such as `tv`, `lowrank`), or `nothing` for every
-regularized method of a case.
-"""
-const METHOD_FILTER = let i = findfirst(a -> startswith(a, "--methods="), ARGS)
-    i === nothing ? nothing : Symbol.(lowercase.(split(ARGS[i][(length("--methods=") + 1):end], ",")))
-end
-
-"""
     RESUME
 
 `--resume`: reuse the points already stored in the case's file for the toolkits and methods being

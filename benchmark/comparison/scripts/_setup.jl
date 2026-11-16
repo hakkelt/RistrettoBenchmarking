@@ -463,6 +463,17 @@ function should_run_case(id)
 end
 
 """
+    METHOD_FILTER
+
+Parsed from `--methods=m1,m2,...` (method symbols such as `cgsense`, `wavelet`), or `nothing` for
+every method. The sections skip a row whose method is not listed (`run_method_rows!`), and
+`calibrate_lambda.jl` calibrates only the listed regularized methods.
+"""
+const METHOD_FILTER = let i = findfirst(a -> startswith(a, "--methods="), ARGS)
+    i === nothing ? nothing : Symbol.(lowercase.(split(ARGS[i][(length("--methods=") + 1):end], ",")))
+end
+
+"""
     FRAMEWORK_FILTER
 
 Parsed from `--frameworks=pat1,pat2,...`, or `nothing`. Each `pat` is a case-insensitive substring
