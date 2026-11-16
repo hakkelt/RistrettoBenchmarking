@@ -7,7 +7,24 @@ from are the newest ones.
 
 ## Not done or not verified
 
-(Filled in as the work proceeds.)
+State on 2026-11-16; every table names its commit and node.
+
+- **Part 2.4 / start-up numbers.** The JuliaC and static-BART start-up rows are login-node
+  measurements only. The harness numbers on a compute node, at the Part 6 commit, are not done.
+- **Part 2, JuliaC with threads.** The fix for the multi-threaded first solve (workload with
+  `threaded = true`) is being built; not measured yet.
+- **Part 3.** Causes 4(a)-(c) and the knee's 4-thread run are observed, not resolved. The fixes in
+  the last table are estimates; none was implemented (Ristretto's source was not to be changed).
+- **Part 4a.** The fork PR is updated (hakkelt/AbstractOperators.jl#50). The Ristretto branch is
+  committed locally but not pushed, and its PR is not open yet. The `:operators`/`:encoding` test
+  items on the re-vendored branch are running.
+- **Part 4b.** Not started. Switches known to be missing: `fftshift` instead of sign alternation,
+  and no-Toeplitz (no run-time option found so far).
+- **Part 5.** Not started.
+- **Part 6.** Waits for the go-ahead.
+- **Part 1, item 9.** The reported POGM/OptISTA failure was not reproduced; only the forms listed
+  there were tried.
+- **Part 1, item 10.** The printed snippet is derived from the measured call, not run on its own.
 
 ## Part 1. Claims about other toolboxes
 
@@ -82,7 +99,8 @@ RegularizedLeastSquares.jl, LinearOperatorCollection.jl, MIRT.jl (MIT). No GPL c
    `numpy.fft.fftn` with no `workers` (`sigpy/fourier.py:44,79`; `numpy/fft/_pocketfft.py` has
    no worker or thread option at all); the Numba kernels are `nopython=True` with no
    `parallel=True`/`prange` (`sigpy/interp.py`, `sigpy/block.py`); `sigpy/config.py` has no
-   thread setting; PyWavelets does not thread. Consistent with the flat 1-16 thread rows.
+   thread setting; PyWavelets does not thread (searched its Python layer only, `pywt/*.py`, for
+   thread/pool/workers; its C extension was not read). Consistent with the flat 1-16 thread rows.
 9. **MRIReco.jl with POGM and OptISTA: both run.** Measured
    (`benchmark/paper_checks/mrireco_solvers.jl`, results in
    `benchmark/paper_checks/results/mrireco_solvers.json`; login node; MRIReco 0.9.2,
@@ -95,10 +113,15 @@ RegularizedLeastSquares.jl, LinearOperatorCollection.jl, MIRT.jl (MIT). No GPL c
    | POGM | 0.231 (0.076 from FISTA's image) | 0.355 |
    | OptISTA | 0.233 (0.068 from FISTA's image) | 0.356 |
 
-   No error. RegularizedLeastSquares 0.16.12 and 0.16.13 differ only in `CGNR.jl` (start value),
-   so this holds for 0.16.12 as well. If it failed for you, it was not these solvers; one thing a
-   user meets without noticing is the second column: MRIReco's default `params[:rho] = 0.05`
-   (`RecoParameters.jl:9`), an ADMM penalty, becomes the step size of all three.
+   No error in either form tried: `params[:solver] = POGM` / `OptISTA` passed to
+   `reconstruction(acqData, params)` with `:reco => "multiCoil"`, `:sparseTrafo => "Wavelet"`,
+   `:reg => L1Regularization(λ)`, once with an explicit `:rho` (column 1) and once with MRIReco's
+   default (column 2). **The reported failure was not reproduced**; other forms (`:normalizeReg`,
+   GPU arrays, non-Cartesian data, other regularizers) were not tried. RegularizedLeastSquares
+   0.16.12 and 0.16.13 differ only in `CGNR.jl` (start value), so this holds for 0.16.12 as well.
+   What a user meets without noticing is the second column: MRIReco's default
+   `params[:rho] = 0.05` (`RecoParameters.jl:9`), an ADMM penalty, becomes the step size of all
+   three.
 10. **Silently dropped options.** `params[:kwargWarning] = false` (`MRIReco/src/Reconstruction/
     RecoParameters.jl:12`) reaches `createLinearSolver(...; kwargWarning, kwargs...)`, whose
     `filterKwargs` keeps only the solver constructor's keywords and warns only when asked
@@ -107,7 +130,9 @@ RegularizedLeastSquares.jl, LinearOperatorCollection.jl, MIRT.jl (MIT). No GPL c
     without it (max |Δ| = 0; the solver runs MRIReco's default 30, not 3) and logs nothing but an
     unrelated `Info` about `enc2D`. With `params[:kwargWarning] = true` the same call logs
     `Warn: The following arguments were passed but filtered out: absTol, tolInner,
-    densityWeighting, S, iteration, reco, iterationsCG, vary_rho.` The smallest example:
+    densityWeighting, S, iteration, reco, iterationsCG, vary_rho.` The smallest example, written
+    from the measured call in `mrireco_solvers.jl` (derived; this exact snippet was not run on its
+    own):
 
     ```julia
     params = Dict{Symbol, Any}(:reco => "multiCoil", :reconSize => (nx, ny), :senseMaps => maps,
@@ -146,14 +171,14 @@ Measured on the login node `vn01` (sizes do not depend on the node), 2026-11-16.
 
 | artifact | size on disk | what it contains |
 |---|---:|---|
-| BART v1.0.00, **static** (`SLINK=1`, OpenBLAS 0.3.15, FFTW 3.3.10 with threads, no CUDA/MKL), stripped | **33.7 MB** (33,655,648 B; 56.7 MB unstripped) | one file; `ldd`: "not a dynamic executable"; `file`: "statically linked" |
-| BART v1.0.00 as used by the suite (`~/c_mrrecon/bart-v1.0.00/openblas/bart`), dynamic | 5.3 MB binary + **893.8 MB** of shared libraries | of which 844.5 MB are CUDA (cuFFT 292.9, cuBLASLt 441.1, cuBLAS 109.8, cudart 0.7); without them 49.3 MB (OpenBLAS 36.4, FFTW 3.7, libgfortran 2.6, libc/libm/libstdc++ …) |
+| BART v1.0.00, **static** (`SLINK=1`, Rocky 8's serial OpenBLAS 0.3.15 `libopenblas.a`, FFTW 3.3.10 with threads, no CUDA/MKL), stripped | **33.7 MB** (33,655,648 B; 56.7 MB unstripped) | one file; `ldd`: "not a dynamic executable"; `file`: "statically linked" |
+| BART v1.0.00 as used by the suite (`~/c_mrrecon/bart-v1.0.00/openblas/bart`), dynamic | 5.3 MB binary + **893.8 MB** of shared libraries | of which 844.5 MB are CUDA (cuFFT 292.9, cuBLASLt 441.1, cuBLAS 109.8, cudart 0.7); without them 49.3 MB (OpenBLAS 36.4 — `/usr/lib64/libopenblas.so.0` from openblas-0.3.15-6.el8, the serial variant, FFTW 3.7, libgfortran 2.6, libc/libm/libstdc++ …) |
 | same, MKL build | 5.2 MB + 971.4 MB | MKL 116.9 MB + the same CUDA libraries |
 | Ristretto JuliaC bundle (`juliac --output-exe --bundle`, no `--trim`) | **1.32 GB** (1,322,813,979 B, 62 files) | executable with the compiled image 989 MB, `lib/` 327 MB (libjulia, LLVM, BLAS, …), artifacts 6.2 MB |
 | Ristretto package image (`compiled/v1.13/Ristretto/*.so` + `.ji`) | 372 MB + 2.3 MB | the precompiled native code of Ristretto and its vendored packages |
 | a depot holding only what `Pkg.add(url = Ristretto.jl)` installs, precompiled | **847 MB** (4,250 files) | compiled caches 575 MB, artifacts 205 MB, packages + clones 48 MB, registry 19 MB; Julia 1.13.1 itself is another 1.10 GB |
-| venv with SigPy (`numpy sigpy numba scipy`) | **370 MB** (4,221 files) | + CPython 3.14.3, 108 MB |
-| venv with MRpro (CPU PyTorch 2.15.0 + mrpro 0.261015) | **1.32 GB** (23,094 files) | PyTorch alone 770 MB; + CPython 108 MB |
+| venv with SigPy (`numpy sigpy numba scipy`) | **392 MB** (392,264,524 B) | + CPython 3.14.3, 108 MB |
+| venv with MRpro (CPU PyTorch 2.15.0 + torchvision 0.29.2+cpu + mrpro 0.261015) | **1.37 GB** (1,370,292,576 B, 26,125 files) | PyTorch alone 770 MB; + CPython 108 MB |
 
 Build commands:
 
@@ -174,17 +199,54 @@ Build commands:
   Pkg.add(url="https://github.com/hakkelt/Ristretto.jl", rev="master"); Pkg.precompile()'` (registry
   copied in first; script `depot_build.jl` in the scratch area).
 - Venvs: `uv venv -p cpython-3.14.3`, then `uv pip install --link-mode=copy numpy sigpy numba scipy`;
-  for MRpro `torch` from the PyTorch CPU index, then `mrpro`. **Caveat:** `mrpro` pulls
-  `torchvision` from PyPI, whose build does not match the CPU `torch` (`import mrpro` fails with
-  "operator torchvision::nms does not exist"); the size above includes that torchvision.
+  for MRpro `torch` and `torchvision` from the PyTorch CPU index, then `mrpro`. (`mrpro` alone
+  pulls `torchvision` from PyPI, whose build does not match the CPU `torch`: `import mrpro` then
+  fails with "operator torchvision::nms does not exist".) Checked: `import mrpro` works. Both venvs
+  hold the **current releases** (table in Part 1, item 11), not the versions the stored suite runs
+  used (SigPy is the same; MRpro 0.261015 vs 0.260420, PyTorch 2.15.0 vs 2.14.0).
+- JuliaC with `--trim=safe --experimental` (same app): **fails** in the trim verifier with 57
+  errors, about half of them in the app's own code (closures over abstractly typed values, the
+  `kwcall` that builds the reconstruction, `println`, `read!` with splatted dimensions). The rest are
+  in dependencies: ArgCheck's error builder, AbstractNFFTs' backend registry (`getglobal(back,
+  :backend)()` returns `Any`), FFTW's plan finalizer (`unsafe_destroy_plan` on an abstract
+  `FFTWPlan`), ProximalAlgorithms' keyword merge with a `Dict{Symbol}`, and Ristretto's
+  dimension-name tuple checks (`Tuple{Vararg{Symbol}}` comparisons and string building). Log:
+  `juliac/build_trim.log` in the scratch area.
+
+**JuliaC first solve depends on the thread count (login node `vn01`, 4 cores pinned, not the
+harness; preliminary).** A second bundle whose app module carries a `@compile_workload` running
+`main` on a 32², 4-coil synthetic case (both methods; bundle 1.34 GB, build ≈ 25 min) gives, on the
+startup case (128², 8 coils, ℓ1-wavelet, 20 FISTA iterations):
+
+| process | `noop` start | first solve | warm solves | NRMSE |
+|---|---:|---:|---:|---:|
+| JuliaC + workload, 1 thread | 1.55 s (6.4 s cold page cache) | **0.29 s** | 0.14, 0.25 s | 0.27718 |
+| JuliaC + workload, 4 threads | same | **17.9 s** | 0.08-0.25 s | 0.27718 |
+| JuliaC + workload, 4 threads, the 32² workload case itself | | 14.6 s | 2-4 ms | |
+| script (`solve_ristretto.jl`, package image), 1 thread | import 9.4 s | 10.7 s | 0.077 s | 0.27718 |
+| script, 4 threads | import 5.4 s | 18.1 s | 0.07-0.11 s | 0.27718 |
+
+The image is generated in a single-threaded process (the build log prints `threads 1` from the
+workload), so `reconstruct`'s default `threaded = Threads.nthreads() > 1` is false there and the
+threaded code paths are never compiled into it; started with more threads, the app compiles them at
+run time (14.6 s even on the workload's own case). Ristretto's package workload
+(`src/precompile.jl`) runs the same way under `Pkg.precompile`, which is where about 7 s of the
+script's 4-thread first solve comes from. A third bundle whose workload also calls the solve with
+`threaded = true` is being built to test the fix; paths that test `Threads.nthreads() > 1`
+directly (`src/encoding/encoding_operators.jl:144`, `src/encoding/sensitivity_map_operators.jl:126`,
+`src/reconstruction/task_splitting/execution.jl:339`) cannot be reached that way.
 
 ## Part 3. Thread scaling of single large problems
 
 **Runs:** `shepp_logan_3d_8ch_cartesian` (128³, 8 coils, OpenBLAS), the comparison suite's Ristretto
 rows (TV: ADMM 20×10 CG; CG-SENSE: 10 CGNR), timed with `time_run`, then profiled once (Julia's
-sampling profiler, 5 ms, every thread). Ristretto at the submodule pin `c949d8e` (clean; vendored
-AbstractOperators `94b9c2b5`, ProximalAlgorithms `bbd8bd51`, ProximalOperators `5c38fbbb`,
-StructuredOptimization `40720478`, NFFT `5b8ad7ae`, OperatorCore `ff43eb93`). AMD EPYC 7763,
+sampling profiler, 5 ms, every thread). Ristretto at the submodule pin `c949d8e` (clean). The
+vendored packages are identified by the git tree hash of their `deps/` directory, because the
+`git-subtree-split` trailers in the history are older than the trees: AbstractOperators
+`4bfdc831`, ProximalAlgorithms `bf0eb15b`, ProximalOperators `76d44bef`, StructuredOptimization
+`e8b3ff86`, NFFT `e6cd902c`, OperatorCore `b23f830c`. (Ristretto `master` `0f53bf49c` differs
+only in ProximalAlgorithms, `a517b180`; the re-vendored branch of Part 4 only in AbstractOperators,
+`5ee907fc`.) AMD EPYC 7763,
 exclusive node, one run at a time. "One domain" = `numactl --cpunodebind=1 --membind=1` (16 cores,
 the placement `matrix.sh` gives every task); "spread" = cores taken round-robin from NUMA nodes 0-3,
 memory interleaved over them. Jobs: 15122806 (`cpu-short`, 64-core node x1001c1s2b0n1), 15123878
@@ -194,7 +256,7 @@ memory interleaved over them. Jobs: 15122806 (`cpu-short`, 64-core node x1001c1s
 The probe reproduces the stored numbers: TV 41.5 / 21.0 / 22.3 s at 1 / 4 / 16 threads (stored
 41.97 / 25.72 / 25.54), CG-SENSE 3.87 / 1.57 / 1.21 s (stored 4.06 / 1.84 / 1.19).
 
-### Attribution (job 15123878)
+### Attribution (job 15123878, `cpu` partition, 128-core node x1000c3s4b0n1)
 
 Wall time of the main thread, which carries the solve, by what it was doing; seconds, scaled to the
 timed minimum. With threads, the main thread's FFT and element-wise time is the time of the
@@ -217,7 +279,8 @@ Share of all task-running threads' time spent idle or spin-waiting: TV 40 % (4 t
 move by about a second between jobs (e.g. "vector updates" at 4 vs 16 threads); the totals and the
 one-change comparisons below are the robust part.
 
-Kernels on the case's own arrays (`kernels.jl`, job 15122806, one domain unless noted):
+Kernels on the case's own arrays (`kernels.jl`, job 15122806, `cpu-short` partition, 64-core node
+x1001c1s2b0n1, one domain unless noted):
 
 | threads | copy bandwidth | batched 3D FFT, 8 coils | 8 per-coil FFT tasks | `axpy!` serial / threaded BLAS |
 |---:|---:|---:|---:|---:|
@@ -227,6 +290,9 @@ Kernels on the case's own arrays (`kernels.jl`, job 15122806, one domain unless 
 | 16, spread over 4 domains | 40.6 GB/s | 6.7 ms | 9.0 ms | 8.7 / 0.8 ms |
 
 ### One-change experiments (TV at 16 threads unless noted; times are the timed minimum)
+
+Jobs 15123878 and 15123914 ran on 128-core `cpu` nodes, 15122806 on the 64-core `cpu-short` node;
+the job column says which row came from where.
 
 | change | TV | CG-SENSE | job |
 |---|---:|---:|---|
@@ -246,9 +312,9 @@ Kernels on the case's own arrays (`kernels.jl`, job 15122806, one domain unless 
    (21.0 vs 22.3 s), and the same 16 threads spread over four domains, with identical code, take
    14.0 s. Every stored 16-thread row was measured under the one-domain placement, so the "stops
    after 2-4 threads" curve is the placement's, not the code's. BART runs under the same
-   placement; it gains more because its 1-thread time is 4.5× Ristretto's (187.7 vs 42.0 s), so it
-   is compute-bound for longer and meets the same ceiling later (70 s at 16 threads vs Ristretto's
-   25.5 s).
+   placement; it gains more because its 1-thread time is 4.5× Ristretto's (187.7 vs 42.0 s).
+   Inference, not measured: BART is therefore compute-bound for longer and meets the same ceiling
+   later (70 s at 16 threads vs Ristretto's 25.5 s).
 2. **Coil-level parallelism is capped at 8.** The normal operator is `broadcast → SpreadingBatchOp
    over the 8 coils → reduce`, each coil running `DiagOp → DFT → mask → DFT' → DiagOp'` serially
    in one task. With 16 threads at most 8 work in that phase; the profiles show threads 9-16 idle
