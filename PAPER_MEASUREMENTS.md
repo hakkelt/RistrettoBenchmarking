@@ -231,10 +231,21 @@ workload), so `reconstruct`'s default `threaded = Threads.nthreads() > 1` is fal
 threaded code paths are never compiled into it; started with more threads, the app compiles them at
 run time (14.6 s even on the workload's own case). Ristretto's package workload
 (`src/precompile.jl`) runs the same way under `Pkg.precompile`, which is where about 7 s of the
-script's 4-thread first solve comes from. A third bundle whose workload also calls the solve with
-`threaded = true` is being built to test the fix; paths that test `Threads.nthreads() > 1`
-directly (`src/encoding/encoding_operators.jl:144`, `src/encoding/sensitivity_map_operators.jl:126`,
-`src/reconstruction/task_splitting/execution.jl:339`) cannot be reached that way.
+script's 4-thread first solve comes from.
+
+Cause, measured: with more than one thread `get_encoding_operator` builds a different operator, the
+coil-fused frame operator (`_coil_fused_frame_operator`, gated by `threaded && … &&
+Threads.nthreads() > 1` at `src/encoding/encoding_operators.jl:144`), so every solver method
+specialises on a new operator type. `--trace-compile-timing` of the script: 176 method instances
+(18.3 s summed compile time) at 1 thread, 370 (26.6 s) at 4 threads, of which 235 instances and
+16.1 s exist only at 4 threads, led by `_scale_default_warm_start`, `_direct_reconstruct`, the
+`Compose` products and the `Threads.@threads` closures of AbstractOperators' `mul!`
+(`benchmark/startup/paper_results/trace_compile_threads.txt`). A third bundle whose workload also
+calls the solve with `threaded = true` confirms it: first solve 15.7 s at 4 threads, 18.1 s at 8
+(0.31 s at 1), because `threaded = true` does not reach the `nthreads()` gate in a single-threaded
+build process. A fix needs Ristretto's source (not changed here): let that gate be overridden (for
+example by a keyword or a scoped value the workloads set), and run both workloads, the package's
+`src/precompile.jl` and an app's, through the coil-fused operator as well.
 
 ## Part 3. Thread scaling of single large problems
 
