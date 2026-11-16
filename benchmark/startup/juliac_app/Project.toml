@@ -1,0 +1,12 @@
+name = "RistrettoApp"
+uuid = "6f0b0a3e-2a51-4d1c-9a7e-4c0f6a2e8b11"
+version = "0.1.0"
+
+[deps]
+FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Ristretto = "5999b5f3-4ffc-4695-817d-461c6e99e3c0"
+
+[sources]
+FFTW = {rev = "e1cba76e1478c35265bc2c51610c52302284ee4d", url = "https://github.com/hakkelt/FFTW.jl"}
+Ristretto = {path = "../../../Ristretto"}

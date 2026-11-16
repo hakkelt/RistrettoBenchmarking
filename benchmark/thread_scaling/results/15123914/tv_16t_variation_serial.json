@@ -1,0 +1,396 @@
+{
+  "case": "shepp_logan_3d_8ch_cartesian",
+  "method": "tv",
+  "nrmse": 0.15752731,
+  "profile": {
+    "compute_threads": 17,
+    "delay_s": 0.005,
+    "other_top": {
+      "< @ int.jl": 55,
+      "+ @ int.jl": 15,
+      "== @ Base_compiler.jl": 3,
+      "ijl_eh_restore_state_noexcept @ rtutils.c": 2,
+      "ijl_enter_handler @ rtutils.c": 1,
+      "ThreadTask @ threadtasks.jl": 1,
+      "jl_finish_task @ task.c": 1,
+      "_atomic_load @ atomics.jl": 1
+    },
+    "per_thread": {
+      "1": {
+        "alloc": 11,
+        "blas": 19,
+        "fft": 138,
+        "finite_diff": 139,
+        "gc": 8,
+        "idle": 221,
+        "pointwise": 45,
+        "prox": 3,
+        "solver_vec": 123
+      },
+      "10": {
+        "fft": 23,
+        "idle": 575,
+        "operators_other": 88,
+        "other": 3,
+        "pointwise": 17
+      },
+      "11": {
+        "fft": 35,
+        "idle": 554,
+        "operators_other": 90,
+        "other": 5,
+        "pointwise": 21,
+        "prox": 1
+      },
+      "12": {
+        "fft": 31,
+        "idle": 572,
+        "operators_other": 79,
+        "other": 5,
+        "pointwise": 19
+      },
+      "13": {
+        "fft": 34,
+        "idle": 560,
+        "operators_other": 87,
+        "other": 9,
+        "pointwise": 17
+      },
+      "14": {
+        "fft": 43,
+        "idle": 558,
+        "operators_other": 81,
+        "other": 4,
+        "pointwise": 21
+      },
+      "15": {
+        "fft": 33,
+        "idle": 569,
+        "operators_other": 87,
+        "other": 3,
+        "pointwise": 14
+      },
+      "16": {
+        "alloc": 1,
+        "fft": 30,
+        "idle": 574,
+        "operators_other": 75,
+        "other": 4,
+        "pointwise": 22
+      },
+      "17": {
+        "fft": 28,
+        "idle": 596,
+        "operators_other": 69,
+        "pointwise": 14
+      },
+      "18": {
+        "gc": 5,
+        "idle": 701
+      },
+      "19": {
+        "gc": 3,
+        "idle": 704
+      },
+      "2": {
+        "fft": 30,
+        "idle": 579,
+        "operators_other": 73,
+        "other": 6,
+        "pointwise": 19
+      },
+      "20": {
+        "gc": 3,
+        "idle": 703
+      },
+      "21": {
+        "gc": 4,
+        "idle": 702
+      },
+      "22": {
+        "gc": 4,
+        "idle": 703
+      },
+      "23": {
+        "gc": 4,
+        "idle": 702
+      },
+      "24": {
+        "gc": 5,
+        "idle": 702
+      },
+      "25": {
+        "gc": 6,
+        "idle": 700
+      },
+      "26": {
+        "gc": 3,
+        "idle": 704
+      },
+      "27": {
+        "gc": 6,
+        "idle": 701
+      },
+      "28": {
+        "gc": 3,
+        "idle": 703
+      },
+      "29": {
+        "gc": 7,
+        "idle": 699
+      },
+      "3": {
+        "fft": 28,
+        "idle": 561,
+        "operators_other": 96,
+        "other": 6,
+        "pointwise": 15
+      },
+      "30": {
+        "gc": 5,
+        "idle": 701
+      },
+      "31": {
+        "gc": 5,
+        "idle": 701
+      },
+      "32": {
+        "gc": 4,
+        "idle": 703
+      },
+      "4": {
+        "fft": 37,
+        "idle": 564,
+        "operators_other": 86,
+        "other": 4,
+        "pointwise": 15
+      },
+      "5": {
+        "fft": 35,
+        "idle": 564,
+        "operators_other": 91,
+        "other": 6,
+        "pointwise": 10
+      },
+      "6": {
+        "fft": 34,
+        "idle": 567,
+        "operators_other": 87,
+        "other": 5,
+        "pointwise": 13
+      },
+      "7": {
+        "fft": 31,
+        "idle": 555,
+        "operators_other": 94,
+        "other": 7,
+        "pointwise": 19
+      },
+      "8": {
+        "fft": 25,
+        "idle": 581,
+        "operators_other": 84,
+        "other": 4,
+        "pointwise": 12
+      },
+      "9": {
+        "fft": 24,
+        "idle": 584,
+        "operators_other": 74,
+        "other": 8,
+        "pointwise": 17
+      }
+    },
+    "samples": 12008,
+    "share": {
+      "alloc": 0.000999333777481679,
+      "blas": 0.0015822784810126582,
+      "fft": 0.053214523650899404,
+      "finite_diff": 0.011575616255829447,
+      "gc": 0.0006662225183211193,
+      "idle": 0.7773151232511659,
+      "operators_other": 0.11167554963357762,
+      "other": 0.006578947368421052,
+      "pointwise": 0.025816122584943372,
+      "prox": 0.00033311125916055963,
+      "solver_vec": 0.010243171219187209
+    },
+    "thread_seconds": {
+      "alloc": 0.38435773096069287,
+      "blas": 0.6085664073544303,
+      "fft": 20.467049173656896,
+      "finite_diff": 4.452143716961359,
+      "gc": 0.25623848730712856,
+      "idle": 298.96625506559224,
+      "operators_other": 42.95197643485742,
+      "other": 2.5303550621578945,
+      "pointwise": 9.929241383151231,
+      "prox": 0.12811924365356428,
+      "solver_vec": 3.939666742347102
+    },
+    "wall_s": 22.624351144,
+    "where": {
+      "main:alloc": {
+        "_variation_adjoint! @ deps/AbstractOperators/src/linearoperators/Variation.jl:287": 10,
+        "prepare_initial_duals @ deps/ProximalAlgorithms/src/algorithms/admm.jl:207": 1
+      },
+      "main:blas": {
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:366": 5,
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:370": 3,
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:373": 2,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:481": 2,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/cg.jl:272": 2,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:472": 2,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:471": 1,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/admm.jl:454": 1,
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:376": 1
+      },
+      "main:fft": {
+        "mul! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:279": 73,
+        "_pw_core! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:429": 64,
+        "_pw_core! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:426": 1
+      },
+      "main:finite_diff": {
+        "mul! @ deps/AbstractOperators/src/linearoperators/Variation.jl:100": 67,
+        "mul! @ deps/AbstractOperators/src/linearoperators/Variation.jl:121": 57,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:354": 6,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:245": 5,
+        "_variation_adjoint_dim1! @ deps/AbstractOperators/src/linearoperators/Variation.jl:244": 2,
+        "_variation_adjoint_slab! @ deps/AbstractOperators/src/linearoperators/Variation.jl:343": 1,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:251": 1
+      },
+      "main:pointwise": {
+        "_pw_kernel! @ deps/AbstractOperators/src/calculus/pointwise.jl:264": 32,
+        "#mul!##50 @ src/macros.jl:111": 10,
+        "_quiesce @ ext/NestedThreadingPolyesterExt.jl:61": 1,
+        "_name_in @ src/registry.jl:340": 1,
+        "_apply! @ src/registry.jl:403": 1
+      },
+      "main:prox": {
+        "#prox!##84 @ src/macros.jl:111": 2,
+        "_apply! @ src/registry.jl:403": 1
+      },
+      "main:solver_vec": {
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:381": 68,
+        "#61 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:431": 11,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:478": 11,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:460": 7,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:464": 6,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:465": 5,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/admm.jl:453": 4,
+        "mul! @ deps/ProximalAlgorithms/src/algorithms/admm.jl:283": 4,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/admm.jl:435": 2,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/admm.jl:425": 1,
+        "#ADMMIteration#51 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:145": 1,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/cg.jl:270": 1,
+        "#_run_solver#68 @ deps/StructuredOptimization/src/solvers/build_solve.jl:356": 1,
+        "prepare @ deps/StructuredOptimization/src/solvers/parse.jl:646": 1
+      },
+      "workers:alloc": {
+        "start_task": 1
+      },
+      "workers:fft": {
+        "start_task": 501
+      },
+      "workers:operators_other": {
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:225": 970,
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:226": 367,
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:155": 2,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:145": 1,
+        "macro expansion @ deps/AbstractOperators/FFTWOperators/src/Shift.jl:570": 1
+      },
+      "workers:other": {
+        "start_task": 79
+      },
+      "workers:pointwise": {
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:216": 182,
+        "_pw_coef @ deps/AbstractOperators/src/calculus/pointwise.jl:81": 30,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:124": 25,
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:232": 10,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:90": 4,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:98": 4,
+        "_pw_segment! @ deps/AbstractOperators/src/calculus/pointwise.jl:218": 3,
+        "_pw_segment! @ deps/AbstractOperators/src/calculus/pointwise.jl:234": 2,
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:226": 2,
+        "_pw_items! @ deps/AbstractOperators/src/calculus/pointwise.jl:241": 1,
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:265": 1,
+        "_pw_segment! @ deps/AbstractOperators/src/calculus/pointwise.jl:225": 1
+      },
+      "workers:prox": {
+        "macro expansion @ deps/ProximalOperators/src/functions/normL21.jl:112": 1
+      }
+    }
+  },
+  "provenance": {
+    "benchmarking": {
+      "commit": "8d9170f6a21782dcee2090988d33911eb08984c2",
+      "branch": "paper-measurements",
+      "dirty": true
+    },
+    "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+    "blas_threads": 16,
+    "cpus": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "date": "2026-11-16T18:03:15.062",
+    "deps_subtree_split": {
+      "AbstractOperators": "94b9c2b5588b2eb97bef29582a7a96327acd94a1",
+      "NFFT": "5b8ad7ae42ae25580f9da80cf42bb11ac80414da",
+      "OperatorCore": "ff43eb9367121db62396bdc7522363cca087f9df",
+      "ProximalAlgorithms": "bbd8bd512bfc1b3fa7bd2cacbbf44edfd64cc4eb",
+      "ProximalOperators": "5c38fbbb88e0924814548a6ba1ff250ee80c3b47",
+      "StructuredOptimization": "40720478ff5e7dd8db19ae5bb5449f3fe0782f6f"
+    },
+    "env": {
+      "CMP_CG_ITERS": "",
+      "CMP_OUTER": "",
+      "JULIA_EXCLUSIVE": "",
+      "KMP_BLOCKTIME": "0",
+      "MKL_DYNAMIC": "",
+      "OMP_WAIT_POLICY": "",
+      "OPENBLAS_THREAD_TIMEOUT": "",
+      "RISTRETTO_BENCH_PLACEMENT": "",
+      "RISTRETTO_BENCH_SNR_DB": "",
+      "TMPDIR": "/dev/shm"
+    },
+    "fftw_provider": "fftw",
+    "fftw_threads": 16,
+    "host": "x1000c0s5b0n0",
+    "julia": "1.13.1",
+    "node_class": "AMD EPYC 7763 64-Core Processor / cpu",
+    "numactl": "policy: bind\npreferred node: 1\nphyscpubind: 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 \ncpubind: 1 \nnodebind: 1 \nmembind: 1 \npreferred: 1",
+    "ristretto": {
+      "commit": "c949d8e2adf0fd4d304583385e475dd38eba7f05",
+      "branch": "HEAD",
+      "dirty": false
+    },
+    "slurm_job": "15123914",
+    "small": "",
+    "spread": "0"
+  },
+  "single_run": {
+    "bytes": 2489397488,
+    "compile_s": 0.002950315,
+    "gc_s": 0.156593637,
+    "time_s": 21.230843507
+  },
+  "threads": 16,
+  "time_median_s": 21.221401868,
+  "time_min_s": 21.221401868,
+  "variant": "variation_serial"
+}

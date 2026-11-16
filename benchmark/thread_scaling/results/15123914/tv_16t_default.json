@@ -1,0 +1,406 @@
+{
+  "case": "shepp_logan_3d_8ch_cartesian",
+  "method": "tv",
+  "nrmse": 0.15752731,
+  "profile": {
+    "compute_threads": 17,
+    "delay_s": 0.005,
+    "other_top": {
+      "< @ int.jl": 612,
+      "+ @ int.jl": 125,
+      "unsafe_store! @ pointer.jl": 59,
+      "== @ Base_compiler.jl": 49,
+      "ThreadTask @ threadtasks.jl": 18,
+      "_atomic_load @ atomics.jl": 14,
+      "unsafe_load @ pointer.jl": 4,
+      "__sigsetjmp @ libc.so.6": 1,
+      "__lll_unlock_wake @ libpthread.so.0": 1,
+      "load @ ManualMemory.jl": 1,
+      " @ ": 1
+    },
+    "per_thread": {
+      "1": {
+        "blas": 6,
+        "fft": 122,
+        "finite_diff": 84,
+        "gc": 9,
+        "idle": 79,
+        "operators_other": 1,
+        "pointwise": 60,
+        "solver_vec": 9
+      },
+      "10": {
+        "fft": 25,
+        "finite_diff": 3,
+        "idle": 245,
+        "operators_other": 36,
+        "other": 53,
+        "pointwise": 8
+      },
+      "11": {
+        "fft": 29,
+        "finite_diff": 1,
+        "idle": 225,
+        "operators_other": 41,
+        "other": 59,
+        "pointwise": 14,
+        "prox": 1
+      },
+      "12": {
+        "fft": 22,
+        "finite_diff": 2,
+        "idle": 228,
+        "operators_other": 40,
+        "other": 65,
+        "pointwise": 13
+      },
+      "13": {
+        "fft": 29,
+        "finite_diff": 3,
+        "idle": 219,
+        "operators_other": 47,
+        "other": 59,
+        "pointwise": 12,
+        "prox": 1
+      },
+      "14": {
+        "fft": 22,
+        "finite_diff": 5,
+        "idle": 238,
+        "operators_other": 34,
+        "other": 56,
+        "pointwise": 15
+      },
+      "15": {
+        "fft": 26,
+        "finite_diff": 5,
+        "idle": 242,
+        "operators_other": 34,
+        "other": 56,
+        "pointwise": 7
+      },
+      "16": {
+        "fft": 19,
+        "finite_diff": 3,
+        "idle": 248,
+        "operators_other": 38,
+        "other": 50,
+        "pointwise": 12
+      },
+      "17": {
+        "fft": 16,
+        "idle": 332,
+        "operators_other": 11,
+        "pointwise": 11
+      },
+      "18": {
+        "gc": 6,
+        "idle": 364
+      },
+      "19": {
+        "gc": 4,
+        "idle": 365,
+        "other": 1
+      },
+      "2": {
+        "fft": 20,
+        "finite_diff": 1,
+        "idle": 247,
+        "operators_other": 38,
+        "other": 55,
+        "pointwise": 9
+      },
+      "20": {
+        "gc": 4,
+        "idle": 366
+      },
+      "21": {
+        "gc": 5,
+        "idle": 365
+      },
+      "22": {
+        "gc": 4,
+        "idle": 366
+      },
+      "23": {
+        "gc": 3,
+        "idle": 367
+      },
+      "24": {
+        "gc": 6,
+        "idle": 364
+      },
+      "25": {
+        "gc": 4,
+        "idle": 366
+      },
+      "26": {
+        "gc": 4,
+        "idle": 366
+      },
+      "27": {
+        "gc": 3,
+        "idle": 367
+      },
+      "28": {
+        "gc": 6,
+        "idle": 364
+      },
+      "29": {
+        "gc": 5,
+        "idle": 365
+      },
+      "3": {
+        "fft": 28,
+        "finite_diff": 2,
+        "idle": 218,
+        "operators_other": 46,
+        "other": 70,
+        "pointwise": 6
+      },
+      "30": {
+        "gc": 7,
+        "idle": 363
+      },
+      "31": {
+        "gc": 4,
+        "idle": 366
+      },
+      "32": {
+        "gc": 4,
+        "idle": 366
+      },
+      "4": {
+        "fft": 34,
+        "finite_diff": 5,
+        "idle": 224,
+        "operators_other": 48,
+        "other": 53,
+        "pointwise": 6
+      },
+      "5": {
+        "fft": 21,
+        "finite_diff": 7,
+        "idle": 229,
+        "operators_other": 58,
+        "other": 51,
+        "pointwise": 4
+      },
+      "6": {
+        "fft": 20,
+        "finite_diff": 3,
+        "idle": 210,
+        "operators_other": 66,
+        "other": 68,
+        "pointwise": 3
+      },
+      "7": {
+        "fft": 25,
+        "finite_diff": 3,
+        "idle": 215,
+        "operators_other": 55,
+        "other": 68,
+        "pointwise": 4
+      },
+      "8": {
+        "fft": 27,
+        "finite_diff": 5,
+        "idle": 238,
+        "operators_other": 36,
+        "other": 56,
+        "pointwise": 7,
+        "prox": 1
+      },
+      "9": {
+        "alloc": 1,
+        "fft": 22,
+        "finite_diff": 2,
+        "idle": 227,
+        "operators_other": 45,
+        "other": 65,
+        "pointwise": 8
+      }
+    },
+    "samples": 6290,
+    "share": {
+      "alloc": 0.0001589825119236884,
+      "blas": 0.0009538950715421304,
+      "fft": 0.08060413354531001,
+      "finite_diff": 0.021303656597774244,
+      "gc": 0.0014308426073131955,
+      "idle": 0.614308426073132,
+      "operators_other": 0.10715421303656598,
+      "other": 0.14054054054054055,
+      "pointwise": 0.03163751987281399,
+      "prox": 0.0004769475357710652,
+      "solver_vec": 0.0014308426073131955
+    },
+    "thread_seconds": {
+      "alloc": 0.07001769483243243,
+      "blas": 0.42010616899459463,
+      "fft": 35.49897128004324,
+      "finite_diff": 9.382371107545945,
+      "gc": 0.6301592534918918,
+      "idle": 270.5483728325189,
+      "operators_other": 47.19192631705946,
+      "other": 61.89564223187027,
+      "pointwise": 13.933521271654053,
+      "prox": 0.21005308449729732,
+      "solver_vec": 0.6301592534918918
+    },
+    "wall_s": 25.906547088,
+    "where": {
+      "main:blas": {
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:472": 4,
+        "#_warm_start_scale_proxy##2 @ src/reconstruction/solve_core.jl:453": 1,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:471": 1
+      },
+      "main:fft": {
+        "mul! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:279": 64,
+        "_pw_core! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:429": 58
+      },
+      "main:finite_diff": {
+        "mul! @ deps/AbstractOperators/src/linearoperators/Variation.jl:142": 34,
+        "mul! @ deps/AbstractOperators/src/linearoperators/Variation.jl:149": 21,
+        "mul! @ deps/AbstractOperators/src/linearoperators/Variation.jl:143": 16,
+        "_variation_adjoint_dim1! @ deps/AbstractOperators/src/linearoperators/Variation.jl:264": 8,
+        "_variation_adjoint_dim1! @ deps/AbstractOperators/src/linearoperators/Variation.jl:267": 4,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:265": 1
+      },
+      "main:operators_other": {
+        "get_normal_op @ deps/AbstractOperators/src/calculus/Compose.jl:252": 1
+      },
+      "main:pointwise": {
+        "_pw_kernel! @ deps/AbstractOperators/src/calculus/pointwise.jl:264": 44,
+        "#mul!##50 @ src/macros.jl:111": 12,
+        "macro expansion @ src/registry.jl:443": 1,
+        "_hand_over_normal_rhs @ src/reconstruction/solve_core.jl:544": 1,
+        "_alternate_sign_columns! @ deps/AbstractOperators/FFTWOperators/src/Shift.jl:526": 1,
+        "_apply! @ src/registry.jl:403": 1
+      },
+      "main:solver_vec": {
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:478": 5,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:464": 1,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:465": 1,
+        "#63 @ deps/ProximalAlgorithms/src/algorithms/admm.jl:460": 1,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/admm.jl:453": 1
+      },
+      "workers:alloc": {
+        "start_task": 1
+      },
+      "workers:fft": {
+        "start_task": 385
+      },
+      "workers:finite_diff": {
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:163": 25,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:268": 10,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:354": 6,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:344": 4,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:265": 2,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:150": 1,
+        "_variation_adjoint_slab! @ deps/AbstractOperators/src/linearoperators/Variation.jl:353": 1,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/Variation.jl:154": 1
+      },
+      "workers:operators_other": {
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:225": 451,
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:226": 213,
+        "macro expansion @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:145": 3,
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:155": 3,
+        "macro expansion @ deps/AbstractOperators/src/batching/SimpleBatchOp.jl:202": 2,
+        "macro expansion @ deps/AbstractOperators/FFTWOperators/src/Shift.jl:570": 1
+      },
+      "workers:other": {
+        "start_task": 884,
+        "clone": 1
+      },
+      "workers:pointwise": {
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:216": 80,
+        "_pw_coef @ deps/AbstractOperators/src/calculus/pointwise.jl:81": 21,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:124": 18,
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:232": 8,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:98": 7,
+        "_pw_segment! @ deps/AbstractOperators/src/calculus/pointwise.jl:215": 2,
+        "_pw_segment! @ deps/AbstractOperators/src/calculus/pointwise.jl:218": 1,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:90": 1,
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:226": 1
+      },
+      "workers:prox": {
+        "macro expansion @ deps/ProximalOperators/src/functions/normL21.jl:106": 1,
+        "macro expansion @ deps/ProximalOperators/src/functions/normL21.jl:0": 1,
+        "macro expansion @ deps/ProximalOperators/src/functions/normL21.jl:108": 1
+      }
+    }
+  },
+  "provenance": {
+    "benchmarking": {
+      "commit": "8d9170f6a21782dcee2090988d33911eb08984c2",
+      "branch": "paper-measurements",
+      "dirty": true
+    },
+    "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+    "blas_threads": 16,
+    "cpus": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "date": "2026-11-16T18:01:06.706",
+    "deps_subtree_split": {
+      "AbstractOperators": "94b9c2b5588b2eb97bef29582a7a96327acd94a1",
+      "NFFT": "5b8ad7ae42ae25580f9da80cf42bb11ac80414da",
+      "OperatorCore": "ff43eb9367121db62396bdc7522363cca087f9df",
+      "ProximalAlgorithms": "bbd8bd512bfc1b3fa7bd2cacbbf44edfd64cc4eb",
+      "ProximalOperators": "5c38fbbb88e0924814548a6ba1ff250ee80c3b47",
+      "StructuredOptimization": "40720478ff5e7dd8db19ae5bb5449f3fe0782f6f"
+    },
+    "env": {
+      "CMP_CG_ITERS": "",
+      "CMP_OUTER": "",
+      "JULIA_EXCLUSIVE": "",
+      "KMP_BLOCKTIME": "0",
+      "MKL_DYNAMIC": "",
+      "OMP_WAIT_POLICY": "",
+      "OPENBLAS_THREAD_TIMEOUT": "",
+      "RISTRETTO_BENCH_PLACEMENT": "",
+      "RISTRETTO_BENCH_SNR_DB": "",
+      "TMPDIR": "/dev/shm"
+    },
+    "fftw_provider": "fftw",
+    "fftw_threads": 16,
+    "host": "x1000c0s5b0n0",
+    "julia": "1.13.1",
+    "node_class": "AMD EPYC 7763 64-Core Processor / cpu",
+    "numactl": "policy: bind\npreferred node: 1\nphyscpubind: 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 \ncpubind: 1 \nnodebind: 1 \nmembind: 1 \npreferred: 1",
+    "ristretto": {
+      "commit": "c949d8e2adf0fd4d304583385e475dd38eba7f05",
+      "branch": "HEAD",
+      "dirty": false
+    },
+    "slurm_job": "15123914",
+    "small": "",
+    "spread": "0"
+  },
+  "single_run": {
+    "bytes": 2140720752,
+    "compile_s": 0.002936709,
+    "gc_s": 0.158269702,
+    "time_s": 21.561540711
+  },
+  "threads": 16,
+  "time_median_s": 22.052398357,
+  "time_min_s": 22.052398357,
+  "variant": "default"
+}
