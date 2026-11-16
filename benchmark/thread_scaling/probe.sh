@@ -34,6 +34,15 @@ spread_run() { # threads, args...
 
 "$JULIA_BIN" --project=benchmark/comparison -e 'using Pkg; Pkg.instantiate(); using Ristretto' || exit 1
 
+if [ "${PROBE_SET:-full}" = variants ]; then
+    for v in default variation_serial no_inner_threads; do
+        local_run 16 benchmark/thread_scaling/probe.jl --case=$CASE --method=tv --variant=$v --out="$OUT/tv_16t_${v}.json"
+    done
+    local_run 4 benchmark/thread_scaling/probe.jl --case=$CASE --method=tv --variant=variation_serial --out="$OUT/tv_4t_variation_serial.json"
+    spread_run 16 benchmark/thread_scaling/probe.jl --case=$CASE --method=tv --variant=variation_serial --out="$OUT/tv_16t_spread4_variation_serial.json"
+    echo "### done"
+    exit 0
+fi
 if [ "${PROBE_SET:-full}" = attribution ]; then
     for m in cgsense tv; do
         for t in 1 4 16; do

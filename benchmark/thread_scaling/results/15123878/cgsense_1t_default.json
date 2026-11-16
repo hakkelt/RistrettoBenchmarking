@@ -1,0 +1,141 @@
+{
+  "case": "shepp_logan_3d_8ch_cartesian",
+  "method": "cgsense",
+  "nrmse": 0.29357925,
+  "profile": {
+    "compute_threads": 1,
+    "delay_s": 0.005,
+    "other_top": {},
+    "per_thread": {
+      "1": {
+        "blas": 8,
+        "fft": 269,
+        "fft_plan": 306,
+        "gc": 74,
+        "operators_other": 5,
+        "pointwise": 110,
+        "solver_vec": 9
+      }
+    },
+    "samples": 781,
+    "share": {
+      "blas": 0.010243277848911651,
+      "fft": 0.3444302176696543,
+      "fft_plan": 0.39180537772087065,
+      "gc": 0.09475032010243278,
+      "operators_other": 0.006402048655569782,
+      "pointwise": 0.14084507042253522,
+      "solver_vec": 0.011523687580025609
+    },
+    "thread_seconds": {
+      "blas": 0.044740908711907806,
+      "fft": 1.5044130554379,
+      "fft_plan": 1.7113397582304735,
+      "gc": 0.4138534055851472,
+      "operators_other": 0.02796306794494238,
+      "pointwise": 0.6151874947887324,
+      "solver_vec": 0.050333522300896286
+    },
+    "wall_s": 4.367831213,
+    "where": {
+      "main:blas": {
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:373": 3,
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:370": 3,
+        "#_warm_start_scale_proxy##2 @ src/reconstruction/solve_core.jl:453": 1,
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:366": 1
+      },
+      "main:fft": {
+        "_pw_core! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:429": 134,
+        "mul! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:279": 122,
+        "_pw_core! @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:426": 13
+      },
+      "main:fft_plan": {
+        "#9 @ deps/AbstractOperators/FFTWOperators/src/DFT.jl:167": 306
+      },
+      "main:operators_other": {
+        "get_normal_op @ deps/AbstractOperators/src/calculus/Compose.jl:252": 3,
+        "macro expansion @ deps/AbstractOperators/FFTWOperators/src/Shift.jl:570": 2
+      },
+      "main:pointwise": {
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:225": 22,
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:216": 21,
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:226": 13,
+        "macro expansion @ deps/AbstractOperators/src/calculus/pointwise.jl:232": 11,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:124": 10,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:98": 9,
+        "_pw_coef @ deps/AbstractOperators/src/calculus/pointwise.jl:81": 7,
+        "mul! @ deps/AbstractOperators/src/linearoperators/GetIndex.jl:155": 4,
+        "macro expansion @ deps/AbstractOperators/FFTWOperators/src/Shift.jl:570": 3,
+        "_pw_apply @ deps/AbstractOperators/src/calculus/pointwise.jl:90": 2,
+        "_scale_kspace @ src/acquisition_data/partitioned_kspace.jl:179": 1,
+        "_hand_over_normal_rhs @ src/reconstruction/solve_core.jl:544": 1,
+        "_pw_segment! @ deps/AbstractOperators/src/calculus/pointwise.jl:231": 1,
+        "_inv_scale @ src/reconstruction/solve_core.jl:153": 1,
+        "_scale_x0 @ src/reconstruction/solve_core.jl:150": 1
+      },
+      "main:solver_vec": {
+        "#37 @ deps/ProximalAlgorithms/src/algorithms/cg.jl:381": 6,
+        "iterate @ deps/ProximalAlgorithms/src/algorithms/cg.jl:264": 1,
+        "prepare @ deps/StructuredOptimization/src/solvers/parse.jl:646": 1,
+        "- @ deps/StructuredOptimization/src/syntax/expressions/addition.jl:183": 1
+      }
+    }
+  },
+  "provenance": {
+    "benchmarking": {
+      "commit": "437d839e4c8141e991b2f7f27e8e2e7504a2da7a",
+      "branch": "paper-measurements",
+      "dirty": false
+    },
+    "blas": "LBTConfig([ILP64] libopenblas64_.so)",
+    "blas_threads": 1,
+    "cpus": [
+      16
+    ],
+    "date": "2026-11-16T17:36:44.799",
+    "deps_subtree_split": {
+      "AbstractOperators": "94b9c2b5588b2eb97bef29582a7a96327acd94a1",
+      "NFFT": "5b8ad7ae42ae25580f9da80cf42bb11ac80414da",
+      "OperatorCore": "ff43eb9367121db62396bdc7522363cca087f9df",
+      "ProximalAlgorithms": "bbd8bd512bfc1b3fa7bd2cacbbf44edfd64cc4eb",
+      "ProximalOperators": "5c38fbbb88e0924814548a6ba1ff250ee80c3b47",
+      "StructuredOptimization": "40720478ff5e7dd8db19ae5bb5449f3fe0782f6f"
+    },
+    "env": {
+      "CMP_CG_ITERS": "",
+      "CMP_OUTER": "",
+      "JULIA_EXCLUSIVE": "",
+      "KMP_BLOCKTIME": "0",
+      "MKL_DYNAMIC": "",
+      "OMP_WAIT_POLICY": "",
+      "OPENBLAS_THREAD_TIMEOUT": "",
+      "RISTRETTO_BENCH_PLACEMENT": "",
+      "RISTRETTO_BENCH_SNR_DB": "",
+      "TMPDIR": "/dev/shm"
+    },
+    "fftw_provider": "fftw",
+    "fftw_threads": 1,
+    "host": "x1000c3s4b0n1",
+    "julia": "1.13.1",
+    "node_class": "AMD EPYC 7763 64-Core Processor / cpu",
+    "numactl": "policy: bind\npreferred node: 1\nphyscpubind: 16 \ncpubind: 1 \nnodebind: 1 \nmembind: 1 \npreferred: 1",
+    "ristretto": {
+      "commit": "c949d8e2adf0fd4d304583385e475dd38eba7f05",
+      "branch": "HEAD",
+      "dirty": false
+    },
+    "slurm_job": "15123878",
+    "small": "",
+    "spread": "0"
+  },
+  "single_run": {
+    "bytes": 1914031320,
+    "compile_s": 0.002590955,
+    "gc_s": 0.130210413,
+    "time_s": 3.607764697
+  },
+  "threads": 1,
+  "time_median_s": 3.87436383,
+  "time_min_s": 3.87436383,
+  "variant": "default"
+}

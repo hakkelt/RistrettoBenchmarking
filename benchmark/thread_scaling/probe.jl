@@ -17,6 +17,8 @@
 #   cg_blas_grant     ProximalAlgorithms.CG_BLAS_THREAD_BYTES = 8 MiB: CG's dot/axpy! take BLAS threads
 #   no_inner_threads  reconstruct(...; threaded = false)
 #   gc_off            GC disabled during each timed run (collected between runs)
+#   variation_serial  the TV gradient (AbstractOperators' Variation) never threads: its
+#                     threading_threshold is raised to typemax(Int) before anything is built
 #
 # Categories (first match wins): gc, fft_plan, fft, nfft, blas, alloc, prox (proximal maps),
 # finite_diff (the TV gradient and its adjoint), solver_vec (the solver's own vector updates, no
@@ -84,6 +86,9 @@ using .BenchUtils
 
 const PA = Ristretto.ProximalAlgorithms
 VARIANT == "cg_blas_grant" && (PA.CG_BLAS_THREAD_BYTES[] = 8 * 2^20)
+if VARIANT == "variation_serial"
+    @eval Ristretto.AbstractOperators.threading_threshold(::Type{<:Ristretto.AbstractOperators.Variation}) = typemax(Int)
+end
 
 c = get_case(CASE)
 acq = ristretto_acquisition(c)
