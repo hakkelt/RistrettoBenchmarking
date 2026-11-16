@@ -4,6 +4,7 @@
 #  1. reconstruction(acqData, params) with params[:solver] = FISTA, POGM and OptISTA
 #     (RegularizedLeastSquares), ℓ1-wavelet, 20 iterations: the error each raises, or the NRMSE
 #     of its image against the phantom and against the FISTA image.
+#     1b: the same, without :rho, as a user would call it.
 #  2. A misspelled solver option (:iteration for :iterations): the image with and without it, and
 #     the log records MRIReco emits, with its default params[:kwargWarning] = false and with true.
 #
@@ -51,6 +52,21 @@ for (name, solver) in (("FISTA", MR_FISTA), ("POGM", RLS.POGM), ("OptISTA", RLS.
         out[name] = Dict("status" => "error", "type" => string(typeof(e)), "message" => first(msg, 2000), "stacktrace" => st)
     end
     println(name, " => ", out[name])
+end
+
+# 1b. The same solvers called as a user would, without :rho: MRIReco's default params[:rho] = 0.05
+# (RecoParameters.jl) then reaches FISTA, POGM and OptISTA as their step size.
+for (name, solver) in (("FISTA", MR_FISTA), ("POGM", RLS.POGM), ("OptISTA", RLS.OptISTA))
+    key = name * "_default_rho"
+    try
+        rp = params(solver)
+        delete!(rp, :rho)
+        img = recon(rp)
+        out[key] = Dict("status" => "ok", "nrmse_phantom" => mag_nrmse(img, c.reference), "nrmse_vs_fista" => mag_nrmse(img, ref))
+    catch e
+        out[key] = Dict("status" => "error", "type" => string(typeof(e)), "message" => first(sprint(showerror, e), 2000))
+    end
+    println(key, " => ", out[key])
 end
 
 # 2. a misspelled keyword

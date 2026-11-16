@@ -1,17 +1,32 @@
 {
   "FISTA": {
-    "nrmse_phantom": 0.26651467249267907,
+    "nrmse_phantom": 0.2665410049858514,
     "nrmse_vs_fista": 0.0,
     "status": "ok"
   },
+  "FISTA_default_rho": {
+    "nrmse_phantom": 0.39086910979189665,
+    "nrmse_vs_fista": 0.2004090313116166,
+    "status": "ok"
+  },
   "OptISTA": {
-    "nrmse_phantom": 0.23308125403958455,
-    "nrmse_vs_fista": 0.0681682916742184,
+    "nrmse_phantom": 0.2331058042366606,
+    "nrmse_vs_fista": 0.06816895667437528,
+    "status": "ok"
+  },
+  "OptISTA_default_rho": {
+    "nrmse_phantom": 0.35585995960673333,
+    "nrmse_vs_fista": 0.15176157698997667,
     "status": "ok"
   },
   "POGM": {
-    "nrmse_phantom": 0.23125219808759015,
-    "nrmse_vs_fista": 0.07637363751108106,
+    "nrmse_phantom": 0.23127696786603374,
+    "nrmse_vs_fista": 0.07636709450344485,
+    "status": "ok"
+  },
+  "POGM_default_rho": {
+    "nrmse_phantom": 0.3549607937831404,
+    "nrmse_vs_fista": 0.1503949209392278,
     "status": "ok"
   },
   "case": "shepp_logan_2d_8ch_cartesian",
@@ -36,9 +51,9 @@
       ]
     ],
     "max_abs_diff_vs_unmisspelled": 0.0,
-    "nrmse_vs_3_iterations": 0.25358463150896515
+    "nrmse_vs_3_iterations": 0.2535730751277772
   },
-  "step": 0.4091744215874155,
+  "step": 0.40899080214606326,
   "versions": {
     "LinearOperatorCollection": "2.3.2",
     "MRIOperators": "0.4.2",
