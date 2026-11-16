@@ -334,7 +334,7 @@ function write_calibration!(c::BenchCase, fresh::Dict{String, Any})
         file["meta"] = Dict(
             "case_id" => c.id, "data_source" => c.source, "iterations" => IT_CAL,
             "rho_decades" => RHO_DECADES,
-            "small" => small_mode(), "cine_frames" => cine_frames(),
+            "small" => small_mode(), "image_n" => image_n(), "cine_frames" => cine_frames(),
             "backend" => USE_MKL ? "mkl" : "openblas", "threads" => NUM_THREADS,
             "git" => Dict(pairs(git_ref(normpath(joinpath(@__DIR__, "..", "..", ".."))))),
         )

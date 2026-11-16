@@ -3,7 +3,8 @@
 This branch (`paper-measurements`) collects the measurements and source checks for the
 Toolbox Article on Ristretto.jl. It is based on `gpu-tensor-rerun` (draft PR #1), which is
 `master` plus the GPU rerun and the TENSOR-NFFT radial CPU rows, so the stored snapshots it starts
-from are the newest ones.
+from are the newest ones. Working files that are not in the repository (source clones, builds,
+venvs, logs) are in `/project/c_mrrecon/paper-measurements`, called "the working directory" below.
 
 ## Not done or not verified
 
@@ -29,7 +30,7 @@ State on 2026-11-16; every table names its commit and node.
 ## Part 1. Claims about other toolboxes
 
 BART source: tag `v1.0.00` (commit `37f3c5f0`, 2026-02-18) cloned from
-`codeberg.org/mrirecon/bart` into the scratch area; paths below are relative to its root.
+`codeberg.org/mrirecon/bart` into the working directory; paths below are relative to its root.
 Everything below was read in the source except where it says "measured" or "inference". All
 licences were checked first: BART (BSD-3-style), SigPy (BSD), MRpro (Apache-2.0), MRIReco.jl,
 RegularizedLeastSquares.jl, LinearOperatorCollection.jl, MIRT.jl (MIT). No GPL code was read.
@@ -197,7 +198,7 @@ Build commands:
   the whole build about 25 min on 16 login-node cores.
 - Depot: `JULIA_DEPOT_PATH=<empty dir> julia -e 'using Pkg; Pkg.activate(temp=true);
   Pkg.add(url="https://github.com/hakkelt/Ristretto.jl", rev="master"); Pkg.precompile()'` (registry
-  copied in first; script `depot_build.jl` in the scratch area).
+  copied in first; script `depot_build.jl` in the working directory).
 - Venvs: `uv venv -p cpython-3.14.3`, then `uv pip install --link-mode=copy numpy sigpy numba scipy`;
   for MRpro `torch` and `torchvision` from the PyTorch CPU index, then `mrpro`. (`mrpro` alone
   pulls `torchvision` from PyPI, whose build does not match the CPU `torch`: `import mrpro` then
@@ -211,7 +212,7 @@ Build commands:
   :backend)()` returns `Any`), FFTW's plan finalizer (`unsafe_destroy_plan` on an abstract
   `FFTWPlan`), ProximalAlgorithms' keyword merge with a `Dict{Symbol}`, and Ristretto's
   dimension-name tuple checks (`Tuple{Vararg{Symbol}}` comparisons and string building). Log:
-  `juliac/build_trim.log` in the scratch area.
+  `juliac/build_trim.log` in the working directory.
 
 **JuliaC first solve depends on the thread count (login node `vn01`, 4 cores pinned, not the
 harness; preliminary).** A second bundle whose app module carries a `@compile_workload` running

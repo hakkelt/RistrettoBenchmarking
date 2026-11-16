@@ -538,7 +538,7 @@ function flush_results!(name::AbstractString)
         use_mkl = USE_MKL, bart_binary = BART_BINARY, pinned_cpus = CPU_STR,
         placement = get(ENV, "RISTRETTO_BENCH_PLACEMENT", "isolated"),
         cases_filter = CASE_FILTER, frameworks_filter = FRAMEWORK_FILTER, data = DATA,
-        small = small_mode(), cine_frames = cine_frames(), device = String(DEVICE),
+        small = small_mode(), image_n = image_n(), cine_frames = cine_frames(), device = String(DEVICE),
         gpu = ON_GPU ? CUDA.name(CUDA.device()) : nothing,
         toolkit_versions = TOOLKIT_VERSIONS,
     )

@@ -52,8 +52,14 @@ end
 
 `results/lambda/`, one calibration file per case; under `RISTRETTO_BENCH_SMALL=1` the separate
 `results/lambda_small/`, so a smoke calibration of the shrunken cases never overwrites the real one.
+An image size other than the default (`RISTRETTO_BENCH_N`) gets its own directory too,
+`results/lambda_n<size>/` (`results/lambda_small_n<size>/` in small mode), since the best λ
+changes with the size.
 """
-const LAMBDA_DIR = normpath(joinpath(@__DIR__, "..", "results", small_mode() ? "lambda_small" : "lambda"))
+const LAMBDA_DIR = let base = small_mode() ? "lambda_small" : "lambda"
+    isempty(get(ENV, "RISTRETTO_BENCH_N", "")) || (base *= "_n$(image_n())")
+    normpath(joinpath(@__DIR__, "..", "results", base))
+end
 
 """
     load_lambda(c::BenchCase, method, toolkit, default) -> Float64
