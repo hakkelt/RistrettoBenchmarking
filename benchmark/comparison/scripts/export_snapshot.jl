@@ -103,15 +103,8 @@ end
 # Cases the harness no longer runs (`EXCLUDED_CASES` in _setup.jl); their recorded rows are left out.
 const EXCLUDED_CASES = ("real_cine_multichannel_radial",)
 
-# BART's GPU rows from runs that subtracted an estimate of its CUDA start-up are left out: the estimate
-# varied by more than many solves take. Runs that record `bart_gpu_init_s` keep the start-up in the time.
-function full_bart_gpu_time(r)
-    (r.backend == "cuda" && startswith(r.framework, "BART")) || return true
-    return haskey(get(RUNS, r.run_id, Dict{String, Any}()), "bart_gpu_init_s")
-end
-
 latest = latest_per_case(
-    current_release_rows(filter(r -> !(r.case_id in EXCLUDED_CASES) && measured(r) && same_metric(r) && full_bart_gpu_time(r), rows));
+    current_release_rows(filter(r -> !(r.case_id in EXCLUDED_CASES) && measured(r) && same_metric(r), rows));
     prefer_source = SOURCE,
 )
 isempty(latest) && (@info "no source=\"$SOURCE\" rows match; nothing exported"; exit(0))
