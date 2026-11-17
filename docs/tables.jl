@@ -188,10 +188,9 @@ end
 # The harness clamps a time at 1e-5 s; anything at the clamp is no measurement.
 measured_ms(t) = t > 0.01
 
-# A BART GPU time is the whole call, CUDA start-up included. Where only an upper bound is known
-# (bart_gpu_upper_bound, see export_snapshot.jl), the cell shows that bound; a bound below every other
-# time of its row is still the fastest.
-upper_bound(c) = get(c, "bart_gpu_upper_bound", false)
+# A BART GPU time is the whole call, CUDA start-up included, so it bounds the solve's own time from
+# above and is shown with "≤"; a bound below every other time of its row is still the fastest.
+upper_bound(c) = startswith(c["framework"], "BART") && occursin("CUDA", c["framework"])
 shown_ms(c) = c["time_ms"]
 cell_time(c) = upper_bound(c) ? "≤ " * fmt_ms(c["time_ms"]) : fmt_ms(c["time_ms"])
 fastest(cells) = (ts = [shown_ms(c) for c in values(cells) if measured_ms(shown_ms(c))]; length(ts) > 1 ? minimum(ts) : -1.0)

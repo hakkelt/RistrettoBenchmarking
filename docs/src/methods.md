@@ -66,9 +66,8 @@ default settings costs, but times there compare solvers that reach different err
   and loads cuFFT and cuBLAS before it solves, which an in-process toolbox pays once, in its warm-up.
   That start-up takes a few hundred milliseconds and varies between processes by more than many GPU
   solves take, so it is not subtracted: a BART GPU time is the whole call, as a user of the `bart`
-  tool pays it, and the column is headed "BART (with CUDA start-up)". Rows measured with an earlier
-  harness, which subtracted a once-per-process estimate of the start-up, have that estimate added back;
-  where such a call took less than the estimate, only that bound is known and the cell reads "≤".
+  tool pays it. It bounds the solve's own time from above, so the tables show it with "≤"; when even
+  that bound is below every other toolbox's time, BART is the fastest of the row.
 
 ## FFT planning
 
@@ -102,5 +101,6 @@ the line above each of its tables.
 - **not reached:** in the accuracy race, the toolbox has a fixed-budget row of the method but no race
   row: no count on its ladder reached the target, or the race run did not finish.
 - **n/m:** run, but its time is not measured (see Timing).
-- **≤ t:** a BART GPU call of which only an upper bound is known (see Timing).
+- **≤ t:** a BART GPU time, which includes BART's CUDA start-up and so bounds its solve time from
+  above (see Timing).
 - Brackets hold the error of the reconstruction (see Error measures).

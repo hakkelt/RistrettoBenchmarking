@@ -43,3 +43,7 @@ Main.Tables.md(Main.Tables.machines_markdown())
 - [Ablation](@ref): what each of Ristretto's design choices contributes.
 - [Feature comparison](@ref): which methods and tools each toolbox provides.
 - [Data and reproduction](@ref): the result files, the calibrated λ, and how to repeat a run.
+
+## Acknowledgement
+
+We acknowledge the Digital Government Development and Project Management Ltd. for awarding us access to the Komondor HPC facility based in Hungary.

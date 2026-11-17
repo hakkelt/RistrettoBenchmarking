@@ -104,18 +104,6 @@ julia --project=docs -e 'using Pkg; Pkg.instantiate()'
 julia --project=docs docs/make.jl
 ```
 
-## Open items
+## Acknowledgement
 
-- **Startup suite: BART in the common loop.** `benchmark/startup/run.jl` special-cases BART
-  (`tk.lang === :bart`) in five places. Its first and warm solves are both the end-to-end time,
-  and its NRMSE is read from the last run's output outside the loop. A small wrapper script that
-  runs `pics` and prints the same `RESULT` line as the other toolkits (with `pics`'s Total Time)
-  would remove the branches. The setup time every child prints in that line is never recorded;
-  either record it or drop it from the protocol.
-- **Startup suite: shared case and solver definitions.** `benchmark/startup/solve_ristretto.jl`
-  rewrites the acquisition, the FISTA/CGNR choice and the ℓ₁-wavelet regularizer instead of using
-  `ristretto_acquisition`, `ristretto_algorithm` and `ristretto_regularizer` (`Ristretto/benchmark/utils/`).
-  Those helpers take a `BenchCase` and bring the whole harness with them, which the child process
-  deliberately avoids loading. `prepare.jl` likewise parses the λ file itself instead of using
-  `_lambda_from` (`comparison/scripts/_methods.jl`). Possible fix: move the toolkit-independent
-  parts into a file that loads only Ristretto, or at least test that the two definitions agree.
+We acknowledge the Digital Government Development and Project Management Ltd. for awarding us access to the Komondor HPC facility based in Hungary.
