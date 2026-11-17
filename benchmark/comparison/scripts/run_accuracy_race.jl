@@ -93,6 +93,7 @@ function ristretto_race_run(c::BenchCase, method::Symbol, λ, rho)
 end
 
 for c in section_cases(_ -> true), method in race_methods(c)
+    METHOD_FILTER === nothing || method in METHOD_FILTER || continue
     should_run(c.id, METHOD_LABEL[method]) || should_run("Accuracy race", METHOD_LABEL[method]) || continue
     has_gpu_rival(c, method) || continue
     λ_default = default_lambda(c, method)
