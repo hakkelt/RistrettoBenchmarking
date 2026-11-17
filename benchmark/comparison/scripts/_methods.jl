@@ -122,17 +122,31 @@ function _lambda_from(path, method, toolkit; table = "lambda")
 end
 
 """
+    race_margin(c) -> Float64
+
+How far above the worst toolkit's best converged error the accuracy race's target lies on case `c`:
+10%, or 1% for a case in `HELDOUT_CASES`. A held-out k-space error has a floor, the measurement
+noise of the held-out samples, that every image shares; on the radial breast slice the floor is
+near 0.44 and the toolkits' best errors 0.447–0.50, so a 10% margin is reached at a solver's first
+iterations and the race would time nothing.
+"""
+race_margin(c::BenchCase) = c.id in HELDOUT_CASES ? 1.01 : 1.1
+
+"""
     load_race_target(c, method, default) -> Float64
 
 The accuracy race's NRMSE target for `method` on `c`: `race_target` from the case's λ file (the
-worst toolkit's best converged NRMSE × 1.10, so every toolkit can reach it), else `default`.
+worst toolkit's best converged error × [`race_margin`](@ref), so every toolkit can reach it), else
+`default`.
 
 The rows of one penalty share a target: the ADMM row and the PDHG row of a TV ([`penalty_of`](@ref))
 both race to the larger of their two targets, so their times are to the same accuracy and compare
-directly.
+directly. On a case in `HELDOUT_CASES` each row keeps its own target: there the PDHG toolkits stop
+well above the ADMM ones' best error, and with the 1% margin a shared target would let every ADMM
+row finish at its first iterations.
 """
 function load_race_target(c::BenchCase, method::Symbol, default::Real)
-    siblings = [String(m) for m in METHODS if penalty_of(m) === penalty_of(method)]
+    siblings = c.id in HELDOUT_CASES ? [String(method)] : [String(m) for m in METHODS if penalty_of(m) === penalty_of(method)]
     for id in unique((c.id, c.analogue))
         path = joinpath(LAMBDA_DIR, "$id.json")
         isfile(path) || continue

@@ -31,7 +31,7 @@
 # through `load_lambda` and `load_rho`. A real case falls back to its synthetic analogue's file only
 # until it has its own: λ does not transfer from the analogue (unit-RMS k-space normalisation does
 # not make it), so `--data=real` calibrates the real cases themselves. Each file also records `race_target`:
-# the worst toolkit's best NRMSE × 1.10, the target `run_accuracy_race.jl` races to, reachable by
+# the worst toolkit's best NRMSE × `race_margin` (1.10, or 1.01 for a held-out case), the target `run_accuracy_race.jl` races to, reachable by
 # every toolkit. The file is merged under a lock, so several processes may calibrate different
 # toolkits or methods of one case at once.
 #
@@ -354,7 +354,7 @@ function write_calibration!(c::BenchCase, fresh::Dict{String, Any})
             file["lambda"][method] = picks
             file["rho"][method] = rhos
             file["target_nrmse"][method] = target
-            file["race_target"][method] = isfinite(worst) ? 1.1 * worst : nothing
+            file["race_target"][method] = isfinite(worst) ? race_margin(c) * worst : nothing
             file["sweeps"][method] = Dict(tk => _curve_to_json(curve) for (tk, curve) in merged)
         end
         file["meta"] = Dict(

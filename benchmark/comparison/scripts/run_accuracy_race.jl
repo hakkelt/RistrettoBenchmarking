@@ -26,7 +26,9 @@
 # The (case, method) pairs are `race_methods` of every catalog case (`_methods.jl`). The target is
 # the case's `race_target` from `calibrate_lambda.jl` (the worst toolkit's best converged NRMSE ×
 # 1.10, so every toolkit can reach it); the ADMM and PDHG rows of one TV share the larger of their
-# two targets, so the two algorithms race to the same accuracy. A case that was never calibrated falls back to 1.10 × Ristretto's
+# two targets, so the two algorithms race to the same accuracy. The cases scored by held-out k-space
+# prediction race to 1.01 × the worst best error of each row's own toolkits (`race_margin`,
+# `load_race_target`). A case that was never calibrated falls back to 1.10 × Ristretto's
 # NRMSE at the top of its ladder, which is logged: that target is reachable by Ristretto by construction
 # and says nothing about whether the others can reach it.
 #
