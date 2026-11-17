@@ -65,9 +65,9 @@ default settings costs, but times there compare solvers that reach different err
 - On the GPU, every `bart pics -g` process creates a CUDA context and loads cuFFT and cuBLAS before it
   solves, which an in-process toolbox pays once, in its warm-up. That start-up, measured once per job
   as the difference between a GPU and a CPU `pics` call on an 8×8 problem (0.31-1.09 s depending on
-  the job), is subtracted from every BART GPU time, and the result is clamped at 0.01 ms. A BART GPU
-  time is therefore uncertain by the run-to-run variation of that start-up, and "< 0.01 ms" means that
-  the solve took less than the start-up estimate, not that it was measured as that short.
+  the job), is subtracted from every BART GPU time. A BART GPU time is therefore uncertain by the
+  process-to-process variation of that start-up. Where the whole call took less than the start-up
+  estimate, the cell reads "uncertain": no time can be given for it.
 
 ## FFT planning
 
@@ -101,5 +101,5 @@ the line above each of its tables.
 - **not reached:** in the accuracy race, the toolbox has a fixed-budget row of the method but no race
   row: no count on its ladder reached the target, or the race run did not finish.
 - **n/m:** run, but its time is not measured (see Timing).
-- **< 0.01 ms:** a BART GPU time below the start-up correction (see Timing).
+- **uncertain:** a BART GPU call shorter than the start-up subtracted from it (see Timing).
 - Brackets hold the error of the reconstruction (see Error measures).

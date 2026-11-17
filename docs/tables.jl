@@ -17,10 +17,11 @@ toolkit_rank(t) = something(findfirst(==(t), collect(TOOLKITS)), 99)
 
 # ------------------------------------------------------------------ formatting
 
-# BART's GPU times are clamped at 1e-5 s (see the methodology page), hence "< 0.01 ms".
+# A BART GPU time at the 1e-5 s clamp is shorter than the CUDA start-up subtracted from it (see the
+# methodology page): no time can be given.
 function fmt_ms(t)
     t < 0 && return "n/m"
-    t <= 0.01 && return "< 0.01 ms"
+    t <= 0.01 && return "uncertain"
     t < 10 && return @sprintf("%.2f ms", t)
     t < 1000 && return @sprintf("%.0f ms", t)
     t < 100_000 && return @sprintf("%.2f s", t / 1000)
