@@ -19,15 +19,32 @@ source "${SLURM_SUBMIT_DIR:-$(pwd)}/benchmark/slurm/common.sh"
 
 nvidia-smi --query-gpu=index,name,memory.total --format=csv
 ngpu=$(nvidia-smi -L | wc -l)
+# One physical core per worker: _setup.jl pins a process's threads to the first CPUs it may use, so
+# workers sharing the job's whole CPU list would all run on its first core.
+mapfile -t cores < <(
+    allowed=$(taskset -cp $$ | sed 's/.*: //')
+    lscpu -p=CPU,CORE | grep -v '^#' | while IFS=, read -r cpu core; do
+        for r in ${allowed//,/ }; do
+            lo=${r%-*}; hi=${r#*-}
+            if [ "$cpu" -ge "$lo" ] && [ "$cpu" -le "$hi" ]; then echo "$core $cpu"; break; fi
+        done
+    done | sort -n -k1,1 -k2,2 | awk '!seen[$1]++ {print $2}'
+)
+echo "cores: ${cores[*]}"
 LOG_DIR="benchmark/results/slurm/calibrate-pack_${SLURM_JOB_ID:-local}"
 mkdir -p "$LOG_DIR"
 dirs=()
 trap 'rm -rf "${dirs[@]}"' EXIT
 i=0; g=0
+# A worker's one CPU may be an SMT sibling (when the job holds only that half of a core), which
+# _setup.jl would otherwise refuse; with one worker per core no other thread shares it.
+export RISTRETTO_BENCH_ALLOW_SMT=1
 while read -r kind args; do
     [ -z "$kind" ] && continue
     case "$kind" in \#*) continue ;; esac
     i=$((i + 1))
+    [ "$i" -le "${#cores[@]}" ] || { echo "### more workers than physical cores (${#cores[@]})" >&2; exit 1; }
+    cpu=${cores[$((i - 1))]}
     if [ "$kind" = cuda ]; then
         # GPUEnv writes its overlay into the environment's directory: one copy per worker.
         env_dir="$REPO_ROOT/benchmark/comparison_gpu_${SLURM_JOB_ID:-local}_$i"
@@ -35,17 +52,17 @@ while read -r kind args; do
         cp benchmark/comparison/Project.toml benchmark/comparison/Manifest.toml "$env_dir/"
         [ -f benchmark/comparison/LocalPreferences.toml ] && cp benchmark/comparison/LocalPreferences.toml "$env_dir/"
         # shellcheck disable=SC2086
-        CUDA_VISIBLE_DEVICES=$((g % ngpu)) OMP_NUM_THREADS=1 "$JULIA_BIN" --project="$env_dir" -t 1 \
+        CUDA_VISIBLE_DEVICES=$((g % ngpu)) OMP_NUM_THREADS=1 taskset -c "$cpu" "$JULIA_BIN" --project="$env_dir" -t 1 \
             benchmark/comparison/scripts/calibrate_lambda.jl --threads=1 --device=cuda $args \
             > "$LOG_DIR/worker$i.log" 2>&1 &
         g=$((g + 1))
     else
         # shellcheck disable=SC2086
-        CUDA_VISIBLE_DEVICES= OMP_NUM_THREADS=1 "$JULIA_BIN" --project=benchmark/comparison -t 1 \
+        CUDA_VISIBLE_DEVICES= OMP_NUM_THREADS=1 taskset -c "$cpu" "$JULIA_BIN" --project=benchmark/comparison -t 1 \
             benchmark/comparison/scripts/calibrate_lambda.jl --threads=1 $args \
             > "$LOG_DIR/worker$i.log" 2>&1 &
     fi
-    echo "worker $i ($kind): $args"
+    echo "worker $i ($kind, CPU $cpu): $args"
 done < "$1"
 status=0
 for p in $(jobs -p); do wait "$p" || status=1; done
