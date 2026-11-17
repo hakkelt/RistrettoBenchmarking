@@ -189,9 +189,10 @@ end
 measured_ms(t) = t > 0.01
 
 # A BART GPU time is the whole call, CUDA start-up included. Where only an upper bound is known
-# (bart_gpu_upper_bound, see export_snapshot.jl), the cell shows that bound and is never the fastest.
+# (bart_gpu_upper_bound, see export_snapshot.jl), the cell shows that bound; a bound below every other
+# time of its row is still the fastest.
 upper_bound(c) = get(c, "bart_gpu_upper_bound", false)
-shown_ms(c) = upper_bound(c) ? -2.0 : c["time_ms"]
+shown_ms(c) = c["time_ms"]
 cell_time(c) = upper_bound(c) ? "≤ " * fmt_ms(c["time_ms"]) : fmt_ms(c["time_ms"])
 fastest(cells) = (ts = [shown_ms(c) for c in values(cells) if measured_ms(shown_ms(c))]; length(ts) > 1 ? minimum(ts) : -1.0)
 column_label(s::Snapshot, t) = s.backend == "cuda" && t == "BART" ? "BART (with CUDA start-up)" : t
