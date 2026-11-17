@@ -10,15 +10,6 @@
 using Serialization: serialize, deserialize
 
 """
-    HELDOUT_CASES
-
-The cases scored by [`heldout_error`](@ref) instead of `mag_nrmse` against `c.reference`: the real
-radial breast slice (the undersampled acquisition is the first 128 of 288 spokes, the other 160 are
-held out) and the real spiral speech series (3 of 13 arms per frame acquired, the other 10 held out).
-"""
-const HELDOUT_CASES = ("real_2d_multichannel_radial", "real_cine_multichannel_radial")
-
-"""
     error_metric(c) -> String
 
 The name of the error `case_error` reports for case `c`, as recorded in a calibration file.

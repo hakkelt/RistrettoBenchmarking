@@ -539,6 +539,17 @@ scripts) rather than only once at the end, so a crash partway through a long sec
 real-data solve, a hung toolkit subprocess -- does not lose the cases that already finished. Returns
 `nothing` when there is nothing to flush (already flushed, or the case was skipped).
 """
+"""
+    HELDOUT_CASES
+
+The cases scored by `heldout_error` (`_scoring.jl`) instead of `mag_nrmse` against `c.reference`:
+the real radial breast slice (the undersampled acquisition is the first 128 of 288 spokes, the other
+160 are held out) and the real spiral speech series (3 of 13 arms per frame acquired, the other 10
+held out). Every run file records them (`heldout_cases`), so a row's error metric can be told from
+its run.
+"""
+const HELDOUT_CASES = ("real_2d_multichannel_radial", "real_cine_multichannel_radial")
+
 function flush_results!(name::AbstractString)
     isempty(results) && return nothing
     path = record_run(
@@ -551,7 +562,7 @@ function flush_results!(name::AbstractString)
         cases_filter = CASE_FILTER, frameworks_filter = FRAMEWORK_FILTER, data = DATA,
         small = small_mode(), image_n = image_n(), cine_frames = cine_frames(), device = String(DEVICE),
         gpu = ON_GPU ? CUDA.name(CUDA.device()) : nothing,
-        toolkit_versions = TOOLKIT_VERSIONS,
+        toolkit_versions = TOOLKIT_VERSIONS, heldout_cases = collect(HELDOUT_CASES),
     )
     for r in results
         @printf(

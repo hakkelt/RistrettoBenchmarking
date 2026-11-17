@@ -78,7 +78,16 @@ function measured(r)
     return patterns === nothing || any(p -> occursin(p, lowercase(r.framework)), patterns)
 end
 
-latest = latest_per_case(current_release_rows(filter(measured, rows)); prefer_source = "slurm")
+# The cases some run scored by held-out k-space prediction (`HELDOUT_CASES` in _setup.jl). A row of
+# such a case from a run that scored it otherwise (an image NRMSE, recorded before the case had held-
+# out scoring) is left out, also where no newer row replaces it, so one column never mixes metrics.
+const HELDOUT = Set(String(id) for d in RUN_FILES for id in get(d, "heldout_cases", String[]))
+function same_metric(r)
+    r.case_id in HELDOUT || return true
+    return r.case_id in get(get(RUNS, r.run_id, Dict{String, Any}()), "heldout_cases", String[])
+end
+
+latest = latest_per_case(current_release_rows(filter(r -> measured(r) && same_metric(r), rows)); prefer_source = "slurm")
 isempty(latest) && (@info "no source=\"slurm\" rows match; nothing exported (rerun on the cluster first)"; exit(0))
 
 # Per toolkit, the versions of the runs behind its rows.
