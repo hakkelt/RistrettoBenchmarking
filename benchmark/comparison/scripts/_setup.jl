@@ -531,15 +531,6 @@ const TOOLKIT_VERSIONS = let
 end
 
 """
-    flush_results!(name) -> path or nothing
-
-Write and clear whatever is currently in `results`, as its own immutable run file, right now.
-Every section calls this after each case (see `should_run`'s guarded blocks in the `run_<section>.jl`
-scripts) rather than only once at the end, so a crash partway through a long section -- a slow
-real-data solve, a hung toolkit subprocess -- does not lose the cases that already finished. Returns
-`nothing` when there is nothing to flush (already flushed, or the case was skipped).
-"""
-"""
     HELDOUT_CASES
 
 The cases scored by `heldout_error` (`_scoring.jl`) instead of `mag_nrmse` against `c.reference`:
@@ -550,6 +541,15 @@ its run.
 """
 const HELDOUT_CASES = ("real_2d_multichannel_radial", "real_cine_multichannel_radial")
 
+"""
+    flush_results!(name) -> path or nothing
+
+Write and clear whatever is currently in `results`, as its own immutable run file, right now.
+Every section calls this after each case (see `should_run`'s guarded blocks in the `run_<section>.jl`
+scripts) rather than only once at the end, so a crash partway through a long section -- a slow
+real-data solve, a hung toolkit subprocess -- does not lose the cases that already finished. Returns
+`nothing` when there is nothing to flush (already flushed, or the case was skipped).
+"""
 function flush_results!(name::AbstractString)
     isempty(results) && return nothing
     path = record_run(
