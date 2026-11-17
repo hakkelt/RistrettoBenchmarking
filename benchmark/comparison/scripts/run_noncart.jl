@@ -36,8 +36,9 @@ for c in section_cases(c -> c.trajectory === :noncartesian)
             () -> E' * y
         end
         t, _, x = time_run(adjoint_run; runs = timed_runs(c))
+        err = case_error(c, :gridding, parent(x))
         x = _score_image(c, :gridding, parent(x))
-        push!(results, BenchResult("Non-Cartesian", method_label(:gridding, 0), "$FW (m=3, σ=1.25)", NUM_THREADS, t * 1000, mag_nrmse(x, c.reference), mag_nrmse(xm, x), c.id, c.source))
+        push!(results, BenchResult("Non-Cartesian", method_label(:gridding, 0), "$FW (m=3, σ=1.25)", NUM_THREADS, t * 1000, err, mag_nrmse(xm, x), c.id, c.source))
         flush_results!("non_cartesian")
     catch err
         @warn "Ristretto at MRIReco's NFFT operating point failed on $(c.id)" exception = (err, catch_backtrace())

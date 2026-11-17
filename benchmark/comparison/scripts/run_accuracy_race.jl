@@ -67,7 +67,7 @@ function race(label, c::BenchCase, method::Symbol, ladder, target, run)
             @warn "$label failed" it exception = (e, catch_backtrace())
             continue
         end
-        err = mag_nrmse(_score_image(c, method, x), c.reference)
+        err = case_error(c, method, x)
         @info @sprintf(
             "%-40s it=%4d  %9.1f ms  NRMSE=%.5f%s", label, it, t_ms, err,
             err <= target ? "  <= target" : ""
@@ -101,7 +101,7 @@ for c in section_cases(_ -> true), method in race_methods(c)
     target = load_race_target(c, method, NaN)
     if isnan(target)
         _, x = ristretto_run(last(ladder(c, method)))
-        target = 1.1 * mag_nrmse(_score_image(c, method, x), c.reference)
+        target = 1.1 * case_error(c, method, x)
         @warn "$(c.id) $method has no calibrated race target; using 1.10 × Ristretto's NRMSE at $(last(ladder(c, method))) it" target
     end
     println("--> $(c.id): $(METHOD_LABEL[method])  (target NRMSE ≤ $(round(target; sigdigits = 4)))")

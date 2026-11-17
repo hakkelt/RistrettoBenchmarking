@@ -166,6 +166,8 @@ end
 
 # ---------------------------------------------------------------- the row driver
 
+include(joinpath(@__DIR__, "_scoring.jl"))
+
 """
     RISTRETTO_DEVICE
 
@@ -207,8 +209,8 @@ end
 Time Ristretto's reconstruction of case `c` by `method` (with `ristretto_reconstructor`, the same call the Ristretto
 harness times), then every competitor in `toolkits` that `supports` it, each at its own calibrated
 λ and ADMM penalty (`load_lambda`, `load_rho`), and push one
-`BenchResult` per toolkit. `nrmse_gt` is against the case's reference, `nrmse_ristretto` against Ristretto's
-own result. A competitor that throws is logged and dropped from the row. On the GPU a row no competitor
+`BenchResult` per toolkit. `nrmse_gt` is the case's error ([`case_error`](@ref)), `nrmse_ristretto` the image
+NRMSE against Ristretto's own result. A competitor that throws is logged and dropped from the row. On the GPU a row no competitor
 can run is skipped ([`has_gpu_rival`](@ref)), and so is the whole row when Ristretto's own
 reconstruction throws (a device out of memory, typically): with nothing to score them against,
 the competitors' rows would be half a comparison.
@@ -234,8 +236,9 @@ function run_method_rows!(
         release_device_memory()
         return nothing
     end
-    xm = _score_image(c, method, parent(xm))
-    push!(results, BenchResult(section, label, FW, NUM_THREADS, tm * 1000, mag_nrmse(xm, c.reference), 0.0, c.id, c.source))
+    xm = parent(xm)
+    push!(results, BenchResult(section, label, FW, NUM_THREADS, tm * 1000, case_error(c, method, xm), 0.0, c.id, c.source))
+    xm = _score_image(c, method, xm)
     release_device_memory()
     for tk in toolkits
         fw = framework_label(tk)
@@ -245,8 +248,9 @@ function run_method_rows!(
             t_ms, x = toolkit_run(
                 tk, c, method; λ = load_lambda(c, method, key, λ_default), ρ = load_rho(c, method, key), maxit, runs,
             )
+            err = case_error(c, method, x)
             x = _score_image(c, method, x)
-            push!(results, BenchResult(section, label, fw, NUM_THREADS, t_ms, mag_nrmse(x, c.reference), mag_nrmse(xm, x), c.id, c.source))
+            push!(results, BenchResult(section, label, fw, NUM_THREADS, t_ms, err, mag_nrmse(xm, x), c.id, c.source))
         catch err
             @warn "$fw $label on $(c.id) failed" exception = (err, catch_backtrace())
         end

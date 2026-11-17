@@ -6,7 +6,8 @@
 # For every catalog case (synthetic by default; `--cases=` narrows by case id or method label), every
 # regularized method the case admits (`--methods=` narrows by method symbol), and every toolkit that
 # `supports` it, sweep λ over a wide log grid, run the solver to (near) convergence (`IT_CAL` outer
-# iterations), and record NRMSE against the case's reference. BART's regularisation weight is on a
+# iterations), and record the case's error (`case_error`: NRMSE against the case's reference, or for a
+# real non-Cartesian case the held-out k-space error). BART's regularisation weight is on a
 # different internal scale than the others (it rescales the data internally), and the four TV
 # functionals differ, so a common λ is meaningless; instead the target NRMSE is what Ristretto reaches at
 # its own best λ, and every other toolkit's λ is the grid point whose converged NRMSE is closest to
@@ -132,7 +133,7 @@ function nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Real, ρ)
     else
         last(toolkit_run(tk, c, method; λ, ρ, maxit, runs = 1))
     end
-    return mag_nrmse(_score_image(c, method, x), c.reference)
+    return case_error(c, method, x)
 end
 
 """
@@ -316,6 +317,10 @@ function write_calibration!(c::BenchCase, fresh::Dict{String, Any})
     path = joinpath(LAMBDA_DIR, "$(c.id).json")
     return with_lock(path * ".lock") do
         file = isfile(path) ? JSON.parsefile(path) : Dict{String, Any}()
+        # The curves of one file all measure the same error, since the picks compare them.
+        stored_metric = get(get(file, "meta", Dict()), "error_metric", haskey(file, "meta") ? "image NRMSE" : error_metric(c))
+        stored_metric == error_metric(c) ||
+            error("$path holds $stored_metric curves and this run measures $(error_metric(c)); move the file aside to calibrate afresh")
         for k in ("lambda", "rho", "target_nrmse", "race_target", "sweeps")
             haskey(file, k) || (file[k] = Dict{String, Any}())
         end
@@ -353,7 +358,7 @@ function write_calibration!(c::BenchCase, fresh::Dict{String, Any})
             file["sweeps"][method] = Dict(tk => _curve_to_json(curve) for (tk, curve) in merged)
         end
         file["meta"] = Dict(
-            "case_id" => c.id, "data_source" => c.source, "iterations" => IT_CAL,
+            "case_id" => c.id, "data_source" => c.source, "iterations" => IT_CAL, "error_metric" => error_metric(c),
             "rho_decades" => RHO_DECADES,
             "small" => small_mode(), "image_n" => image_n(), "cine_frames" => cine_frames(),
             "backend" => USE_MKL ? "mkl" : "openblas", "threads" => NUM_THREADS, "device" => String(DEVICE),
