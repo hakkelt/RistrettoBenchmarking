@@ -1,0 +1,1 @@
+### 16 threads on domain 0 (cores 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), pid 214872 -> /project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/results/slurm/large_15137488/16threads.log

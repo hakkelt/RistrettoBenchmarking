@@ -22,9 +22,9 @@ State on 2026-11-16; every table names its commit and node.
   alternation, no Toeplitz, NFFT library defaults, and BLAS-free (see 4b).
 - **Part 5.** MRpro's L1-wavelet fails at the odd size (255²), a ptwt limitation. The planning
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
-- **Part 6.** Not run yet; it is the next step. The 128² L1-wavelet recalibration in Part 5 (new toolbox versions)
-  puts every toolbox's λ within one half-decade grid step of the stored refined values (BART and Ristretto equal).
-  So the stored λ are kept and not recalibrated.
+- **Part 6.** Run except the real-data regularized rows. These use the synthetic analogue's λ, which is wrong for
+  Ristretto on real data. The snapshot export and the submodule pin wait for a real-case calibration and rerun
+  (see Part 6). The synthetic λ were kept: the 128² recalibration put every toolbox within one grid step of them.
 - **Part 1, item 9.** The reported POGM/OptISTA failure was not reproduced; only the forms listed
   there were tried.
 - **Part 1, item 10.** The printed snippet is derived from the measured call, not run on its own.
@@ -648,3 +648,68 @@ BART v1.0.01 build notes:
   its include path in `Makefile.local`.
 - The CUDA build needs GCC 12 (`gcc-toolset-12`), because nvcc 12.4 rejects GCC 13's `floatn.h`.
 - Script: `build_bart_1001.sh` in the working directory.
+
+### Part 6 runs (2026-11-16/17)
+
+Common to all runs: Ristretto `5faaa2e41`. The large-dataset runs started after 23:50 ran at `0ac015de2`, which also
+removes a dead `CUDA.memory_status` line from `benchmark/large_datasets/run.jl`; the package source is
+identical. That commit is local to the Ristretto branch and is pushed together with the final
+submodule pin. Toolbox versions are those in the table above. Julia 1.13.1, OpenBLAS, AMD EPYC 7763.
+
+**Done and valid**
+- **Comparison suite, CPU, `--data=all`, 1/2/4/8/16 threads, isolated NUMA domains.**
+  - Job 15137390 (node x1000c0s5b0n1) ran the base, non-Cartesian, CG-SENSE and sparsity sections.
+  - Jobs 15140608 (dynamic, k-space), 15140609 (accuracy race at 1 and 2 threads) and 15140610 (accuracy race at
+    4, 8 and 16 threads) ran the rest as separate exclusive jobs.
+  - The first job's thread-count tasks were stopped as each finished sparsity, except at 1 thread. Its 1-thread
+    sparsity task covered 54 of the 56 run files the other thread counts wrote; the 2 missing ones are real cases.
+  - The race jobs were cancelled after every synthetic case, and real_2d_1ch and real_2d_multichannel, were done
+    (see below).
+  - Run files are in `benchmark/comparison/results/runs/`; the snapshot export is pending (see below).
+- **Comparison suite, GPU (A100 40 GB, test partition node x1001c4s3b0n1), `--data=all`.**
+  - One job per section: 15138956, 15138957, 15139900, 15139997, 15140025, 15140033 and 15140035.
+  - `comparison_gpu.sh` now runs each job in a copy of the environment, because GPUEnv writes its overlay into
+    the environment directory.
+  - k-space has no GPU rows by design: GRAPPA runs on the host.
+- **Large datasets.**
+  - CPU: one exclusive job per case and thread count (1, 4, 8, 16): jobs 15137479-15137488 after the
+    prepare job 15137478.
+  - GPU: job 15140207 (test partition A100).
+  - Results and logs are in `benchmark/paper_part6/large_datasets/`.
+- **Start-up (Part 2.4).** Job 15137490, x1000c1s0b0n1, 8 cores of NUMA domain 7: `benchmark/startup/results.json`.
+  Its `ristretto_commit` field records the RistrettoBenchmarking HEAD at measurement time; Ristretto
+  was `5faaa2e41`. Ristretto's first solve takes 12.1 s (CG-SENSE) and 15.8 s (L1-wavelet) at 8 threads;
+  `using` takes 3.5 s. Warm solves take 8.9 ms and 56 ms.
+
+**Findings**
+- **Ristretto's λ calibrated on the synthetic analogue does not transfer to the real multichannel
+  Cartesian cases.** The suite uses the synthetic analogue's λ and ρ for every real case
+  (`load_lambda`).
+  - On real_2d_multichannel_cartesian, Ristretto's TV row reaches NRMSE 0.52 against BART's 0.21; the adjoint
+    reaches 0.26. Login-node check, 20 iterations: λ = 5.4e-4 (calibrated) gives 0.52 (0.547 at 200 iterations).
+    λ = 5.4e-3 gives 0.198 at ρ 5e-3 or 5e-2, and λ = 5.4e-2 gives 0.24. So the calibrated λ is about 10× too small
+    for this real case, and more iterations do not help.
+  - The same pattern shows in the TV, anisotropic TV, TGV and L1-wavelet rows of real_multislice and real_3d,
+    and in some of SigPy's rows. BART's λ carries over.
+  - The accuracy race takes its target from the same file: 0.080 on real_2d_multichannel_cartesian, which no
+    toolbox reaches, so every ladder runs to its cap.
+  - **The real-data regularized rows and real-data race rows of this run are therefore not valid
+    comparisons.** The adjoint, gridding and CG-SENSE rows, and every synthetic row, are unaffected.
+- **CPU and GPU NRMSE differ on multislice cases.** For example, CG-SENSE on real_multislice is 0.416 on the CPU
+  and 0.382 on the GPU. This is by design: a device reconstruction disables task splitting
+  (`DEVICE_DISABLES_TASK_SPLITTING`) and solves all slices jointly, as the ablation's no-task-splitting variant does.
+- **Large datasets.**
+  - The rows differ from the stored ones (Ristretto `26826c73`, 2026-10-03): the breast L1-wavelet is 1.5-1.7× faster
+    at 1-8 threads (16 threads has no stored row) with NRMSE 0.292 instead of 0.313. Breast anisotropic TV (PDHG) has NRMSE 0.182 instead of
+    0.174 and is 1.2× slower at 4 and 8 threads. Peak RSS is 7.3 GB instead of 20 GB at 4 threads.
+  - Knee CG-SENSE is again slower at 4 threads than at 1 (60.9 s against 42.3 s; Part 3, item 5). This run did not
+    record `numastat`.
+  - On the GPU, breast L1-wavelet reaches NRMSE 0.314 against 0.292 on the CPU (joint solve, as above).
+- **MRpro's L1-wavelet** fails on real_2d_1ch_cartesian (odd size) on the GPU too, a ptwt limitation.
+
+**Pending (needs a decision)**
+- Calibrate λ (and ρ) on the real cases themselves (`calibrate_lambda.jl --data=real`, one file per real
+  case, which `load_lambda` prefers over the analogue's). Then rerun the sparsity, dynamic and accuracy-race
+  sections on `--data=real`, on the CPU at 1-16 threads and on the GPU.
+- Export the snapshots (`export_snapshot.jl`) after that rerun, so no snapshot holds the invalid
+  real-data rows. Then push Ristretto `0ac015de2` and move the submodule pin.

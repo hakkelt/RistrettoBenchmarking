@@ -1,0 +1,53 @@
+name, driver_version, memory.total [MiB]
+NVIDIA A100-SXM4-40GB, 615.71.09, 40960 MiB
+┌ Warning: You seem to be running in a SLURM allocation that doesn't cover the entire node. Most likely, only a subset of the available CPU-threads will be accessible. This might lead to unexpected/wrong pinning results.
+└ @ ThreadPinning.Pinning ~/.julia/packages/ThreadPinning/qi8Gl/src/pinning.jl:456
+┌ Warning: The persisted GPU test environment is inside a Git repository but is not ignored.
+│   environment_path = "/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/gpu_env"
+│   recommendation = "Add benchmark/gpu_env/ to .gitignore or call sync_test_env(...; warn_if_unignored = false)."
+└ @ GPUEnv /scratch/c_mrrecon/julia_depot/packages/GPUEnv/zfvZk/src/environment.jl:1164
+  Activating project at `/project/c_mrrecon/RistrettoBenchmarking/.claude/worktrees/paper-measurements/Ristretto/benchmark/gpu_env`
+┌ Warning: Device 'NVIDIA A100-SXM4-40GB' lacks IL support; using OpenCL C translation.
+└ @ OpenCL /scratch/c_mrrecon/julia_depot/packages/OpenCL/j81QP/src/compiler/compilation.jl:322
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU name (from build time).
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +invpcid.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +pku.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +shstk.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vaes.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: MRITestData downloads data from external sources that have their own terms of use.
+│ Please review the terms before using downloaded data:
+│   • mridata.org    →  http://mridata.org/terms
+│   • ocmr           →  https://www.ocmr.info/download/
+│   • cmrxrecon2024  →  https://cmrxrecon.github.io/2024/FAQ.html
+│   • cmrxrecon300   →  https://www.synapse.org/Synapse:syn52965326
+│   • usc_speech     →  https://creativecommons.org/licenses/by/4.0/
+│   • m4raw          →  https://creativecommons.org/licenses/by/4.0/
+│   • fastmri        →  https://fastmri.med.nyu.edu
+│ To permanently suppress this notice, call:
+│   MRITestData.dismiss_terms_notice!()
+└ @ MRITestData /scratch/c_mrrecon/julia_depot/packages/MRITestData/oFwq3/src/MRITestData.jl:132
+┌ Info: case
+└   c = BenchCase("large_3d_knee_cartesian", volume, cartesian, image 320×320×256, 8 coils, R = 6.0, MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314 (whole volume))
+┌ Info: case
+└   c = BenchCase("large_multislice_breast_radial", multislice, noncartesian, image 320×320, 16 coils, 83 slices, 144 spokes × 320 samples, FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (83 partitions, 144 of 288 spokes))
+large_3d_knee_cartesian          cgsense        0.62 s  NRMSE 0.6070
+large_3d_knee_cartesian          wavelet        1.86 s  NRMSE 0.5371
+large_3d_knee_cartesian          tv             7.56 s  NRMSE 0.3526
+large_3d_knee_cartesian          atv_pd        16.46 s  NRMSE 0.3325
+large_multislice_breast_radial   cgsense        9.60 s  NRMSE 0.3081
+large_multislice_breast_radial   wavelet       10.20 s  NRMSE 0.3139
+large_multislice_breast_radial   tv            18.27 s  NRMSE 0.1737
+large_multislice_breast_radial   atv_pd        49.86 s  NRMSE 0.1828

@@ -1,0 +1,144 @@
+{
+  "backend": "openblas_16threads",
+  "cg_iterations": 10,
+  "gpu": null,
+  "hostname": "x1000c5s0b1n1",
+  "outer_iterations": 20,
+  "pdhg_iterations": 200,
+  "ristretto_commit": {
+    "commit": "5faaa2e41bf821e5536fa8203a264d28891c9e5f",
+    "branch": "HEAD",
+    "dirty": true
+  },
+  "rows": [
+    {
+      "case_id": "large_3d_knee_cartesian",
+      "coils": 8,
+      "date": "2026-11-16T23:21:36.410",
+      "image_size": [
+        320,
+        320,
+        256
+      ],
+      "lambda": 0.0164,
+      "maxit": 200,
+      "maxrss_gb": 19.90212631225586,
+      "method": "atv_pd",
+      "nrmse": 0.33248770236968994,
+      "time_s": 541.559486579
+    },
+    {
+      "case_id": "large_3d_knee_cartesian",
+      "coils": 8,
+      "date": "2026-11-16T23:05:15.451",
+      "image_size": [
+        320,
+        320,
+        256
+      ],
+      "lambda": 0.0,
+      "maxit": 10,
+      "maxrss_gb": 14.621589660644531,
+      "method": "cgsense",
+      "nrmse": 0.6063746213912964,
+      "time_s": 22.420835207
+    },
+    {
+      "case_id": "large_3d_knee_cartesian",
+      "coils": 8,
+      "date": "2026-11-16T23:11:32.439",
+      "image_size": [
+        320,
+        320,
+        256
+      ],
+      "lambda": 0.0164,
+      "maxit": 20,
+      "maxrss_gb": 19.90212631225586,
+      "method": "tv",
+      "nrmse": 0.3526025116443634,
+      "time_s": 263.321169082
+    },
+    {
+      "case_id": "large_3d_knee_cartesian",
+      "coils": 8,
+      "date": "2026-11-16T23:06:38.202",
+      "image_size": [
+        320,
+        320,
+        256
+      ],
+      "lambda": 0.0082,
+      "maxit": 20,
+      "maxrss_gb": 15.485794067382812,
+      "method": "wavelet",
+      "nrmse": 0.5370950698852539,
+      "time_s": 67.752911136
+    },
+    {
+      "case_id": "large_multislice_breast_radial",
+      "coils": 16,
+      "date": "2026-11-16T23:31:47.136",
+      "image_size": [
+        320,
+        320,
+        83
+      ],
+      "lambda": 0.000843,
+      "maxit": 200,
+      "maxrss_gb": 9.40871810913086,
+      "method": "atv_pd",
+      "nrmse": 0.18213848769664764,
+      "time_s": 317.626238596
+    },
+    {
+      "case_id": "large_multislice_breast_radial",
+      "coils": 16,
+      "date": "2026-11-16T23:22:59.947",
+      "image_size": [
+        320,
+        320,
+        83
+      ],
+      "lambda": 0.0,
+      "maxit": 10,
+      "maxrss_gb": 7.489021301269531,
+      "method": "cgsense",
+      "nrmse": 0.3080872595310211,
+      "time_s": 25.212173824
+    },
+    {
+      "case_id": "large_multislice_breast_radial",
+      "coils": 16,
+      "date": "2026-11-16T23:26:09.718",
+      "image_size": [
+        320,
+        320,
+        83
+      ],
+      "lambda": 0.000843,
+      "maxit": 20,
+      "maxrss_gb": 9.40871810913086,
+      "method": "tv",
+      "nrmse": 0.17421181499958038,
+      "time_s": 141.859910748
+    },
+    {
+      "case_id": "large_multislice_breast_radial",
+      "coils": 16,
+      "date": "2026-11-16T23:23:40.742",
+      "image_size": [
+        320,
+        320,
+        83
+      ],
+      "lambda": 0.00253,
+      "maxit": 20,
+      "maxrss_gb": 8.541011810302734,
+      "method": "wavelet",
+      "nrmse": 0.29231786727905273,
+      "time_s": 30.778183509
+    }
+  ],
+  "threads": 16
+}

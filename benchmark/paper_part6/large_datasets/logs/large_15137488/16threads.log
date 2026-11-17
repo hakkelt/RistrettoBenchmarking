@@ -1,0 +1,59 @@
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU name (from build time).
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +invpcid.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +pku.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +shstk.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
+│ Will continue with incorrect CPU feature flag: +vaes.
+└ @ HostCPUFeatures /scratch/c_mrrecon/julia_depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+┌ Warning: MRITestData downloads data from external sources that have their own terms of use.
+│ Please review the terms before using downloaded data:
+│   • mridata.org    →  http://mridata.org/terms
+│   • ocmr           →  https://www.ocmr.info/download/
+│   • cmrxrecon2024  →  https://cmrxrecon.github.io/2024/FAQ.html
+│   • cmrxrecon300   →  https://www.synapse.org/Synapse:syn52965326
+│   • usc_speech     →  https://creativecommons.org/licenses/by/4.0/
+│   • m4raw          →  https://creativecommons.org/licenses/by/4.0/
+│   • fastmri        →  https://fastmri.med.nyu.edu
+│ To permanently suppress this notice, call:
+│   MRITestData.dismiss_terms_notice!()
+└ @ MRITestData /scratch/c_mrrecon/julia_depot/packages/MRITestData/oFwq3/src/MRITestData.jl:132
+┌ Info: case
+└   c = BenchCase("large_multislice_breast_radial", multislice, noncartesian, image 320×320, 16 coils, 83 slices, 144 spokes × 320 samples, FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (83 partitions, 144 of 288 spokes))
+large_multislice_breast_radial   cgsense       25.21 s  NRMSE 0.3081
+large_multislice_breast_radial   wavelet       30.78 s  NRMSE 0.2923
+large_multislice_breast_radial   tv           141.86 s  NRMSE 0.1742
+large_multislice_breast_radial   atv_pd       317.63 s  NRMSE 0.1821
+	Command being timed: "env OMP_NUM_THREADS=16 OPENBLAS_NUM_THREADS=16 /scratch/c_mrrecon/juliaup_depot/juliaup/julia-1.13.1+0.x64.linux.gnu/bin/julia --project=benchmark -t 16 benchmark/large_datasets/run.jl --cases=breast"
+	User time (seconds): 7317.72
+	System time (seconds): 15.35
+	Percent of CPU this job got: 1246%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 9:48.25
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9865756
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 159
+	Minor (reclaiming a frame) page faults: 1911134
+	Voluntary context switches: 583532
+	Involuntary context switches: 6818
+	Swaps: 0
+	File system inputs: 3780376
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
