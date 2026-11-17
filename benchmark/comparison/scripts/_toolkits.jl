@@ -1328,7 +1328,8 @@ end
 # Temporal TV uses a circular difference along the frames, as SigPy's does. L1-wavelet is FISTA
 # (`pgd`) on the synthesis form `‖A Wᴴ z - y‖² + λ‖z‖₁`: MRpro's `WaveletOp` is a Parseval frame
 # (`WᴴW = I`) with a few boundary coefficients more than pixels, whose analysis prox has no closed
-# form. Global low rank is `pgd` with a Casorati singular-value threshold, `_MrproSVT`. The step size
+# form. It takes only even sizes (ptwt), so an image with an odd side is synthesized on the next
+# even size and cropped (`ZeroPadOp`). Global low rank is `pgd` with a Casorati singular-value threshold, `_MrproSVT`. The step size
 # `1/(2‖A‖²)` of both `pgd` rows comes from a power method inside the timed region, as Ristretto's does.
 #
 # Every functional here is MRpro's `‖·‖²` without the ½, and its FFT is orthonormal; the per-toolkit
@@ -1339,7 +1340,7 @@ MRPRO_AVAILABLE && pyexec(
     import numpy as np
     import torch
     from mrpro.operators import (CartesianMaskingOp, FastFourierOp, SensitivityOp, FiniteDifferenceOp,
-                                 FourierOp, WaveletOp, LinearOperatorMatrix, ProximableFunctional)
+                                 FourierOp, WaveletOp, ZeroPadOp, LinearOperatorMatrix, ProximableFunctional)
     from mrpro.operators.functionals import L1Norm, L2NormSquared
     from mrpro.algorithms.optimizers import pdhg, pgd, cg
     from mrpro.data import SpatialDimension, KTrajectory
@@ -1412,11 +1413,15 @@ MRPRO_AVAILABLE && pyexec(
         torch.manual_seed(0)
         L2 = 1.05 * float(A.operator_norm(torch.randn_like(b), dim=None, max_iterations=30)) ** 2
         if method == 'wavelet':
-            W = WaveletOp(domain_shape=tuple(b.shape[-ndim:]), dim=tuple(range(-ndim, 0)), wavelet_name=wavelet, level=levels)
-            (z0,) = W(torch.zeros_like(b))
-            (z,) = pgd(f=L2NormSquared(target=y) @ A @ W.H, g=L1Norm(weight=lam).to(device), initial_value=z0,
+            dims = tuple(range(-ndim, 0))
+            shape = tuple(b.shape[-ndim:])
+            even = tuple(n + n % 2 for n in shape)
+            W = WaveletOp(domain_shape=even, dim=dims, wavelet_name=wavelet, level=levels)
+            S = W.H if even == shape else ZeroPadOp(dim=dims, original_shape=even, padded_shape=shape) @ W.H
+            (z0,) = W(b.new_zeros(tuple(b.shape[:-ndim]) + even))
+            (z,) = pgd(f=L2NormSquared(target=y) @ A @ S, g=L1Norm(weight=lam).to(device), initial_value=z0,
                        stepsize=0.5 / L2, max_iterations=maxit)
-            return W.H(z)[0].cpu().numpy()
+            return S(z)[0].cpu().numpy()
         if method == 'lowrank':
             return pgd(f=L2NormSquared(target=y) @ A, g=_MrproSVT(lam), initial_value=torch.zeros_like(b),
                        stepsize=0.5 / L2, max_iterations=maxit)[0].cpu().numpy()
