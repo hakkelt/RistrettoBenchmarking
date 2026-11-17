@@ -338,7 +338,9 @@ What a `pics -g` process pays to start using the GPU before it solves anything: 
 context and loading cuFFT and cuBLAS. Every BART call is a fresh process and pays it again, while
 an in-process toolkit pays it once, in its warm-up. Measured as the difference between the fastest
 `Total Time` of five `pics -g` and five `pics` calls on an 8×8 single-coil problem, one iteration
-each, and subtracted from every BART GPU timing. 0 on a CPU run.
+each, and recorded in the run file (`bart_gpu_init_s`). BART's GPU times include it: it varies
+between processes by more than many GPU solves take, so subtracting it leaves no usable time. 0 on a
+CPU run.
 """
 const BART_GPU_INIT = (ON_GPU && BART_AVAILABLE) ? let
         k = ones(ComplexF32, 8, 8, 1, 1)
@@ -353,8 +355,8 @@ ON_GPU && BART_AVAILABLE && @info @sprintf("BART GPU initialisation: %.1f ms", B
     time_bart(cmd, inputs...; nout = 1, num_runs = 3) -> (t_min_s, t_med_s, result)
 
 Run BART `cmd` (`pics`) on `inputs` `num_runs` times after a warm-up, each run's time being the
-`Total Time` the tool reports itself (`run_bart_timed`), less [`BART_GPU_INIT`](@ref) on a GPU
-run. That time starts once the process is loaded and ends with the image
+`Total Time` the tool reports itself (`run_bart_timed`); on a GPU run it includes
+[`BART_GPU_INIT`](@ref). That time starts once the process is loaded and ends with the image
 written to its memory-mapped output, so it leaves out the process start and the harness' file
 writes and reads, as the in-process toolkits' times leave out their loading, and it keeps the
 mapping of the inputs into memory, as theirs keep the copies from and to the host. Every call is
@@ -366,8 +368,7 @@ function time_bart(cmd::AbstractString, inputs...; nout::Int = 1, num_runs::Int 
     # `WARMUP[] == 0` (calibration) wants the image only: one run, no warm-up.
     warmup, runs = WARMUP[] == 0 ? (0, 1) : (WARMUP[], num_runs)
     res, seconds = run_bart_timed(nout, cmd, inputs...; runs = warmup + runs, before_each = clear_bart_wisdom)
-    times = seconds[(warmup + 1):end] .- BART_GPU_INIT
-    any(<=(0), times) && @warn "BART run shorter than the GPU initialisation subtracted from it" cmd seconds BART_GPU_INIT
+    times = seconds[(warmup + 1):end]
     return max(1.0e-5, minimum(times)), max(1.0e-5, median(times)), res
 end
 
@@ -573,6 +574,7 @@ function flush_results!(name::AbstractString)
         small = small_mode(), image_n = image_n(), cine_frames = cine_frames(), device = String(DEVICE),
         gpu = ON_GPU ? CUDA.name(CUDA.device()) : nothing,
         toolkit_versions = TOOLKIT_VERSIONS, heldout_cases = collect(HELDOUT_CASES),
+        bart_gpu_init_s = BART_GPU_INIT,
     )
     for r in results
         @printf(

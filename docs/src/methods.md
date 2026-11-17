@@ -62,15 +62,13 @@ default settings costs, but times there compare solvers that reach different err
   input and output, as the in-process toolboxes' times leave out their loading. BART's adjoint and
   gridding go through `bart fft` and `bart nufft`, which report no time of their own; those cells read
   "n/m" (not measured), since process start and file transfer dominate a solve of a few milliseconds.
-- On the GPU, every `bart pics -g` process creates a CUDA context and loads cuFFT and cuBLAS before it
-  solves, which an in-process toolbox pays once, in its warm-up. That start-up, measured once per job
-  as the difference between a GPU and a CPU `pics` call on an 8×8 problem (0.31-1.09 s depending on
-  the job), was subtracted from every BART GPU time when it was measured. That estimate varies
-  between processes by more than many GPU solves take, so the tables add it back: a BART GPU time is
-  the whole call, start-up included, as a user of the `bart` tool pays it, and the column is headed
-  "BART (with CUDA start-up)". The snapshots keep the subtracted time (`time_ms`) and the estimate
-  (`bart_gpu_startup_ms`) separately. Where the whole call took less than the estimate, only that
-  bound is known, and the cell reads "≤" the estimate.
+- **BART's GPU times include its CUDA start-up.** Every `bart pics -g` process creates a CUDA context
+  and loads cuFFT and cuBLAS before it solves, which an in-process toolbox pays once, in its warm-up.
+  That start-up takes a few hundred milliseconds and varies between processes by more than many GPU
+  solves take, so it is not subtracted: a BART GPU time is the whole call, as a user of the `bart`
+  tool pays it, and the column is headed "BART (with CUDA start-up)". Rows measured with an earlier
+  harness, which subtracted a once-per-process estimate of the start-up, have that estimate added back;
+  where such a call took less than the estimate, only that bound is known and the cell reads "≤".
 
 ## FFT planning
 
@@ -104,5 +102,5 @@ the line above each of its tables.
 - **not reached:** in the accuracy race, the toolbox has a fixed-budget row of the method but no race
   row: no count on its ladder reached the target, or the race run did not finish.
 - **n/m:** run, but its time is not measured (see Timing).
-- **≤ t:** a BART GPU call that took less than the start-up estimate t (see Timing).
+- **≤ t:** a BART GPU call of which only an upper bound is known (see Timing).
 - Brackets hold the error of the reconstruction (see Error measures).

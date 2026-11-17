@@ -2,7 +2,6 @@
     "backend": "cuda",
     "benchmarks": [
         {
-            "bart_gpu_startup_ms": 193.5,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -11,7 +10,7 @@
             "nrmse_gt": 0.12436338514089584,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 48.22499999999999
+            "time_ms": 241.725
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -80,7 +79,6 @@
             "time_ms": 101.061984
         },
         {
-            "bart_gpu_startup_ms": 195.6,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -89,7 +87,7 @@
             "nrmse_gt": 0.12149862945079803,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 52.007
+            "time_ms": 247.607
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -136,7 +134,6 @@
             "time_ms": 62.734421999999995
         },
         {
-            "bart_gpu_startup_ms": 193.5,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -145,7 +142,7 @@
             "nrmse_gt": 0.1228260025382042,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 68.14900000000002
+            "time_ms": 261.649
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -159,7 +156,6 @@
             "time_ms": 29.590497
         },
         {
-            "bart_gpu_startup_ms": 193.5,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -168,7 +164,7 @@
             "nrmse_gt": 0.12565359473228455,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 64.90400000000001
+            "time_ms": 258.404
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -270,7 +266,7 @@
             "time_ms": 1.271544
         },
         {
-            "bart_gpu_startup_ms": 315.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -279,7 +275,7 @@
             "nrmse_gt": 0.11911512166261673,
             "nrmse_ristretto": 0.029724320396780968,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 315.8
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -348,7 +344,6 @@
             "time_ms": 624.866566
         },
         {
-            "bart_gpu_startup_ms": 293.8,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -357,7 +352,7 @@
             "nrmse_gt": 0.12138586491346359,
             "nrmse_ristretto": 0.009484171867370605,
             "threads": 1,
-            "time_ms": 41.87799999999997
+            "time_ms": 335.678
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -404,7 +399,6 @@
             "time_ms": 178.048024
         },
         {
-            "bart_gpu_startup_ms": 315.8,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -413,7 +407,7 @@
             "nrmse_gt": 0.11921503394842148,
             "nrmse_ristretto": 0.026074502617120743,
             "threads": 1,
-            "time_ms": 164.22799999999998
+            "time_ms": 480.028
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -427,7 +421,7 @@
             "time_ms": 153.133894
         },
         {
-            "bart_gpu_startup_ms": 315.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "real_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
@@ -436,7 +430,7 @@
             "nrmse_gt": 0.11842848360538483,
             "nrmse_ristretto": 0.02554604597389698,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 315.8
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -494,7 +488,6 @@
             "time_ms": 651.24867
         },
         {
-            "bart_gpu_startup_ms": 313.7,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -503,7 +496,7 @@
             "nrmse_gt": 0.2194998562335968,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 141.613
+            "time_ms": 455.313
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -616,7 +609,6 @@
             "time_ms": 49.566194
         },
         {
-            "bart_gpu_startup_ms": 313.7,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -625,10 +617,10 @@
             "nrmse_gt": 0.24213089048862457,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 40.70799999999997
+            "time_ms": 354.40799999999996
         },
         {
-            "bart_gpu_startup_ms": 313.7,
+            "bart_gpu_upper_bound": true,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -637,7 +629,7 @@
             "nrmse_gt": 0.21807970106601715,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 313.7
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -662,7 +654,7 @@
             "time_ms": 12.460492
         },
         {
-            "bart_gpu_startup_ms": 313.7,
+            "bart_gpu_upper_bound": true,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -671,7 +663,7 @@
             "nrmse_gt": 0.22067499160766602,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 313.7
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -762,7 +754,6 @@
             "time_ms": 1.3316409999999999
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "CG-SENSE",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -771,7 +762,7 @@
             "nrmse_gt": 0.44208651781082153,
             "nrmse_ristretto": 0.008746880106627941,
             "threads": 1,
-            "time_ms": 36.07099999999999
+            "time_ms": 223.071
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -818,7 +809,6 @@
             "time_ms": 16.075088
         },
         {
-            "bart_gpu_startup_ms": 315.8,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -827,7 +817,7 @@
             "nrmse_gt": 0.20136116445064545,
             "nrmse_ristretto": 0.07715114951133728,
             "threads": 1,
-            "time_ms": 120.23799999999996
+            "time_ms": 436.03799999999995
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -896,7 +886,7 @@
             "time_ms": 607.350697
         },
         {
-            "bart_gpu_startup_ms": 315.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -905,7 +895,7 @@
             "nrmse_gt": 0.22986245155334473,
             "nrmse_ristretto": 0.15996094048023224,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 315.8
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -952,7 +942,6 @@
             "time_ms": 123.474844
         },
         {
-            "bart_gpu_startup_ms": 315.8,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -961,7 +950,7 @@
             "nrmse_gt": 0.19587333500385284,
             "nrmse_ristretto": 0.07252490520477295,
             "threads": 1,
-            "time_ms": 217.6659999999999
+            "time_ms": 533.4659999999999
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -975,7 +964,7 @@
             "time_ms": 164.912459
         },
         {
-            "bart_gpu_startup_ms": 315.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "real_2d_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -984,7 +973,7 @@
             "nrmse_gt": 0.19711902737617493,
             "nrmse_ristretto": 0.07047723978757858,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 315.8
         },
         {
             "case_id": "real_2d_multichannel_cartesian",
@@ -1064,7 +1053,6 @@
             "time_ms": 51.015772
         },
         {
-            "bart_gpu_startup_ms": 596.8,
             "case_id": "real_2d_multichannel_radial",
             "category": "Accuracy race",
             "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
@@ -1073,10 +1061,9 @@
             "nrmse_gt": 0.4493182806084325,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 284.45700000000005
+            "time_ms": 881.2570000000001
         },
         {
-            "bart_gpu_startup_ms": 202.1,
             "case_id": "real_2d_multichannel_radial",
             "category": "CG-SENSE",
             "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
@@ -1085,7 +1072,7 @@
             "nrmse_gt": 0.5141261605490479,
             "nrmse_ristretto": 0.00833625253289938,
             "threads": 1,
-            "time_ms": 660.7839999999999
+            "time_ms": 862.8839999999999
         },
         {
             "case_id": "real_2d_multichannel_radial",
@@ -1187,7 +1174,6 @@
             "time_ms": 3.126405
         },
         {
-            "bart_gpu_startup_ms": 201.3,
             "case_id": "real_2d_multichannel_radial",
             "category": "Sparsity",
             "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
@@ -1196,7 +1182,7 @@
             "nrmse_gt": 0.44706137054646095,
             "nrmse_ristretto": 0.029106784611940384,
             "threads": 1,
-            "time_ms": 773.48
+            "time_ms": 974.78
         },
         {
             "case_id": "real_2d_multichannel_radial",
@@ -1265,7 +1251,6 @@
             "time_ms": 932.759731
         },
         {
-            "bart_gpu_startup_ms": 201.3,
             "case_id": "real_2d_multichannel_radial",
             "category": "Sparsity",
             "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
@@ -1274,7 +1259,7 @@
             "nrmse_gt": 0.5257157173925995,
             "nrmse_ristretto": 0.0780850425362587,
             "threads": 1,
-            "time_ms": 696.884
+            "time_ms": 898.184
         },
         {
             "case_id": "real_2d_multichannel_radial",
@@ -1321,7 +1306,6 @@
             "time_ms": 194.62991
         },
         {
-            "bart_gpu_startup_ms": 201.3,
             "case_id": "real_2d_multichannel_radial",
             "category": "Sparsity",
             "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
@@ -1330,7 +1314,7 @@
             "nrmse_gt": 0.44699268639967177,
             "nrmse_ristretto": 0.033768847584724426,
             "threads": 1,
-            "time_ms": 764.217
+            "time_ms": 965.517
         },
         {
             "case_id": "real_2d_multichannel_radial",
@@ -1410,7 +1394,6 @@
             "time_ms": 821.017853
         },
         {
-            "bart_gpu_startup_ms": 521.9,
             "case_id": "real_3d_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
@@ -1419,7 +1402,7 @@
             "nrmse_gt": 0.2965620160102844,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 961.6730000000001
+            "time_ms": 1483.573
         },
         {
             "case_id": "real_3d_multichannel_cartesian",
@@ -1466,7 +1449,6 @@
             "time_ms": 75.152812
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "real_3d_multichannel_cartesian",
             "category": "CG-SENSE",
             "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
@@ -1475,7 +1457,7 @@
             "nrmse_gt": 0.6508821249008179,
             "nrmse_ristretto": 0.0032509618904441595,
             "threads": 1,
-            "time_ms": 348.25800000000004
+            "time_ms": 535.258
         },
         {
             "case_id": "real_3d_multichannel_cartesian",
@@ -1522,7 +1504,6 @@
             "time_ms": 132.08904299999998
         },
         {
-            "bart_gpu_startup_ms": 189.8,
             "case_id": "real_3d_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
@@ -1531,7 +1512,7 @@
             "nrmse_gt": 0.2657710313796997,
             "nrmse_ristretto": 0.08914540708065033,
             "threads": 1,
-            "time_ms": 1280.3339999999998
+            "time_ms": 1470.1339999999998
         },
         {
             "case_id": "real_3d_multichannel_cartesian",
@@ -1600,7 +1581,6 @@
             "time_ms": 2261.3252390000002
         },
         {
-            "bart_gpu_startup_ms": 190.2,
             "case_id": "real_3d_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
@@ -1609,7 +1589,7 @@
             "nrmse_gt": 0.3342462480068207,
             "nrmse_ristretto": 0.2999425530433655,
             "threads": 1,
-            "time_ms": 474.62499999999994
+            "time_ms": 664.8249999999999
         },
         {
             "case_id": "real_3d_multichannel_cartesian",
@@ -1656,7 +1636,6 @@
             "time_ms": 8875.909822000001
         },
         {
-            "bart_gpu_startup_ms": 190.2,
             "case_id": "real_3d_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
@@ -1665,7 +1644,7 @@
             "nrmse_gt": 0.2637343108654022,
             "nrmse_ristretto": 0.09018918871879578,
             "threads": 1,
-            "time_ms": 1286.732
+            "time_ms": 1476.932
         },
         {
             "case_id": "real_3d_multichannel_cartesian",
@@ -1756,7 +1735,6 @@
             "time_ms": 285.26603900000003
         },
         {
-            "bart_gpu_startup_ms": 251.0,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -1765,7 +1743,7 @@
             "nrmse_gt": 0.04512915387749672,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 966.8129999999999
+            "time_ms": 1217.8129999999999
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -1801,7 +1779,6 @@
             "time_ms": 719.754462
         },
         {
-            "bart_gpu_startup_ms": 251.0,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -1810,7 +1787,7 @@
             "nrmse_gt": 0.14955441653728485,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 167.717
+            "time_ms": 418.717
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -1835,7 +1812,6 @@
             "time_ms": 262.571614
         },
         {
-            "bart_gpu_startup_ms": 251.0,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -1844,7 +1820,7 @@
             "nrmse_gt": 0.04369857907295227,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 1438.918
+            "time_ms": 1689.918
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -1869,7 +1845,6 @@
             "time_ms": 363.237281
         },
         {
-            "bart_gpu_startup_ms": 251.0,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -1878,7 +1853,7 @@
             "nrmse_gt": 0.04163204878568649,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 145.77200000000002
+            "time_ms": 396.77200000000005
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -1980,7 +1955,6 @@
             "time_ms": 13.84251
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "CG-SENSE",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -1989,7 +1963,7 @@
             "nrmse_gt": 0.20374742150306702,
             "nrmse_ristretto": 0.0006827863398939371,
             "threads": 1,
-            "time_ms": 158.14299999999997
+            "time_ms": 345.143
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -2036,7 +2010,6 @@
             "time_ms": 38.731491
         },
         {
-            "bart_gpu_startup_ms": 181.4,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Dynamic",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -2045,7 +2018,7 @@
             "nrmse_gt": 0.045024968683719635,
             "nrmse_ristretto": 0.02132539451122284,
             "threads": 1,
-            "time_ms": 2777.6050000000005
+            "time_ms": 2959.0050000000006
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -2092,7 +2065,6 @@
             "time_ms": 564.087859
         },
         {
-            "bart_gpu_startup_ms": 181.4,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Dynamic",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -2101,7 +2073,7 @@
             "nrmse_gt": 0.18483543395996094,
             "nrmse_ristretto": 0.11315186321735382,
             "threads": 1,
-            "time_ms": 246.944
+            "time_ms": 428.344
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -2148,7 +2120,6 @@
             "time_ms": 754.3192300000001
         },
         {
-            "bart_gpu_startup_ms": 181.4,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Dynamic",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -2157,7 +2128,7 @@
             "nrmse_gt": 0.04154298081994057,
             "nrmse_ristretto": 0.021407242864370346,
             "threads": 1,
-            "time_ms": 5812.579
+            "time_ms": 5993.978999999999
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -2182,7 +2153,6 @@
             "time_ms": 364.52975599999996
         },
         {
-            "bart_gpu_startup_ms": 181.4,
             "case_id": "real_cine_multichannel_cartesian",
             "category": "Dynamic",
             "data_source": "OCMR:fs_0001_1_5T",
@@ -2191,7 +2161,7 @@
             "nrmse_gt": 0.038799088448286057,
             "nrmse_ristretto": 0.01959962211549282,
             "threads": 1,
-            "time_ms": 665.5390000000001
+            "time_ms": 846.9390000000001
         },
         {
             "case_id": "real_cine_multichannel_cartesian",
@@ -2249,7 +2219,6 @@
             "time_ms": 717.3671740000001
         },
         {
-            "bart_gpu_startup_ms": 194.1,
             "case_id": "real_multislice_multichannel_cartesian",
             "category": "Accuracy race",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -2258,7 +2227,7 @@
             "nrmse_gt": 0.2297183415229083,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 588.723
+            "time_ms": 782.823
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2327,7 +2296,6 @@
             "time_ms": 16.639058000000002
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "real_multislice_multichannel_cartesian",
             "category": "CG-SENSE",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -2336,7 +2304,7 @@
             "nrmse_gt": 0.42122673662281795,
             "nrmse_ristretto": 0.08504034209130008,
             "threads": 1,
-            "time_ms": 357.528
+            "time_ms": 544.528
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2383,7 +2351,6 @@
             "time_ms": 191.49838499999996
         },
         {
-            "bart_gpu_startup_ms": 187.6,
             "case_id": "real_multislice_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -2392,7 +2359,7 @@
             "nrmse_gt": 0.21011955676493652,
             "nrmse_ristretto": 0.07589406152041728,
             "threads": 1,
-            "time_ms": 1188.312
+            "time_ms": 1375.9119999999998
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2461,7 +2428,6 @@
             "time_ms": 7418.13984
         },
         {
-            "bart_gpu_startup_ms": 187.6,
             "case_id": "real_multislice_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -2470,7 +2436,7 @@
             "nrmse_gt": 0.2341956501118536,
             "nrmse_ristretto": 0.15952718302882635,
             "threads": 1,
-            "time_ms": 763.1100000000001
+            "time_ms": 950.7100000000002
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2517,7 +2483,6 @@
             "time_ms": 1537.7142219999998
         },
         {
-            "bart_gpu_startup_ms": 187.6,
             "case_id": "real_multislice_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -2526,7 +2491,7 @@
             "nrmse_gt": 0.2046830219821015,
             "nrmse_ristretto": 0.07680984777370004,
             "threads": 1,
-            "time_ms": 2753.647
+            "time_ms": 2941.247
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2540,7 +2505,6 @@
             "time_ms": 1046.559621
         },
         {
-            "bart_gpu_startup_ms": 187.6,
             "case_id": "real_multislice_multichannel_cartesian",
             "category": "Sparsity",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
@@ -2549,7 +2513,7 @@
             "nrmse_gt": 0.2056933031320509,
             "nrmse_ristretto": 0.07416134637277288,
             "threads": 1,
-            "time_ms": 1200.0870000000002
+            "time_ms": 1387.6870000000001
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2640,7 +2604,7 @@
             "time_ms": 26.324232
         },
         {
-            "bart_gpu_startup_ms": 351.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -2649,7 +2613,7 @@
             "nrmse_gt": 0.01181071624159813,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 351.8
         },
         {
             "case_id": "shepp_logan_2d_1ch_cartesian",
@@ -2729,7 +2693,6 @@
             "time_ms": 237.314913
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "shepp_logan_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -2738,10 +2701,9 @@
             "nrmse_gt": 0.017792150378227234,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 77.99800000000002
+            "time_ms": 429.798
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "shepp_logan_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -2750,7 +2712,7 @@
             "nrmse_gt": 0.0339108444750309,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 61.212000000000046
+            "time_ms": 413.01200000000006
         },
         {
             "case_id": "shepp_logan_2d_1ch_cartesian",
@@ -2852,7 +2814,7 @@
             "time_ms": 0.8503010000000001
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -2861,7 +2823,7 @@
             "nrmse_gt": 0.009911499917507172,
             "nrmse_ristretto": 0.005772422533482313,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_1ch_cartesian",
@@ -2930,7 +2892,7 @@
             "time_ms": 609.913062
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -2939,7 +2901,7 @@
             "nrmse_gt": 0.2182774394750595,
             "nrmse_ristretto": 0.16768309473991394,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_1ch_cartesian",
@@ -2986,7 +2948,7 @@
             "time_ms": 90.586082
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -2995,7 +2957,7 @@
             "nrmse_gt": 0.031789958477020264,
             "nrmse_ristretto": 0.022437039762735367,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_1ch_cartesian",
@@ -3009,7 +2971,7 @@
             "time_ms": 146.686188
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_1ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3018,7 +2980,7 @@
             "nrmse_gt": 0.02143740840256214,
             "nrmse_ristretto": 0.013990231789648533,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_1ch_cartesian",
@@ -3087,7 +3049,7 @@
             "time_ms": 340.08752799999996
         },
         {
-            "bart_gpu_startup_ms": 351.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -3096,7 +3058,7 @@
             "nrmse_gt": 0.0058379340916872025,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 351.8
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3198,7 +3160,7 @@
             "time_ms": 118.273715
         },
         {
-            "bart_gpu_startup_ms": 351.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -3207,7 +3169,7 @@
             "nrmse_gt": 0.15606246888637543,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 351.8
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3221,7 +3183,6 @@
             "time_ms": 253.268066
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -3230,7 +3191,7 @@
             "nrmse_gt": 0.0144210085272789,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 112.05700000000002
+            "time_ms": 463.857
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3255,7 +3216,7 @@
             "time_ms": 26.458161
         },
         {
-            "bart_gpu_startup_ms": 351.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -3264,7 +3225,7 @@
             "nrmse_gt": 0.0693172886967659,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 351.8
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3344,7 +3305,6 @@
             "time_ms": 1.1281869999999998
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "CG-SENSE",
             "data_source": "synthetic",
@@ -3353,7 +3313,7 @@
             "nrmse_gt": 0.3773016631603241,
             "nrmse_ristretto": 4.47054990218021e-5,
             "threads": 1,
-            "time_ms": 54.781
+            "time_ms": 241.781
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3400,7 +3360,6 @@
             "time_ms": 20.721347
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3409,7 +3368,7 @@
             "nrmse_gt": 0.005542020313441753,
             "nrmse_ristretto": 0.007639950141310692,
             "threads": 1,
-            "time_ms": 24.158000000000012
+            "time_ms": 407.558
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3478,7 +3437,7 @@
             "time_ms": 610.130803
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3487,7 +3446,7 @@
             "nrmse_gt": 0.3281134366989136,
             "nrmse_ristretto": 0.14474785327911377,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3534,7 +3493,7 @@
             "time_ms": 90.762432
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3543,7 +3502,7 @@
             "nrmse_gt": 0.020568836480379105,
             "nrmse_ristretto": 0.023131640627980232,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3557,7 +3516,7 @@
             "time_ms": 159.04209799999998
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3566,7 +3525,7 @@
             "nrmse_gt": 0.015322317369282246,
             "nrmse_ristretto": 0.013800865039229393,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_8ch_cartesian",
@@ -3624,7 +3583,7 @@
             "time_ms": 622.139933
         },
         {
-            "bart_gpu_startup_ms": 351.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_radial",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -3633,7 +3592,7 @@
             "nrmse_gt": 0.10591942071914673,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 351.8
         },
         {
             "case_id": "shepp_logan_2d_8ch_radial",
@@ -3658,7 +3617,6 @@
             "time_ms": 219.81825999999998
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "shepp_logan_2d_8ch_radial",
             "category": "CG-SENSE",
             "data_source": "synthetic",
@@ -3667,7 +3625,7 @@
             "nrmse_gt": 0.2672235667705536,
             "nrmse_ristretto": 0.008172147907316685,
             "threads": 1,
-            "time_ms": 159.32000000000002
+            "time_ms": 346.32000000000005
         },
         {
             "case_id": "shepp_logan_2d_8ch_radial",
@@ -3769,7 +3727,6 @@
             "time_ms": 2.479587
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_2d_8ch_radial",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3778,7 +3735,7 @@
             "nrmse_gt": 0.027514943853020668,
             "nrmse_ristretto": 0.010521355085074902,
             "threads": 1,
-            "time_ms": 24.087000000000025
+            "time_ms": 407.487
         },
         {
             "case_id": "shepp_logan_2d_8ch_radial",
@@ -3847,7 +3804,7 @@
             "time_ms": 918.3429239999999
         },
         {
-            "bart_gpu_startup_ms": 383.4,
+            "bart_gpu_upper_bound": true,
             "case_id": "shepp_logan_2d_8ch_radial",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3856,7 +3813,7 @@
             "nrmse_gt": 0.278971791267395,
             "nrmse_ristretto": 0.05548826605081558,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 383.4
         },
         {
             "case_id": "shepp_logan_2d_8ch_radial",
@@ -3903,7 +3860,6 @@
             "time_ms": 152.812994
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_2d_8ch_radial",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -3912,7 +3868,7 @@
             "nrmse_gt": 0.11861052364110947,
             "nrmse_ristretto": 0.10819236934185028,
             "threads": 1,
-            "time_ms": 16.10000000000006
+            "time_ms": 399.50000000000006
         },
         {
             "case_id": "shepp_logan_2d_8ch_radial",
@@ -3992,7 +3948,6 @@
             "time_ms": 181.731894
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "shepp_logan_3d_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -4001,7 +3956,7 @@
             "nrmse_gt": 0.10522755980491638,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 373.00000000000006
+            "time_ms": 724.8000000000001
         },
         {
             "case_id": "shepp_logan_3d_8ch_cartesian",
@@ -4048,7 +4003,6 @@
             "time_ms": 76.579707
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "shepp_logan_3d_8ch_cartesian",
             "category": "CG-SENSE",
             "data_source": "synthetic",
@@ -4057,7 +4011,7 @@
             "nrmse_gt": 0.29357725381851196,
             "nrmse_ristretto": 4.2195446440018713e-5,
             "threads": 1,
-            "time_ms": 361.466
+            "time_ms": 548.466
         },
         {
             "case_id": "shepp_logan_3d_8ch_cartesian",
@@ -4104,7 +4058,6 @@
             "time_ms": 132.35739099999998
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_3d_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -4113,7 +4066,7 @@
             "nrmse_gt": 0.003566470928490162,
             "nrmse_ristretto": 0.006098426878452301,
             "threads": 1,
-            "time_ms": 1500.9360000000001
+            "time_ms": 1884.3360000000002
         },
         {
             "case_id": "shepp_logan_3d_8ch_cartesian",
@@ -4182,7 +4135,6 @@
             "time_ms": 2259.048755
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_3d_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -4191,7 +4143,7 @@
             "nrmse_gt": 0.17433594167232513,
             "nrmse_ristretto": 0.10994919389486313,
             "threads": 1,
-            "time_ms": 272.523
+            "time_ms": 655.923
         },
         {
             "case_id": "shepp_logan_3d_8ch_cartesian",
@@ -4238,7 +4190,6 @@
             "time_ms": 8117.9788
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_3d_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -4247,7 +4198,7 @@
             "nrmse_gt": 0.04149334505200386,
             "nrmse_ristretto": 0.04179511219263077,
             "threads": 1,
-            "time_ms": 1542.92
+            "time_ms": 1926.3200000000002
         },
         {
             "case_id": "shepp_logan_3d_8ch_cartesian",
@@ -4305,7 +4256,6 @@
             "time_ms": 2316.548232
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "shepp_logan_multislice_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -4314,7 +4264,7 @@
             "nrmse_gt": 0.0252836822650772,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.11999999999999998
+            "time_ms": 351.92
         },
         {
             "case_id": "shepp_logan_multislice_8ch_cartesian",
@@ -4383,7 +4333,6 @@
             "time_ms": 12.265657000000001
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "shepp_logan_multislice_8ch_cartesian",
             "category": "CG-SENSE",
             "data_source": "synthetic",
@@ -4392,7 +4341,7 @@
             "nrmse_gt": 0.4009011946476865,
             "nrmse_ristretto": 0.012552953071530532,
             "threads": 1,
-            "time_ms": 267.1360000000001
+            "time_ms": 454.1360000000001
         },
         {
             "case_id": "shepp_logan_multislice_8ch_cartesian",
@@ -4439,7 +4388,6 @@
             "time_ms": 183.619796
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_multislice_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -4448,7 +4396,7 @@
             "nrmse_gt": 0.0050454149332977575,
             "nrmse_ristretto": 0.01327323909197108,
             "threads": 1,
-            "time_ms": 297.87300000000045
+            "time_ms": 681.2730000000004
         },
         {
             "case_id": "shepp_logan_multislice_8ch_cartesian",
@@ -4517,7 +4465,6 @@
             "time_ms": 7263.464479
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_multislice_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -4526,7 +4473,7 @@
             "nrmse_gt": 0.33815325896447596,
             "nrmse_ristretto": 0.14209839466877947,
             "threads": 1,
-            "time_ms": 0.11999999999999998
+            "time_ms": 383.52
         },
         {
             "case_id": "shepp_logan_multislice_8ch_cartesian",
@@ -4573,7 +4520,6 @@
             "time_ms": 1064.2587469999999
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_multislice_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -4582,7 +4528,7 @@
             "nrmse_gt": 0.02534702633000164,
             "nrmse_ristretto": 0.038850632981679185,
             "threads": 1,
-            "time_ms": 0.11999999999999998
+            "time_ms": 383.52
         },
         {
             "case_id": "shepp_logan_multislice_8ch_cartesian",
@@ -4596,7 +4542,6 @@
             "time_ms": 777.241626
         },
         {
-            "bart_gpu_startup_ms": 383.4,
             "case_id": "shepp_logan_multislice_8ch_cartesian",
             "category": "Sparsity",
             "data_source": "synthetic",
@@ -4605,7 +4550,7 @@
             "nrmse_gt": 0.017429355832769694,
             "nrmse_ristretto": 0.01710889414815564,
             "threads": 1,
-            "time_ms": 328.0840000000004
+            "time_ms": 711.4840000000004
         },
         {
             "case_id": "shepp_logan_multislice_8ch_cartesian",
@@ -4696,7 +4641,6 @@
             "time_ms": 858.0614869999999
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -4705,7 +4649,7 @@
             "nrmse_gt": 0.06836415827274323,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 2782.186
+            "time_ms": 3133.9860000000003
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -4719,7 +4663,7 @@
             "time_ms": 61.438109999999995
         },
         {
-            "bart_gpu_startup_ms": 351.8,
+            "bart_gpu_upper_bound": true,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -4728,7 +4672,7 @@
             "nrmse_gt": 0.18101030588150024,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 0.01
+            "time_ms": 351.8
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -4797,7 +4741,6 @@
             "time_ms": 197.51143199999999
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -4806,7 +4749,7 @@
             "nrmse_gt": 0.055555667728185654,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 8685.709
+            "time_ms": 9037.509
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -4831,7 +4774,6 @@
             "time_ms": 242.911996
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -4840,7 +4782,7 @@
             "nrmse_gt": 0.0065539563074707985,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 29.608999999999995
+            "time_ms": 381.409
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -4920,7 +4862,6 @@
             "time_ms": 7.110516
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "CG-SENSE",
             "data_source": "synthetic",
@@ -4929,7 +4870,7 @@
             "nrmse_gt": 0.18591302633285522,
             "nrmse_ristretto": 0.0004204714496154338,
             "threads": 1,
-            "time_ms": 109.286
+            "time_ms": 296.286
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -4976,7 +4917,6 @@
             "time_ms": 22.448831
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -4985,7 +4925,7 @@
             "nrmse_gt": 0.06836415827274323,
             "nrmse_ristretto": 0.00975592527538538,
             "threads": 1,
-            "time_ms": 2797.365
+            "time_ms": 2985.365
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -5032,7 +4972,6 @@
             "time_ms": 398.223984
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -5041,7 +4980,7 @@
             "nrmse_gt": 0.18101030588150024,
             "nrmse_ristretto": 0.04754115641117096,
             "threads": 1,
-            "time_ms": 115.23400000000001
+            "time_ms": 303.23400000000004
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -5088,7 +5027,6 @@
             "time_ms": 681.3708330000001
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -5097,7 +5035,7 @@
             "nrmse_gt": 0.055555667728185654,
             "nrmse_ristretto": 0.033050287514925,
             "threads": 1,
-            "time_ms": 8876.417
+            "time_ms": 9064.417
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -5122,7 +5060,6 @@
             "time_ms": 204.434826
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_cartesian",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -5131,7 +5068,7 @@
             "nrmse_gt": 0.005337078589946032,
             "nrmse_ristretto": 0.004629718605428934,
             "threads": 1,
-            "time_ms": 393.273
+            "time_ms": 581.273
         },
         {
             "case_id": "torso_cine_8ch_cartesian",
@@ -5189,7 +5126,6 @@
             "time_ms": 535.980406
         },
         {
-            "bart_gpu_startup_ms": 351.8,
             "case_id": "torso_cine_8ch_radial",
             "category": "Accuracy race",
             "data_source": "synthetic",
@@ -5198,7 +5134,7 @@
             "nrmse_gt": 0.1236061304807663,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 2246.858
+            "time_ms": 2598.6580000000004
         },
         {
             "case_id": "torso_cine_8ch_radial",
@@ -5245,7 +5181,6 @@
             "time_ms": 497.103945
         },
         {
-            "bart_gpu_startup_ms": 187.0,
             "case_id": "torso_cine_8ch_radial",
             "category": "CG-SENSE",
             "data_source": "synthetic",
@@ -5254,7 +5189,7 @@
             "nrmse_gt": 0.13684618473052979,
             "nrmse_ristretto": 0.007701586466282606,
             "threads": 1,
-            "time_ms": 2233.345
+            "time_ms": 2420.345
         },
         {
             "case_id": "torso_cine_8ch_radial",
@@ -5301,7 +5236,6 @@
             "time_ms": 110.29244
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_radial",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -5310,7 +5244,7 @@
             "nrmse_gt": 0.11539663374423981,
             "nrmse_ristretto": 0.03484482690691948,
             "threads": 1,
-            "time_ms": 6969.29
+            "time_ms": 7157.29
         },
         {
             "case_id": "torso_cine_8ch_radial",
@@ -5357,7 +5291,6 @@
             "time_ms": 1945.531794
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_radial",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -5366,7 +5299,7 @@
             "nrmse_gt": 0.14210815727710724,
             "nrmse_ristretto": 0.03464166074991226,
             "threads": 1,
-            "time_ms": 2351.756
+            "time_ms": 2539.756
         },
         {
             "case_id": "torso_cine_8ch_radial",
@@ -5413,7 +5346,6 @@
             "time_ms": 1041.908413
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_radial",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -5422,7 +5354,7 @@
             "nrmse_gt": 0.1005820631980896,
             "nrmse_ristretto": 0.03977065160870552,
             "threads": 1,
-            "time_ms": 18646.236
+            "time_ms": 18834.236
         },
         {
             "case_id": "torso_cine_8ch_radial",
@@ -5447,7 +5379,6 @@
             "time_ms": 464.073078
         },
         {
-            "bart_gpu_startup_ms": 188.0,
             "case_id": "torso_cine_8ch_radial",
             "category": "Dynamic",
             "data_source": "synthetic",
@@ -5456,7 +5387,7 @@
             "nrmse_gt": 0.07018762826919556,
             "nrmse_ristretto": 0.02789921872317791,
             "threads": 1,
-            "time_ms": 3174.91
+            "time_ms": 3362.91
         },
         {
             "case_id": "torso_cine_8ch_radial",

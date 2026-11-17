@@ -109,11 +109,13 @@ latest = latest_per_case(
 )
 isempty(latest) && (@info "no source=\"$SOURCE\" rows match; nothing exported"; exit(0))
 
-# BART's GPU times have its CUDA start-up subtracted (`BART_GPU_INIT` in _setup.jl), an estimate made once
-# per section process that varied between processes by more than many solves take. The snapshot keeps
-# that estimate next to each BART GPU row (`bart_gpu_startup_ms`), so the time of the whole call can be
-# shown. Run files do not record it; each section process logs it before the run files it writes, so
-# it is read from the job logs under `--logs` (default `benchmark/results/`).
+# A snapshot's BART GPU time is the whole `pics -g` call, CUDA start-up included. Runs that record
+# `bart_gpu_init_s` measured it that way. Older runs subtracted a start-up estimate made once per section
+# process (`BART_GPU_INIT`), which varied between processes by more than many solves take; their
+# estimate is added back. Those run files do not record it; each section process logs it before the run
+# files it writes, so it is read from the job logs under `--logs` (default `benchmark/results/`). Where
+# the older harness clamped a call shorter than its estimate, only that bound is known: the row's time
+# is the estimate and `bart_gpu_upper_bound` is true.
 const LOG_DIR = get(ARG, "logs", normpath(joinpath(RESULTS_DIR, "..", "..", "results")))
 function bart_gpu_startups(dir)
     out = Dict{String, Float64}()
@@ -131,9 +133,10 @@ function bart_gpu_startups(dir)
     return out
 end
 is_bart_gpu(r) = r.backend == "cuda" && startswith(r.framework, "BART")
-const BART_GPU_STARTUP = any(is_bart_gpu, latest) ? bart_gpu_startups(LOG_DIR) : Dict{String, Float64}()
+whole_call(r) = haskey(get(RUNS, r.run_id, Dict{String, Any}()), "bart_gpu_init_s")
+const BART_GPU_STARTUP = any(r -> is_bart_gpu(r) && !whole_call(r), latest) ? bart_gpu_startups(LOG_DIR) : Dict{String, Float64}()
 for r in latest
-    is_bart_gpu(r) && !haskey(BART_GPU_STARTUP, r.run_id) &&
+    is_bart_gpu(r) && !whole_call(r) && !haskey(BART_GPU_STARTUP, r.run_id) &&
         error("no logged BART GPU start-up for run $(r.run_id) under $LOG_DIR (pass --logs=<dir of the job logs>)")
 end
 
@@ -144,7 +147,12 @@ function row_record(r)
         "threads" => r.threads, "time_ms" => r.time_ms,
         "nrmse_gt" => r.nrmse_gt, "nrmse_ristretto" => r.nrmse_ristretto,
     )
-    is_bart_gpu(r) && (d["bart_gpu_startup_ms"] = BART_GPU_STARTUP[r.run_id])
+    if is_bart_gpu(r) && !whole_call(r)
+        s = BART_GPU_STARTUP[r.run_id]
+        clamped = r.time_ms <= 0.01
+        d["time_ms"] = clamped ? s : r.time_ms + s
+        clamped && (d["bart_gpu_upper_bound"] = true)
+    end
     return d
 end
 
