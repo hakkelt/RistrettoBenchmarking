@@ -2,8 +2,8 @@
 
 Komondor's GPU node, one A100 40 GB per job, one host thread. Every toolbox runs on the device where it
 can: a row is left out for a toolbox whose solve would stay on the host, and MIRT has no rows here. Times
-include the copies to and from the device. See [Timing](@ref) for the correction applied to BART's
-GPU times.
+include the copies to and from the device. BART's times also include its CUDA start-up, which every
+BART call pays again (see [Timing](@ref)).
 
 A device reconstruction in Ristretto solves the slices of a multi-slice case jointly, where the CPU
 splits them into one task per slice, so its multi-slice errors differ between CPU and GPU.

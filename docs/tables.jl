@@ -17,10 +17,8 @@ toolkit_rank(t) = something(findfirst(==(t), collect(TOOLKITS)), 99)
 
 # ------------------------------------------------------------------ formatting
 
-# BART's GPU times are clamped at 1e-5 s (see the methodology page), hence "< 0.01 ms".
 function fmt_ms(t)
     t < 0 && return "n/m"
-    t <= 0.01 && return "< 0.01 ms"
     t < 10 && return @sprintf("%.2f ms", t)
     t < 1000 && return @sprintf("%.0f ms", t)
     t < 100_000 && return @sprintf("%.2f s", t / 1000)
@@ -187,7 +185,7 @@ function error_note(s::Snapshot, cases)
     return txt * "; see [Error measures](@ref)).\n"
 end
 
-# A clamped BART GPU time (≤ 0.01 ms) is no measurement and never the fastest.
+# The harness clamps a time at 1e-5 s; anything at the clamp is no measurement.
 measured_ms(t) = t > 0.01
 fastest(cells) = (ts = [c["time_ms"] for c in values(cells) if measured_ms(c["time_ms"])]; length(ts) > 1 ? minimum(ts) : -1.0)
 
