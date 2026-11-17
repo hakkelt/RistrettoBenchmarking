@@ -17,8 +17,8 @@ makedocs(;
     pages = [
         "Overview" => "index.md",
         "Methodology" => "methods.md",
-        "Comparison" => ["accuracy.md", "fixed.md", "scaling.md", "gpu.md"],
-        "Ristretto alone" => ["sizes.md", "large.md", "startup.md", "ablation.md"],
+        "Comparison" => ["accuracy.md", "fixed.md", "scaling.md", "gpu.md", "sizes.md", "startup.md"],
+        "Ristretto alone" => ["large.md", "ablation.md"],
         "Feature comparison" => "features.md",
         "Data and reproduction" => "data.md",
     ],

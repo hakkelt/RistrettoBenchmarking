@@ -426,7 +426,7 @@ end
 
 function sizes_meta_markdown()
     d = JSON.parsefile(joinpath(SIZES, first(f for f in readdir(SIZES) if startswith(f, "memory_n") && endswith(f, ".json"))))
-    return "Node $(d["host"]), measured $(d["date"][1:10])."
+    return "Measured $(d["date"][1:10])."
 end
 
 # ------------------------------------------------------------------ large datasets
@@ -443,8 +443,8 @@ function large_markdown()
     t_rows = Vector{Vector{String}}(); e_rows = Vector{Vector{String}}()
     for key in keys_
         it = first(x for x in (cell(d, key, "maxit") for d in ds) if x !== nothing)
-        push!(t_rows, [name(key[1]), method_name(key[2]), string(it), (fmt_s(cell(d, key, "time_s")) for d in ds)...])
-        push!(e_rows, [name(key[1]), method_name(key[2]), string(it), map(ds) do d
+        push!(t_rows, [code(name(key[1])), method_name(key[2]), string(it), (fmt_s(cell(d, key, "time_s")) for d in ds)...])
+        push!(e_rows, [code(name(key[1])), method_name(key[2]), string(it), map(ds) do d
             e = cell(d, key, "nrmse"); m = cell(d, key, "maxrss_gb")
             e === nothing ? "·" : fmt_err(e) * (m === nothing ? "" : @sprintf(" / %.1f GB", m))
         end...])
@@ -452,8 +452,8 @@ function large_markdown()
     hdr = ["case", "method", "iterations", label.(ds)...]
     al = ["---", "---", "---:", fill("---:", length(ds))...]
     sizes = unique((name(r["case_id"]), r["image_size"], r["coils"]) for d in ds for r in d["rows"])
-    hosts = join(unique(d["hostname"] * (d["gpu"] === nothing ? "" : " ($(d["gpu"]))") for d in ds), ", ")
-    return "Ristretto $(first(ds)["ristretto_commit"]["commit"][1:9]); nodes $hosts.\n\n" *
+    gpus = join(unique(d["gpu"] for d in ds if d["gpu"] !== nothing), ", ")
+    return "Ristretto $(first(ds)["ristretto_commit"]["commit"][1:9])" * (isempty(gpus) ? "" : "; GPU: $gpus") * ".\n\n" *
         join(("- $(code(c)): $(join(sz, "×")) voxels, $(nc) coils" for (c, sz, nc) in sizes), "\n") * "\n\n" *
         "**Time**\n\n" * md_table(hdr, t_rows; align = al) *
         "\n**Error against the reference / peak resident memory**\n\n" * md_table(hdr, e_rows; align = al)
@@ -469,7 +469,7 @@ function startup_markdown()
     pair(tk, k) = get_(tk, "wavelet", k) * " / " * get_(tk, "cgsense", k)
     out = [[tk, s(rs[findfirst(r -> r["toolkit"] == tk, rs)]["import_s"]), pair(tk, "first_solve_s"), pair(tk, "warm_solve_s"), pair(tk, "end_to_end_s")]
         for tk in unique(r["toolkit"] for r in rs)]
-    head = "Node $(d["host"]) ($(d["cpu_model"])), $(d["threads"]) threads pinned to NUMA domain $(d["numa_node"]), measured $(d["date"][1:10]); " *
+    head = "$(d["cpu_model"]), $(d["threads"]) threads pinned to one NUMA domain, measured $(d["date"][1:10]); " *
         "Julia $(d["julia_version"]), BART $(d["bart_version"]), " *
         join(("$k $v" for (k, v) in sort(collect(d["python"]))), ", ") * ", " *
         join(("$k $v" for (k, v) in sort(collect(d["julia_packages"]))), ", ") * ".\n\n"
@@ -522,7 +522,7 @@ end
 
 function ablation_meta_markdown()
     m = first(ablation_files())["meta"]
-    return "Job $(m["slurm_job"]), node $(m["host"]) ($(m["cpu"])), Julia $(m["julia"]), $(m["blas"]); " *
+    return "Job $(m["slurm_job"]), $(m["cpu"]), Julia $(m["julia"]), $(m["blas"]); " *
         "Ristretto $(m["ristretto"]["commit"][1:9]), RistrettoBenchmarking $(m["benchmarking"]["commit"][1:7]); measured $(m["date"][1:10])."
 end
 

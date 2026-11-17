@@ -37,9 +37,9 @@ Main.Tables.md(Main.Tables.machines_markdown())
   Ristretto reconstruction goes.
 - [GPU](@ref): the comparison on an A100.
 - [Problem size and memory](@ref): time, error and peak memory from 96² to 512².
-- [Large datasets](@ref): a 3D knee and a multi-slice radial breast acquisition with Ristretto.
 - [Start-up and footprint](@ref): import, first-solve and fresh-process cost, and the size of
   each toolbox's installation.
+- [Large datasets](@ref): a 3D knee and a multi-slice radial breast acquisition with Ristretto.
 - [Ablation](@ref): what each of Ristretto's design choices contributes.
 - [Feature comparison](@ref): which methods and tools each toolbox provides.
 - [Data and reproduction](@ref): the result files, the calibrated λ, and how to repeat a run.
