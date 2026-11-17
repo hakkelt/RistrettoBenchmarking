@@ -26,8 +26,13 @@ State on 2026-11-17; every table names its commit and node.
   radial rows, the multislice rows the 2-hour job lost, and the 2d_1ch L1-wavelet race are queued on the
   `cpu` partition (jobs 15171063, 15171925, 15171971, 15172244, 15172446; GPU 15172445 for the real_3d race); the snapshot export, the Ristretto
   push and the submodule pin wait for them.
-- **Part 6, BART GPU rows.** BART's GPU time subtracts a once-measured CUDA start-up (316-383 ms) and clamps
-  at 1e-5 s, so a few short BART GPU rows read 0.01 ms. Whether to mark those as not measured is open.
+- **Part 6, BART GPU rows.** BART's GPU time had a once-per-process CUDA start-up estimate subtracted
+  (181-597 ms between processes), which clamped 20 of 89 rows at 0.01 ms. The snapshots now carry the
+  estimate per row (`bart_gpu_startup_ms`, read from the job logs) and the site shows the whole call,
+  start-up included; a clamped row reads "≤" its estimate. Not remeasured.
+- **Snapshots committed before the queued CPU jobs.** The CPU snapshots lack the breast rows, the
+  multislice 1-thread race and 16-thread rows, the 2d_1ch L1-wavelet race at its calibrated target, and
+  the real_3d race; the export is repeated when 15171063, 15171925, 15171971, 15172244 and 15172446 finish.
 - **Part 6, real spiral cine.** Dropped from the comparison (`EXCLUDED_CASES`): its temporal rows have no
   converged accuracy (see below). Per-frame rotating arms, which would make them well-posed, need per-frame
   trajectories in every toolkit wrapper and were not done. The comparison has no real non-Cartesian dynamic case.

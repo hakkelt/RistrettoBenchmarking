@@ -109,6 +109,45 @@ latest = latest_per_case(
 )
 isempty(latest) && (@info "no source=\"$SOURCE\" rows match; nothing exported"; exit(0))
 
+# BART's GPU times have its CUDA start-up subtracted (`BART_GPU_INIT` in _setup.jl), an estimate made once
+# per section process that varied between processes by more than many solves take. The snapshot keeps
+# that estimate next to each BART GPU row (`bart_gpu_startup_ms`), so the time of the whole call can be
+# shown. Run files do not record it; each section process logs it before the run files it writes, so
+# it is read from the job logs under `--logs` (default `benchmark/results/`).
+const LOG_DIR = get(ARG, "logs", normpath(joinpath(RESULTS_DIR, "..", "..", "results")))
+function bart_gpu_startups(dir)
+    out = Dict{String, Float64}()
+    isdir(dir) || return out
+    for (root, _, files) in walkdir(dir), f in files
+        (endswith(f, ".txt") || endswith(f, ".log")) || continue
+        init = nothing
+        for line in eachline(joinpath(root, f))
+            m = match(r"BART GPU initialisation: ([\d.]+) ms", line)
+            m === nothing || (init = parse(Float64, m.captures[1]); continue)
+            m = match(r"path = \"(.*/runs/([^/\"]+)\.json)\"", line)
+            (m === nothing || init === nothing) || (out[m.captures[2]] = init)
+        end
+    end
+    return out
+end
+is_bart_gpu(r) = r.backend == "cuda" && startswith(r.framework, "BART")
+const BART_GPU_STARTUP = any(is_bart_gpu, latest) ? bart_gpu_startups(LOG_DIR) : Dict{String, Float64}()
+for r in latest
+    is_bart_gpu(r) && !haskey(BART_GPU_STARTUP, r.run_id) &&
+        error("no logged BART GPU start-up for run $(r.run_id) under $LOG_DIR (pass --logs=<dir of the job logs>)")
+end
+
+function row_record(r)
+    d = Dict{String, Any}(
+        "case_id" => r.case_id, "data_source" => r.data_source,
+        "category" => r.category, "method" => r.method, "framework" => r.framework,
+        "threads" => r.threads, "time_ms" => r.time_ms,
+        "nrmse_gt" => r.nrmse_gt, "nrmse_ristretto" => r.nrmse_ristretto,
+    )
+    is_bart_gpu(r) && (d["bart_gpu_startup_ms"] = BART_GPU_STARTUP[r.run_id])
+    return d
+end
+
 # Per toolkit, the versions of the runs behind its rows.
 function toolkit_versions(section_rows)
     out = Dict{String, Vector{String}}()
@@ -150,12 +189,7 @@ for backend in sort(unique(r.backend for r in latest))
                     "backend" => backend, "threads" => threads, "schema_version" => SNAPSHOT_SCHEMA_VERSION,
                     "run" => run_record(section_rows),
                     "benchmarks" => [
-                        Dict(
-                            "case_id" => r.case_id, "data_source" => r.data_source,
-                            "category" => r.category, "method" => r.method, "framework" => r.framework,
-                            "threads" => r.threads, "time_ms" => r.time_ms,
-                            "nrmse_gt" => r.nrmse_gt, "nrmse_ristretto" => r.nrmse_ristretto,
-                        ) for r in sort(section_rows; by = r -> (r.case_id, r.category, r.method, r.framework))
+                        row_record(r) for r in sort(section_rows; by = r -> (r.case_id, r.category, r.method, r.framework))
                     ],
                 ),
                 4,

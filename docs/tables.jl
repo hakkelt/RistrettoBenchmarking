@@ -17,11 +17,8 @@ toolkit_rank(t) = something(findfirst(==(t), collect(TOOLKITS)), 99)
 
 # ------------------------------------------------------------------ formatting
 
-# A BART GPU time at the 1e-5 s clamp is shorter than the CUDA start-up subtracted from it (see the
-# methodology page): no time can be given.
 function fmt_ms(t)
     t < 0 && return "n/m"
-    t <= 0.01 && return "uncertain"
     t < 10 && return @sprintf("%.2f ms", t)
     t < 1000 && return @sprintf("%.0f ms", t)
     t < 100_000 && return @sprintf("%.2f s", t / 1000)
@@ -188,9 +185,19 @@ function error_note(s::Snapshot, cases)
     return txt * "; see [Error measures](@ref)).\n"
 end
 
-# A clamped BART GPU time (≤ 0.01 ms) is no measurement and never the fastest.
+# The harness clamps a time at 1e-5 s; anything at the clamp is no measurement.
 measured_ms(t) = t > 0.01
-fastest(cells) = (ts = [c["time_ms"] for c in values(cells) if measured_ms(c["time_ms"])]; length(ts) > 1 ? minimum(ts) : -1.0)
+
+# A BART GPU row carries the CUDA start-up its time had subtracted (bart_gpu_startup_ms); the site
+# shows the whole call. A call shorter than the start-up estimate was clamped: only its bound is known.
+function shown_ms(c)
+    s = get(c, "bart_gpu_startup_ms", nothing)
+    s === nothing && return c["time_ms"]
+    return measured_ms(c["time_ms"]) ? c["time_ms"] + s : -2.0
+end
+cell_time(c) = (t = shown_ms(c); t == -2.0 ? "≤ " * fmt_ms(c["bart_gpu_startup_ms"]) : fmt_ms(t))
+fastest(cells) = (ts = [shown_ms(c) for c in values(cells) if measured_ms(shown_ms(c))]; length(ts) > 1 ? minimum(ts) : -1.0)
+column_label(s::Snapshot, t) = s.backend == "cuda" && t == "BART" ? "BART (with CUDA start-up)" : t
 
 """
     fixed_budget_markdown(s, category) -> String
@@ -216,14 +223,14 @@ function fixed_budget_markdown(s::Snapshot, category)
         for t in cols
             haskey(cells, t) || (push!(row, "·"); continue)
             c = cells[t]
-            x = fmt_ms(c["time_ms"])
-            c["time_ms"] == best && (x = "**$x**")
+            x = cell_time(c)
+            shown_ms(c) == best && (x = "**$x**")
             e = fmt_err(c["nrmse_gt"])
             push!(row, isempty(e) ? x : "$x ($e)")
         end
         push!(out, row)
     end
-    return md_table(["case", "method", cols...], out; align = ["---", "---", fill("---:", length(cols))...]) *
+    return md_table(["case", "method", column_label.(Ref(s), cols)...], out; align = ["---", "---", fill("---:", length(cols))...]) *
         "\n" * error_note(s, unique(first.(collect(keys(groups)))))
 end
 
@@ -260,13 +267,13 @@ function race_markdown(s::Snapshot)
                 continue
             end
             c = cells[t]
-            x = fmt_ms(c["time_ms"])
-            c["time_ms"] == best && (x = "**$x**")
+            x = cell_time(c)
+            shown_ms(c) == best && (x = "**$x**")
             push!(row, "$x, $(race_parts(c["method"])[3]) it ($(fmt_err(c["nrmse_gt"])))")
         end
         push!(out, row)
     end
-    return md_table(["case", "method", "target", cols...], out; align = ["---", "---", "---:", fill("---:", length(cols))...]) *
+    return md_table(["case", "method", "target", column_label.(Ref(s), cols)...], out; align = ["---", "---", "---:", fill("---:", length(cols))...]) *
         "\n" * error_note(s, unique(first.(collect(keys(groups)))))
 end
 
