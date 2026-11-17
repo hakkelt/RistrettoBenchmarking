@@ -47,21 +47,7 @@ end
 
 # ---------------------------------------------------------------- λ
 
-"""
-    LAMBDA_DIR
-
-`results/lambda/`, one calibration file per case; under `RISTRETTO_BENCH_SMALL=1` the separate
-`results/lambda_small/`, so a smoke calibration of the shrunken cases never overwrites the real one.
-An image size other than the default (`RISTRETTO_BENCH_N`) gets its own directory too,
-`results/lambda_n<size>/` (`results/lambda_small_n<size>/` in small mode), since the best λ
-changes with the size. `RISTRETTO_BENCH_LAMBDA_DIR` replaces all of these with a directory of its
-own, to calibrate somewhere the sections do not read (comparing two calibrations, say).
-"""
-const LAMBDA_DIR = let base = small_mode() ? "lambda_small" : "lambda"
-    isempty(get(ENV, "RISTRETTO_BENCH_N", "")) || (base *= "_n$(image_n())")
-    dir = get(ENV, "RISTRETTO_BENCH_LAMBDA_DIR", "")
-    normpath(isempty(dir) ? joinpath(@__DIR__, "..", "results", base) : dir)
-end
+include(joinpath(@__DIR__, "_lambda_files.jl"))   # LAMBDA_DIR, lambda_from_files, _lambda_from
 
 """
     load_lambda(c::BenchCase, method, toolkit, default) -> Float64
@@ -74,11 +60,7 @@ multichannel cases lies up to two decades above the analogue's); failing that fr
 the ADMM row whose problem it solves ([`penalty_of`](@ref)); failing that `default`.
 """
 function load_lambda(c::BenchCase, method::Symbol, toolkit::AbstractString, default::Real)
-    for id in unique((c.id, c.analogue))
-        v = _lambda_from(joinpath(LAMBDA_DIR, "$id.json"), method, toolkit)
-        v === nothing || return v
-    end
-    v = _lambda_from(normpath(joinpath(@__DIR__, "..", "results", "lambda_calibration.json")), method, toolkit)
+    v = lambda_from_files((c.id, c.analogue), method, toolkit)
     v === nothing || return v
     # A PDHG row solves the problem of its ADMM row, so that row's λ stands in until it has its own.
     penalty_of(method) === method || return load_lambda(c, penalty_of(method), toolkit, default)
@@ -99,19 +81,6 @@ function load_rho(c::BenchCase, method::Symbol, toolkit::AbstractString)
         v === nothing || return v
     end
     return nothing
-end
-
-function _lambda_from(path, method, toolkit; table = "lambda")
-    isfile(path) || return nothing
-    tbl = try
-        JSON.parsefile(path)[table]
-    catch
-        return nothing
-    end
-    m = get(tbl, String(method), nothing)
-    (m === nothing || !haskey(m, toolkit)) && return nothing
-    v = m[toolkit]
-    return (v isa Real && isfinite(v)) ? Float64(v) : nothing
 end
 
 """

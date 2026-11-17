@@ -9,7 +9,6 @@
 # `benchmark/slurm/site.env`; run it through `benchmark/startup/startup.sh` on a compute node.
 
 using Dates, JSON, Printf, Statistics, TOML
-using BartIO: read_cfl
 
 include(joinpath(@__DIR__, "..", "..", "Ristretto", "benchmark", "utils", "config.jl"))
 load_site_env!()
@@ -89,61 +88,57 @@ end
 
 # ---------------------------------------------------------------- the case
 
-isfile(joinpath(DATADIR, "meta.json")) ||
+# A data directory written by an earlier version of prepare.jl (without the harness's NRMSE) is rewritten.
+isfile(joinpath(DATADIR, "meta.json")) && haskey(JSON.parsefile(joinpath(DATADIR, "meta.json")), "ristretto_nrmse") ||
     run(`$JULIA --startup-file=no --project=$PROJECT $(joinpath(@__DIR__, "prepare.jl")) $DATADIR $CASE`)
 const META = JSON.parsefile(joinpath(DATADIR, "meta.json"))
 (META["wavelet_name"], META["wavelet_levels"]) == ("db2", 3) ||
     error("the solve scripts assume 3 levels of db2 wavelets, the harness uses $(META["wavelet_levels"]) of $(META["wavelet_name"])")
 const NX, NY, NC = META["nx"], META["ny"], META["coils"]
 const MAXIT = Dict("wavelet" => META["wavelet_iterations"], "cgsense" => META["cgsense_iterations"])
-const REFERENCE = read!(joinpath(DATADIR, "reference.c64"), Array{ComplexF32}(undef, NX, NY))
-
-function mag_nrmse(est, ref)
-    a, r = abs.(est), abs.(ref)
-    a .*= sqrt(sum(abs2, r) / sum(abs2, a))
-    return sqrt(sum(abs2, a .- r) / sum(abs2, r))
-end
 
 # ---------------------------------------------------------------- the toolkits
 
+# `runner` runs the toolkit's solve script, `load` is a process that only loads the toolkit, `runtime`
+# the bare runtime its numbers are set against, `needs` the executable without which it is skipped.
+const PY = isempty(PYTHON) ? "python3" : PYTHON
 const TOOLKITS = [
-    (name = "Ristretto", lang = :julia, script = "solve_ristretto.jl", imp = "using Ristretto", methods = ("wavelet", "cgsense")),
-    (name = "MRIReco", lang = :julia, script = "solve_mrireco.jl", imp = "using MRIReco", methods = ("wavelet", "cgsense")),
-    (name = "MIRT", lang = :julia, script = "solve_mirt.jl", imp = "using MIRT", methods = ("cgsense",)),
-    (name = "SigPy", lang = :python, script = "solve_sigpy.py", imp = "import sigpy, sigpy.mri.app", methods = ("wavelet", "cgsense")),
-    (name = "MRpro", lang = :python, script = "solve_mrpro.py", imp = "import mrpro", methods = ("wavelet", "cgsense")),
-    (name = "BART", lang = :bart, script = "", imp = "", methods = ("wavelet", "cgsense")),
+    (name = "Ristretto", runner = JL, script = "solve_ristretto.jl", load = `$JL -e "using Ristretto"`, runtime = "Julia", needs = JULIA, methods = ("wavelet", "cgsense")),
+    (name = "MRIReco", runner = JL, script = "solve_mrireco.jl", load = `$JL -e "using MRIReco"`, runtime = "Julia", needs = JULIA, methods = ("wavelet", "cgsense")),
+    (name = "MIRT", runner = JL, script = "solve_mirt.jl", load = `$JL -e "using MIRT"`, runtime = "Julia", needs = JULIA, methods = ("cgsense",)),
+    (name = "SigPy", runner = `$PY`, script = "solve_sigpy.py", load = `$PY -c "import sigpy, sigpy.mri.app"`, runtime = "Python", needs = PYTHON, methods = ("wavelet", "cgsense")),
+    (name = "MRpro", runner = `$PY`, script = "solve_mrpro.py", load = `$PY -c "import mrpro"`, runtime = "Python", needs = PYTHON, methods = ("wavelet", "cgsense")),
+    (name = "BART", runner = `bash`, script = "solve_bart.sh", load = `$BART version`, runtime = nothing, needs = BART, methods = ("wavelet", "cgsense")),
 ]
 
-function available(tk)
-    tk.lang === :python && return isfile(PYTHON)
-    tk.lang === :bart && return isfile(BART)
-    return true
-end
-const ACTIVE = filter(available, TOOLKITS)
+const ACTIVE = filter(tk -> isfile(tk.needs), TOOLKITS)
 for tk in TOOLKITS
     tk in ACTIVE || @warn "$(tk.name) is not configured on this machine (benchmark/slurm/site.env), skipped"
 end
 
 λ(name, m) = m == "cgsense" ? 0.0 : Float64(META["lambda_wavelet"][name])
 
-import_cmd(tk) = tk.lang === :julia ? `$JL -e $(tk.imp)` : tk.lang === :python ? `$PYTHON -c $(tk.imp)` : `$BART version`
-
 function solve_cmd(tk, m, nwarm)
     args = [DATADIR, m, string(nwarm), string(NX), string(NY), string(NC), string(MAXIT[m]), string(λ(tk.name, m))]
-    script = joinpath(@__DIR__, tk.script)
-    return tk.lang === :julia ? `$JL $script $args` : `$PYTHON $script $args`
+    return `$(tk.runner) $(joinpath(@__DIR__, tk.script)) $args`
 end
 
-bart_pics(m) = m == "wavelet" ?
-    `$BART pics -S -w 1 -e -i $(MAXIT[m]) -R W:3:0:$(λ("BART", m)) ksp sens out_$m` :
-    `$BART pics -S -w 1 -i $(MAXIT[m]) ksp sens out_$m`
-
+# A script prints `nan` for the NRMSE of a run it does not score (BART's, with no further solves).
 function parse_result(out)
     m = match(r"RESULT (\S+) (\S+) (\S+) (\S+) (\S+)", out)
     m === nothing && error("no RESULT line in\n$out")
     warm = m[5] == "-" ? Float64[] : parse.(Float64, split(m[5], ","))
     return (import_s = parse(Float64, m[1]), setup_s = parse(Float64, m[2]), first_s = parse(Float64, m[3]), nrmse = parse(Float64, m[4]), warm_s = warm)
+end
+
+# Ristretto's solve script builds its reconstruction itself; it must reach the NRMSE the harness's own
+# reconstruction reaches (`prepare.jl`), or the two definitions have drifted apart.
+function check_ristretto(tk, m, r)
+    (tk.name == "Ristretto" && !isnan(r.nrmse)) || return nothing
+    ref = META["ristretto_nrmse"][m]
+    isapprox(r.nrmse, ref; rtol = 1.0e-3) ||
+        error("solve_ristretto.jl reaches NRMSE $(r.nrmse) on $m, the harness's reconstruction $ref: the two definitions differ")
+    return nothing
 end
 
 # ---------------------------------------------------------------- measuring
@@ -154,7 +149,7 @@ rec!(keys...; value) = push!(get!(raw, join(keys, "/"), Any[]), value)
 # One run of each command first, untimed: page cache, and a precompile check of the Julia envs.
 println("warming the file system cache...")
 for tk in ACTIVE
-    timed(import_cmd(tk))
+    timed(tk.load)
 end
 
 # Precompiling Ristretto into a fresh depot ahead of the real one: `compilecache` writes the new
@@ -174,32 +169,27 @@ for rep in 1:REPS
     rec!("runtime", "Julia"; value = first(timed(`$JL -e 0`)))
     isfile(PYTHON) && rec!("runtime", "Python"; value = first(timed(`$PYTHON -c pass`)))
     for tk in ACTIVE
-        rec!("import", tk.name; value = first(timed(import_cmd(tk))))
+        rec!("import", tk.name; value = first(timed(tk.load)))
         for m in tk.methods
-            if tk.lang === :bart
-                t, _ = timed(bart_pics(m))
-                rec!("end_to_end", tk.name, m; value = t)
-                continue
-            end
+            # `nwarm = 0`: the fresh process that loads the toolkit, reads the case and solves once.
             t, out = timed(solve_cmd(tk, m, 0))
             r = parse_result(out)
+            check_ristretto(tk, m, r)
             rec!("end_to_end", tk.name, m; value = t)
             rec!("first", tk.name, m; value = r.first_s)
-            rec!("nrmse", tk.name, m; value = r.nrmse)
+            rec!("setup", tk.name, m; value = r.setup_s)
+            isnan(r.nrmse) || rec!("nrmse", tk.name, m; value = r.nrmse)
             rec!("import_in_process", tk.name; value = r.import_s)
             if rep <= WARM_REPS
                 _, out = timed(solve_cmd(tk, m, NWARM))
                 r = parse_result(out)
+                check_ristretto(tk, m, r)
                 rec!("first", tk.name, m; value = r.first_s)
                 rec!("warm", tk.name, m; value = r.warm_s)
+                isnan(r.nrmse) || rec!("nrmse", tk.name, m; value = r.nrmse)
             end
         end
     end
-end
-for m in ("wavelet", "cgsense")
-    isfile(BART) || break
-    out = reshape(read_cfl(joinpath(DATADIR, "out_$m")), NX, NY)
-    rec!("nrmse", "BART", m; value = mag_nrmse(out, REFERENCE))
 end
 
 # ---------------------------------------------------------------- summary
@@ -207,16 +197,15 @@ end
 med(k) = haskey(raw, k) ? median(reduce(vcat, raw[k])) : nothing
 summary = Any[]
 for tk in ACTIVE, m in tk.methods
-    e2e = med("end_to_end/$(tk.name)/$m")
-    bart = tk.lang === :bart
     push!(
         summary, Dict(
             "toolkit" => tk.name, "method" => m,
-            "runtime_s" => bart ? nothing : med("runtime/$(tk.lang === :julia ? "Julia" : "Python")"),
+            "runtime_s" => tk.runtime === nothing ? nothing : med("runtime/$(tk.runtime)"),
             "import_s" => med("import/$(tk.name)"),
-            "first_solve_s" => bart ? e2e : med("first/$(tk.name)/$m"),
-            "warm_solve_s" => bart ? e2e : med("warm/$(tk.name)/$m"),
-            "end_to_end_s" => e2e,
+            "setup_s" => med("setup/$(tk.name)/$m"),
+            "first_solve_s" => med("first/$(tk.name)/$m"),
+            "warm_solve_s" => med("warm/$(tk.name)/$m"),
+            "end_to_end_s" => med("end_to_end/$(tk.name)/$m"),
             "nrmse" => med("nrmse/$(tk.name)/$m"),
         )
     )

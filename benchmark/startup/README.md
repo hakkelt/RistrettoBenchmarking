@@ -16,20 +16,25 @@ L1-wavelet row (FISTA, 20 iterations; not MIRT, which has no wavelet prox) and t
 | `import_s` | a process that only loads the toolkit: `using Ristretto` / `MRIReco` / `MIRT`, `import sigpy, sigpy.mri.app`, `import mrpro`; `bart version` |
 | `first_solve_s` | the first solve in a fresh process, compilation included |
 | `warm_solve_s` | the median of the 10 solves after it in the same process |
+| `setup_s` | inside the solve script, reading the case and building the toolkit's inputs, before the first solve |
 | `end_to_end_s` | a fresh process that loads the toolkit, reads the case and solves it once |
 | `ristretto_precompile_s` | once: `Base.compilecache` of Ristretto into an empty depot, its dependencies' caches already present |
 
 Every Julia number except the last assumes the packages are already precompiled. For BART every
-solve is its own `bart pics` process on `.cfl` files in `/dev/shm`, so first, warm and end-to-end
-are one number. The comparison tables leave BART's process start and file I/O out, taking the
-`Total Time` that `pics` reports itself (`time_bart` in `../comparison/scripts/_setup.jl`); this one
-keeps them.
+solve is its own `bart pics` process on `.cfl` files in `/dev/shm`, so its import and setup are 0 and
+its first and warm solves are each the wall time of one such process. The comparison tables leave
+BART's process start and file I/O out, taking the `Total Time` that `pics` reports itself
+(`time_bart` in `../comparison/scripts/_setup.jl`); this one keeps them.
 
-Each toolkit's solve is a standalone script (`solve_<toolkit>.jl` / `.py`) that loads only that
-toolkit and repeats the call the comparison harness times (`../comparison/scripts/_toolkits.jl`,
-`../../Ristretto/benchmark/utils/ristretto_methods.jl`) with the same parameters and calibrated λ; the NRMSE each reports
-matches the harness's row. `prepare.jl` writes the case once, from the case catalog, as raw arrays
-and BART `.cfl` files.
+Each toolkit's solve is a standalone script (`solve_<toolkit>.jl` / `.py` / `.sh`) that loads only
+that toolkit and repeats the call the comparison harness times (`../comparison/scripts/_toolkits.jl`,
+`../../Ristretto/benchmark/utils/ristretto_methods.jl`) with the same parameters and calibrated λ, and
+prints one `RESULT` line (`child_common.jl`) that `run.jl` reads the same way for every toolkit.
+`prepare.jl` writes the case once, from the case catalog, as raw arrays and BART `.cfl` files, with
+each toolkit's λ read as the sections read it (`../comparison/scripts/_lambda_files.jl`). It also
+records the NRMSE of the harness's own Ristretto reconstruction (`ristretto_reconstructor`), and
+`run.jl` stops when `solve_ristretto.jl`, which loads Ristretto alone and builds the same
+reconstruction itself, reaches a different one.
 
 Every child runs pinned to the same 8 physical cores of one NUMA domain (`numactl`), with
 OpenMP / OpenBLAS / MKL / PyTorch at 8 threads, Julia at `-t 8`, and BLAS and FFTW as
