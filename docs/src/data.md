@@ -16,6 +16,9 @@ Every table of this site is generated from these files when the site is built (`
 | `benchmark/thread_scaling/results/` | the 3D thread-scaling probes, with sampling profiles per thread |
 | `benchmark/paper_part6/large_datasets/` | the large-dataset runs and their logs |
 
+The MKL snapshots in the same directory were measured in October 2026 with older releases of the
+toolboxes; the site does not show them.
+
 A snapshot row holds `time_ms` (minimum of the timed runs; -1 when not measured), `nrmse_gt` (the error
 of the case, see [Error measures](@ref)) and `nrmse_ristretto` (the NRMSE against Ristretto's image of
 the same row). An accuracy-race method records its target and the iteration count reached, as in

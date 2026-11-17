@@ -18,8 +18,10 @@ releases it measured.
 
 Each snapshot of the cross-toolbox comparison comes from one machine, one BLAS library and one thread
 count (or the GPU). Komondor is an HPC cluster: its CPU nodes have two AMD EPYC 7763 processors
-(128 cores, 8 NUMA domains), its GPU node one EPYC 7763 and four NVIDIA A100 40 GB GPUs. A CPU run uses
-one NUMA domain (16 cores) of an otherwise idle node; a GPU run uses one GPU.
+(128 cores, 8 NUMA domains), its GPU nodes one EPYC 7763 (64 cores) and four NVIDIA A100 40 GB GPUs.
+A CPU run uses one NUMA domain (16 cores) of an otherwise idle node, which is a CPU node for most rows and
+the CPU of a GPU node for some; the line above each table gives the nodes behind it. A GPU run uses one
+GPU.
 
 ```@eval
 Main.Tables.md(Main.Tables.machines_markdown())

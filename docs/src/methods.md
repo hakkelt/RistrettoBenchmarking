@@ -96,9 +96,10 @@ the line above each of its tables.
 ## Reading the tables
 
 - **Bold:** the fastest time of a row.
-- **·:** the toolbox does not provide the method (or, on the GPU, does not run it on the device).
-- **not reached:** in the accuracy race, the toolbox provides the method but no count on its ladder
-  reached the target.
+- **·:** no row: the toolbox does not provide the method (or, on the GPU, does not run it on the
+  device), or its run failed.
+- **not reached:** in the accuracy race, the toolbox has a fixed-budget row of the method but no race
+  row: no count on its ladder reached the target, or the race run did not finish.
 - **n/m:** run, but its time is not measured (see Timing).
 - **< 0.01 ms:** a BART GPU time below the start-up correction (see Timing).
 - Brackets hold the error of the reconstruction (see Error measures).

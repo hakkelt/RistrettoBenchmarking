@@ -157,11 +157,13 @@ function provenance(s::Snapshot)
     cpu = joinv(get(r, "cpu_model", "unrecorded CPU"))
     gpu = isempty(get(r, "gpu", [])) ? "" : ", $(joinv(r["gpu"]))"
     nodes = length(get(r, "hostnames", []))
+    cores = join(get(r, "cpu_threads", []), " or ")
     dates = unique(get(r, "dates", ["?"]))
     blas = join(unique(replace(b, r"^lib(\w+?)(64_)?\.so.*$" => s"\1") for b in get(r, "blas_vendor", [])), ", ")
     place = s.backend == "cuda" ? "1 host thread" :
         "$(s.threads) thread" * (s.threads == 1 ? "" : "s") * (s.machine == CLUSTER ? " in one NUMA domain" : "")
     return "$(s.machine): $cpu$gpu; $place; $nodes node" * (nodes == 1 ? "" : "s") *
+        (isempty(cores) ? "" : " with $cores hardware threads") *
         "; Julia $(joinv(get(r, "julia_version", "?"))), $blas; measured $(join(dates, " to "))."
 end
 
@@ -185,7 +187,9 @@ function error_note(s::Snapshot, cases)
     return txt * "; see [Error measures](@ref)).\n"
 end
 
-fastest(cells) = (ts = [c["time_ms"] for c in values(cells) if c["time_ms"] > 0]; length(ts) > 1 ? minimum(ts) : -1.0)
+# A clamped BART GPU time (≤ 0.01 ms) is no measurement and never the fastest.
+measured_ms(t) = t > 0.01
+fastest(cells) = (ts = [c["time_ms"] for c in values(cells) if measured_ms(c["time_ms"])]; length(ts) > 1 ? minimum(ts) : -1.0)
 
 """
     fixed_budget_markdown(s, category) -> String
@@ -227,7 +231,7 @@ end
 
 Per (case, method), the target error, then per toolkit the time to reach it, the iterations that took
 and, in brackets, the error reached. "not reached": the toolkit has a fixed-budget row of the method
-but no rung of its iteration ladder reached the target. "·": the toolkit does not provide the method.
+but no race row. "·": no row of the method at all.
 """
 function race_markdown(s::Snapshot)
     all_ = rows(s)
@@ -310,7 +314,7 @@ function scaling_markdown(machine, category)
     for (k, times) in sort!(collect(data); by = p -> (case_rank(p[1][1]), p[1][2], toolkit_rank(p[1][3])))
         a, b = get(times, ths[1], -1.0), get(times, ths[end], -1.0)
         push!(out, [case_label(k[1]), k[2], k[3], (haskey(times, t) ? fmt_ms(times[t]) : "·" for t in ths)...,
-            a > 0 && b > 0 ? fmt_x(a / b) : "—"])
+            measured_ms(a) && measured_ms(b) ? fmt_x(a / b) : "—"])
     end
     return md_table(["case", "method", "toolkit", ("$t" for t in ths)..., "$(ths[1]) → $(ths[end])"], out;
         align = ["---", "---", "---", fill("---:", length(ths) + 1)...])
