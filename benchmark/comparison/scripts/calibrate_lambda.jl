@@ -27,8 +27,9 @@
 # until Ristretto's curve arrives, since there is no target to match yet.
 #
 # Results go to `results/lambda/<case id>.json`, one file per case, which the sections read back
-# through `load_lambda` and `load_rho` (a real case falls back to its synthetic analogue's file:
-# k-space is unit-RMS normalised everywhere, so λ transfers). Each file also records `race_target`:
+# through `load_lambda` and `load_rho`. A real case falls back to its synthetic analogue's file only
+# until it has its own: λ does not transfer from the analogue (unit-RMS k-space normalisation does
+# not make it), so `--data=real` calibrates the real cases themselves. Each file also records `race_target`:
 # the worst toolkit's best NRMSE × 1.10, the target `run_accuracy_race.jl` races to, reachable by
 # every toolkit. The file is merged under a lock, so several processes may calibrate different
 # toolkits or methods of one case at once.
@@ -41,7 +42,7 @@
 include(joinpath(@__DIR__, "_setup.jl"))
 include(joinpath(@__DIR__, "_toolkits.jl"))
 include(joinpath(@__DIR__, "_methods.jl"))
-using FileWatching.Pidfile: mkpidlock
+using FileWatching.Pidfile: mkpidlock, PidlockedError
 
 const IT_CAL = parse(Int, get(ENV, "IT_CAL", "30"))   # above production's 20 — converged NRMSE(λ)
 const NGRID = parse(Int, get(ENV, "NGRID", "8"))
@@ -277,6 +278,33 @@ _json_finite(v::Union{AbstractVector, Tuple}) = map(_json_finite, v)
 _json_finite(x) = x
 
 """
+    with_lock(f, path)
+
+Run `f()` holding the pidfile lock `path`. Processes on different nodes share the lock on a network
+file system, where a file watcher does not see another node remove the lock file, so the lock is
+polled once a second instead of waited on. A lock left by a killed process on another node counts
+as stale after five times `stale_age` (FileWatching's rule for a pid it cannot check while the
+holder refreshes the lock), five minutes here; a live holder refreshes it every `stale_age / 2`.
+"""
+function with_lock(f, path)
+    lock = nothing
+    while lock === nothing
+        lock = try
+            mkpidlock(path; stale_age = 60, wait = false)
+        catch ex
+            ex isa PidlockedError || rethrow()
+            sleep(1)
+            nothing
+        end
+    end
+    try
+        return f()
+    finally
+        close(lock)
+    end
+end
+
+"""
     write_calibration!(c, fresh)
 
 Merge `fresh` (`method => curves` from this run) into the case's file under a lock, then recompute
@@ -284,7 +312,7 @@ every derived field of each method touched from the merged curves of all toolkit
 """
 function write_calibration!(c::BenchCase, fresh::Dict{String, Any})
     path = joinpath(LAMBDA_DIR, "$(c.id).json")
-    return mkpidlock(path * ".lock"; stale_age = 4 * 3600) do
+    return with_lock(path * ".lock") do
         file = isfile(path) ? JSON.parsefile(path) : Dict{String, Any}()
         for k in ("lambda", "rho", "target_nrmse", "race_target", "sweeps")
             haskey(file, k) || (file[k] = Dict{String, Any}())

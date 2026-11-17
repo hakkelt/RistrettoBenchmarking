@@ -65,9 +65,10 @@ end
     load_lambda(c::BenchCase, method, toolkit, default) -> Float64
 
 Per-toolkit λ for `method` on case `c`, from `LAMBDA_DIR/<case id>.json` (written by
-`calibrate_lambda.jl`); failing that from the case's synthetic analogue's file (a real case uses the
-λ of the synthetic case it mirrors -- valid because both k-spaces are unit-RMS normalised); failing
-that from the pre-catalog `results/lambda_calibration.json`; failing that, for a PDHG row, the λ of
+`calibrate_lambda.jl`); failing that from the case's synthetic analogue's file (a real case that
+was never calibrated uses the λ of the synthetic case it mirrors, which is only a rough stand-in:
+unit-RMS normalisation of the k-space does not make λ transfer, and Ristretto's best λ on the real
+multichannel cases lies up to two decades above the analogue's); failing that from the pre-catalog `results/lambda_calibration.json`; failing that, for a PDHG row, the λ of
 the ADMM row whose problem it solves ([`penalty_of`](@ref)); failing that `default`.
 """
 function load_lambda(c::BenchCase, method::Symbol, toolkit::AbstractString, default::Real)
