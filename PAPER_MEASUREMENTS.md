@@ -8,7 +8,7 @@ venvs, logs) are in `/project/c_mrrecon/paper-measurements`, called "the working
 
 ## Not done or not verified
 
-State on 2026-11-16; every table names its commit and node.
+State on 2026-11-17; every table names its commit and node.
 
 - **Part 2.4 / start-up numbers.** The JuliaC and static-BART start-up rows are login-node
   measurements only. The harness numbers on a compute node, at the Part 6 commit, are not done.
@@ -22,9 +22,15 @@ State on 2026-11-16; every table names its commit and node.
   alternation, no Toeplitz, NFFT library defaults, and BLAS-free (see 4b).
 - **Part 5.** MRpro's L1-wavelet fails at the odd size (255²), a ptwt limitation. The planning
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
-- **Part 6.** Run except the real-data regularized rows. These use the synthetic analogue's λ, which is wrong for
-  Ristretto on real data. The snapshot export and the submodule pin wait for a real-case calibration and rerun
-  (see Part 6). The synthetic λ were kept: the 128² recalibration put every toolbox within one grid step of them.
+- **Part 6.** Real-case calibration done (see "Part 6 real-data rerun"). The CPU rerun of the real
+  radial rows, the multislice rows the 2-hour job lost, and the 2d_1ch L1-wavelet race are queued on the
+  `cpu` partition (jobs 15171063, 15171925, 15171971, 15171978, 15172029); the snapshot export, the Ristretto
+  push and the submodule pin wait for them.
+- **Part 6, BART GPU rows.** BART's GPU time subtracts a once-measured CUDA start-up (316-383 ms) and clamps
+  at 1e-5 s, so a few short BART GPU rows read 0.01 ms. Whether to mark those as not measured is open.
+- **Part 6, real spiral cine.** Its temporal rows (low rank, LLR, temporal TV) have no converged accuracy on
+  this case (see below) and are reported at their fixed budget only; per-frame rotating arms, which would make
+  them well-posed, need per-frame trajectories in every toolkit wrapper and were not done.
 - **Part 1, item 9.** The reported POGM/OptISTA failure was not reproduced; only the forms listed
   there were tried.
 - **Part 1, item 10.** The printed snippet is derived from the measured call, not run on its own.
@@ -707,7 +713,68 @@ submodule pin. Toolbox versions are those in the table above. Julia 1.13.1, Open
   - On the GPU, breast L1-wavelet reaches NRMSE 0.314 against 0.292 on the CPU (joint solve, as above).
 - **MRpro's L1-wavelet** fails on real_2d_1ch_cartesian (odd size) on the GPU too, a ptwt limitation.
 
-**Pending (needs a decision)**
+
+### Part 6 real-data rerun (2026-11-17)
+
+Ristretto `0ac015de2` throughout (its package source is that of `5faaa2e41`). Harness commits on this
+branch: `c569c10` to `9a0bf67`.
+
+**Calibration on the real cases.** `calibrate_lambda.jl --data=real`, one file per real case in
+`benchmark/comparison/results/lambda/real_*.json`, which `load_lambda` prefers over the analogue's.
+- Cartesian cases: one job per (case, method) on the `cpu` partition (commits `c569c10`-`9a8479d`).
+  Ristretto's best λ is about 10× the analogue's on the 2D and multislice multichannel cases and 5-125× on
+  3D and the Cartesian cine. After calibration, real_2d_multichannel TV reaches 0.198 (Ristretto) against
+  0.197 (BART), where the analogue's λ gave 0.52; real_3d TV 0.265 against 0.264; real_2d_1ch about 0.12
+  for every toolkit.
+- Cross-node calibration jobs blocked on the λ file's lock: on Lustre, a file watcher does not see
+  another node remove the lock. The lock is now polled (`with_lock`, `c569c10`).
+- MRpro's L1-wavelet now runs at odd image sizes: it synthesizes on the next even size and crops
+  (`9a8479d`); real_2d_1ch reaches 0.121.
+- `calibrate_gpu.sh` / `calibrate_pack.sh` calibrate on the test partition's A100s. On
+  real_2d_multichannel_cartesian the GPU calibration picks the same λ and ρ as the CPU one for every
+  toolkit, best NRMSE equal to four digits.
+- MRIReco's L1-wavelet on real_2d_1ch has its best λ at the bottom edge of the grid (larger λ gives NaN).
+- A race-target bug (`270c018`, fixed in `85a3d94`) stored a null race target for every method calibrated
+  in between; the race then fell back to the analogue's target. It affected the real_2d_1ch L1-wavelet race
+  (jobs 15170700/15170701 raced to 0.1993 instead of 0.1348; rerun as 15171925 and 15172065) and the two radial files (recomputed
+  from their curves).
+
+**Real non-Cartesian cases: held-out k-space error instead of image NRMSE** (`cf4566d`).
+- Neither case has a converged image reference. The spiral reference was the 13-arm gridding image, the
+  breast reference a 30-iteration CG-SENSE of all 288 spokes. Unregularized CG-SENSE of the full spiral
+  keeps growing (image norm 3.5 at 10 iterations, 22 at 300, 61 at 1000); the breast one changes by 41%
+  between 30 and 300 iterations. An image reference therefore rewards stopping early.
+- Both cases are now scored by how well an image predicts the k-space the undersampled acquisition leaves
+  out (breast: spokes 129-288; spiral: the 10 arms other than 1, 6, 11), through the case's coil maps and an
+  NFFT (m = 4, σ = 2), density weighted, with a complex scale fitted on the acquired samples
+  (`_scoring.jl`). The `nrmse_gt` column of these two cases holds that error. Run files record the
+  cases scored this way (`heldout_cases`), and the snapshot export leaves out older rows of those cases.
+  The image-NRMSE calibrations are kept in `benchmark/results/lambda_image_nrmse/` (not tracked).
+- Breast: the error is stable once converged (TV, λ = 1e-3: 0.4532 at 30 iterations, 0.4531 at 150) with an
+  interior optimum, and every ADMM toolkit reaches about 0.447. The measurement noise sets a floor near 0.44,
+  so the race target on these cases is 1.01 × the worst best error of each row's own toolkits, not 1.1 × the
+  shared one (`9a0bf67`): with 1.1, Ristretto's TV reached the target after one iteration.
+- Spiral: every frame is ill-conditioned on its own and all frames share one trajectory. The error of
+  temporal TV, low rank and LLR rises with the iteration count at every λ (TTV at λ = 1e-3: 1.29 at 30
+  iterations, 1.70 at 150); 5 instead of 3 shared arms do not change that (CG-SENSE 0.69, 0.92, 1.13 at 10,
+  30, 100 iterations). Early stopping is these rows' regularizer, so they are timed at their fixed budget only,
+  and the race runs the L1-wavelet row alone (`97a1b89`), whose error is stable (λ = 0.1: 0.723 → 0.728).
+  This also explains the earlier PDHG result on this case: Ristretto's preconditioned PDHG converges fastest
+  and so scores worst (temporal TV PDHG: 1.08 against SigPy's 0.745 on the GPU).
+
+**Runs**
+- GPU (test partition A100, x1001c4s3b0n1): 15165156/15165157 (2D Cartesian), 15168097, 15169641,
+  15169654 (Cartesian cine), 15169944 and 15170791 (3D), 15171970 (breast fixed-budget rows), 15171977
+  (spiral fixed-budget rows), 15172028 (both radial races), 15172065 (2d_1ch L1-wavelet race).
+  - Breast TV race to 0.452: Ristretto 5 iterations in 51 ms, BART 80 in 284 ms, SigPy 12 in 596 ms.
+  - Spiral L1-wavelet race to 0.701: every toolkit reaches it at 10 iterations.
+- CPU (`matrix.sh`, isolated NUMA domains, 1/2/4/8/16 threads): 15165154, 15165155, 15165818 (2D Cartesian),
+  15169653 (Cartesian cine), 15169943 and 15170790 (3D). 15169640 (multislice) hit its 2-hour limit before
+  the 1-thread race and most 16-thread rows; 15171063 reruns those. Queued: 15171971 (breast fixed-budget),
+  15171978 (spiral fixed-budget), 15172029 (both radial races), 15171925 (2d_1ch L1-wavelet race).
+  The radial rows of 15168096 and 15169640 used image NRMSE and are superseded.
+
+**Pending (needs a decision)** (superseded by the real-data rerun above)
 - Calibrate λ (and ρ) on the real cases themselves (`calibrate_lambda.jl --data=real`, one file per real
   case, which `load_lambda` prefers over the analogue's). Then rerun the sparsity, dynamic and accuracy-race
   sections on `--data=real`, on the CPU at 1-16 threads and on the GPU.
