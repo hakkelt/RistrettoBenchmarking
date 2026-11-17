@@ -341,7 +341,8 @@ function write_calibration!(c::BenchCase, fresh::Dict{String, Any})
             target = haskey(merged, "Ristretto") ? best(merged["Ristretto"]) : nothing
             picks = Dict(tk => pick_lambda(curve, target) for (tk, curve) in merged)
             rhos = Dict(tk => best_rho(curve) for (tk, curve) in merged if best_rho(curve) !== nothing)
-            worst = maximum(best(curve) for curve in values(merged))
+            # A toolkit with no finite point (every solve failed) has no accuracy to race to.
+            worst = maximum((best(curve) for curve in values(merged) if isfinite(best(curve))); init = Inf)
             @info "calibrated" c.id method target picks rhos worst
             file["lambda"][method] = picks
             file["rho"][method] = rhos
