@@ -26,10 +26,10 @@ State on 2026-11-17; every table names its commit and node.
   radial rows, the multislice rows the 2-hour job lost, and the 2d_1ch L1-wavelet race are queued on the
   `cpu` partition (jobs 15171063, 15171925, 15171971, 15172244, 15172446; GPU 15172445 for the real_3d race); the snapshot export, the Ristretto
   push and the submodule pin wait for them.
-- **Part 6, BART GPU rows.** BART's GPU time had a once-per-process CUDA start-up estimate subtracted
-  (181-597 ms between processes), which clamped 20 of 89 rows at 0.01 ms. The snapshots now carry the
-  estimate per row (`bart_gpu_startup_ms`, read from the job logs) and the site shows the whole call,
-  start-up included; a clamped row reads "≤" its estimate. Not remeasured.
+- **Part 6, BART GPU rows.** Done. BART's GPU time had a once-per-process CUDA start-up estimate
+  subtracted (181-597 ms between processes), which clamped 20 of 89 rows at 0.01 ms. The harness now
+  times the whole `pics -g` call (`b0f3498`), and every BART GPU row was remeasured that way (test
+  partition, jobs 15172687 and 15172688); the export still adds the logged estimate back to any older row.
 - **Snapshots committed before the queued CPU jobs.** The CPU snapshots lack the breast rows, the
   multislice 1-thread race and 16-thread rows, the 2d_1ch L1-wavelet race at its calibrated target, and
   the real_3d race; the export is repeated when 15171063, 15171925, 15171971, 15172244 and 15172446 finish.
