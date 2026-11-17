@@ -12,6 +12,11 @@
 #   julia --project=benchmark/comparison benchmark/comparison/scripts/export_snapshot.jl
 #   julia --project=benchmark/comparison benchmark/comparison/scripts/export_snapshot.jl --backend=mkl --threads=16
 #   julia --project=benchmark/comparison benchmark/comparison/scripts/export_snapshot.jl --cpu-model="AMD EPYC 7763 64-Core Processor"
+#   julia --project=benchmark/comparison benchmark/comparison/scripts/export_snapshot.jl --machine=workstation --host=<hostname>
+#
+# Without `--machine`, the cluster's rows (`source = "slurm"`) go to `results/`. With it, the rows run on
+# one other computer (`source = "other"`, recorded on host `--host`) go to `results/machines/<machine>/`,
+# which the site shows as a machine of its own.
 using JSON
 
 include(joinpath(@__DIR__, "..", "..", "..", "Ristretto", "benchmark", "utils", "results_store.jl"))
@@ -28,11 +33,19 @@ const RUN_FILES = load_run_files(RESULTS_DIR)
 rows = load_rows(RUN_FILES)
 isempty(rows) && (@info "no rows in results/runs/ -- nothing to export"; exit(0))
 
-haskey(ARG, "backend") && filter!(r -> r.backend == ARG["backend"], rows)
-haskey(ARG, "threads") && filter!(r -> r.threads == parse(Int, ARG["threads"]), rows)
-
 # The metadata of every run file, by run id: what a row records of its run.
 const RUNS = Dict(get(d, "run_id", "") => d for d in RUN_FILES)
+
+const MACHINE = get(ARG, "machine", nothing)
+const OUT_DIR = MACHINE === nothing ? RESULTS_DIR : joinpath(RESULTS_DIR, "machines", MACHINE)
+const SOURCE = MACHINE === nothing ? "slurm" : "other"
+if MACHINE !== nothing
+    haskey(ARG, "host") || error("--machine=$MACHINE needs --host=<hostname of that machine's run files>")
+    filter!(r -> r.source == SOURCE && get(get(RUNS, r.run_id, Dict{String, Any}()), "hostname", "") == ARG["host"], rows)
+end
+
+haskey(ARG, "backend") && filter!(r -> r.backend == ARG["backend"], rows)
+haskey(ARG, "threads") && filter!(r -> r.threads == parse(Int, ARG["threads"]), rows)
 
 values_of(metas, key) = sort(unique(string(m[key]) for m in metas if get(m, key, nothing) !== nothing))
 date_of(ts) = "$(ts[1:4])-$(ts[5:6])-$(ts[7:8])"
@@ -92,9 +105,9 @@ const EXCLUDED_CASES = ("real_cine_multichannel_radial",)
 
 latest = latest_per_case(
     current_release_rows(filter(r -> !(r.case_id in EXCLUDED_CASES) && measured(r) && same_metric(r), rows));
-    prefer_source = "slurm",
+    prefer_source = SOURCE,
 )
-isempty(latest) && (@info "no source=\"slurm\" rows match; nothing exported (rerun on the cluster first)"; exit(0))
+isempty(latest) && (@info "no source=\"$SOURCE\" rows match; nothing exported"; exit(0))
 
 # Per toolkit, the versions of the runs behind its rows.
 function toolkit_versions(section_rows)
@@ -120,6 +133,7 @@ function run_record(section_rows)
         "julia_version" => values_of(metas, "julia_version"),
         "blas_vendor" => unique(basename.(values_of(metas, "blas_vendor"))),
         "toolkit_versions" => toolkit_versions(section_rows),
+        "heldout_cases" => sort(unique(r.case_id for r in section_rows if r.case_id in HELDOUT)),
     )
 end
 
@@ -127,7 +141,8 @@ for backend in sort(unique(r.backend for r in latest))
     for threads in sort(unique(r.threads for r in latest if r.backend == backend))
         section_rows = filter(r -> r.backend == backend && r.threads == threads, latest)
         isempty(section_rows) && continue
-        path = joinpath(RESULTS_DIR, "benchmark_$(backend)_$(threads)threads.json")
+        mkpath(OUT_DIR)
+        path = joinpath(OUT_DIR, "benchmark_$(backend)_$(threads)threads.json")
         open(path, "w") do io
             JSON.print(
                 io,

@@ -24,7 +24,7 @@ State on 2026-11-17; every table names its commit and node.
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
 - **Part 6.** Real-case calibration done (see "Part 6 real-data rerun"). The CPU rerun of the real
   radial rows, the multislice rows the 2-hour job lost, and the 2d_1ch L1-wavelet race are queued on the
-  `cpu` partition (jobs 15171063, 15171925, 15171971, 15172244); the snapshot export, the Ristretto
+  `cpu` partition (jobs 15171063, 15171925, 15171971, 15172244, 15172446; GPU 15172445 for the real_3d race); the snapshot export, the Ristretto
   push and the submodule pin wait for them.
 - **Part 6, BART GPU rows.** BART's GPU time subtracts a once-measured CUDA start-up (316-383 ms) and clamps
   at 1e-5 s, so a few short BART GPU rows read 0.01 ms. Whether to mark those as not measured is open.
@@ -774,7 +774,8 @@ branch: `c569c10` to `9a0bf67`.
 - CPU (`matrix.sh`, isolated NUMA domains, 1/2/4/8/16 threads): 15165154, 15165155, 15165818 (2D Cartesian),
   15169653 (Cartesian cine), 15169943 and 15170790 (3D). 15169640 (multislice) hit its 2-hour limit before
   the 1-thread race and most 16-thread rows; 15171063 reruns those. Queued: 15171971 (breast fixed-budget),
-  15172244 (breast race), 15171925 (2d_1ch L1-wavelet race).
+  15172244 (breast race), 15171925 (2d_1ch L1-wavelet race), 15172446 (real_3d race, which no earlier
+  real-data job ran; its GPU counterpart is 15172445).
   The radial rows of 15168096 and 15169640 used image NRMSE and are superseded.
 
 **Pending (needs a decision)** (superseded by the real-data rerun above)

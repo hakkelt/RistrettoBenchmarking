@@ -17,7 +17,7 @@ release.
 | `benchmark/startup/` | start-up and first-solve cost of each toolbox in fresh processes ([its README](benchmark/startup/README.md)) |
 | `benchmark/slurm/` | SLURM scripts; machine paths live in the untracked `slurm/site.env` (copy `site.env.example`) |
 | `benchmark/local/` | the suite on one workstation or laptop, without SLURM |
-| `docs/` | the site: Documenter pages that render the committed snapshots (`docs/benchmark_tables.jl`) |
+| `docs/` | the site: Documenter pages whose tables are generated from the committed result files (`docs/tables.jl`) |
 
 ## Getting started
 

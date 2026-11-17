@@ -1,0 +1,46 @@
+{
+  "host": "the login node of Komondor (vn01); sizes do not depend on the node",
+  "date": "2026-11-16",
+  "rows": [
+    {
+      "artifact": "BART v1.0.00, static build (`SLINK=1`; serial OpenBLAS 0.3.15, FFTW 3.3.10 with threads; no CUDA, no MKL), stripped",
+      "size": "33.7 MB",
+      "contents": "one statically linked executable; 56.7 MB unstripped"
+    },
+    {
+      "artifact": "BART v1.0.00, dynamic OpenBLAS build used by the October 2026 runs",
+      "size": "5.3 MB + 893.8 MB of shared libraries",
+      "contents": "844.5 MB of the libraries are CUDA (cuFFT 292.9, cuBLASLt 441.1, cuBLAS 109.8, cudart 0.7 MB), as that build was compiled with CUDA; the rest is 49.3 MB (OpenBLAS 36.4, FFTW 3.7, libgfortran 2.6 MB, C and C++ runtimes)"
+    },
+    {
+      "artifact": "BART v1.0.00, dynamic MKL build",
+      "size": "5.2 MB + 971.4 MB",
+      "contents": "MKL 116.9 MB and the same CUDA libraries"
+    },
+    {
+      "artifact": "Ristretto as a JuliaC bundle (`juliac --output-exe --bundle`, no `--trim`)",
+      "size": "1.32 GB",
+      "contents": "62 files: the executable with its compiled image (989 MB), `lib/` (327 MB: libjulia, LLVM, BLAS, ...), artifacts (6.2 MB)"
+    },
+    {
+      "artifact": "Ristretto package image (`compiled/v1.13/Ristretto/*.so` and `.ji`)",
+      "size": "372 MB + 2.3 MB",
+      "contents": "the precompiled native code of Ristretto and its vendored packages"
+    },
+    {
+      "artifact": "Julia depot holding only what `Pkg.add(url = Ristretto.jl)` installs, precompiled",
+      "size": "847 MB",
+      "contents": "4,250 files: compiled caches 575 MB, artifacts 205 MB, packages and clones 48 MB, registry 19 MB; Julia 1.13.1 itself is another 1.10 GB"
+    },
+    {
+      "artifact": "Python venv with SigPy (`numpy sigpy numba scipy`)",
+      "size": "392 MB",
+      "contents": "plus CPython 3.14.3, 108 MB"
+    },
+    {
+      "artifact": "Python venv with MRpro (CPU PyTorch 2.15.0, torchvision 0.29.2+cpu, mrpro 0.261015)",
+      "size": "1.37 GB",
+      "contents": "26,125 files; PyTorch alone 770 MB; plus CPython, 108 MB"
+    }
+  ]
+}
