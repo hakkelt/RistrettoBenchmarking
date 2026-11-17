@@ -38,16 +38,9 @@ regularized_methods(c::BenchCase) =
 The methods the accuracy race runs on case `c`: every regularized method of a single-slice
 Cartesian case and of the Cartesian cine, and only the first (TV, or global low rank for the cine)
 elsewhere, where one row already answers the question and each ladder is expensive.
-
-The real spiral series races its L1-wavelet row only. Its frames share one trajectory, and each
-frame is ill-conditioned on its own (an unregularized reconstruction of all 13 arms keeps growing
-with the iteration count), so a penalty acting only along time (low rank, LLR, temporal TV) has no
-converged accuracy: its error rises with the iteration count at every λ, so a race to a target
-would favor the solver that converges slowest. Those rows are timed at their fixed budget only.
 """
 function race_methods(c::BenchCase)
     ms = regularized_methods(c)
-    c.id == "real_cine_multichannel_radial" && return filter(==(:wavelet), ms)
     (c.trajectory === :cartesian && c.family in (:single_slice, :cine)) && return ms
     return ms[1:1]
 end
@@ -172,7 +165,7 @@ prepared (a real dataset that is unavailable) is logged and left out.
 function section_cases(pred)
     out = BenchCase[]
     for id in case_ids(; real = DATA in ("real", "all"), synthetic = DATA in ("synthetic", "all"))
-        id in HARNESS_ONLY_CASES && continue
+        (id in HARNESS_ONLY_CASES || id in EXCLUDED_CASES) && continue
         should_run_case(id) || continue
         c = try
             get_case(id)

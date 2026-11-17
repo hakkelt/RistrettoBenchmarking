@@ -1,11 +1,11 @@
 # The error a row reports, `case_error`. Assumes `_setup.jl` has been included.
 #
 # A case whose reference is a fully sampled Cartesian reconstruction is scored against it in the
-# image domain (`mag_nrmse`). The two real non-Cartesian cases have no reference of that kind: the
-# fully sampled acquisition of each is itself non-Cartesian, its unregularized reconstruction keeps
-# changing with the iteration count (noise fills the k-space the trajectory never visits), and so an
-# image reference rewards a solver for stopping early. Those cases are scored by how well an image
-# predicts the k-space the undersampled acquisition leaves out ([`heldout_error`](@ref)).
+# image domain (`mag_nrmse`). The real radial case has no reference of that kind: its fully sampled
+# acquisition is itself non-Cartesian, its unregularized reconstruction keeps changing with the
+# iteration count (noise fills the k-space the trajectory never visits), and so an image reference
+# rewards a solver for stopping early. It is scored by how well an image predicts the k-space the
+# undersampled acquisition leaves out ([`heldout_error`](@ref)).
 
 using Serialization: serialize, deserialize
 
@@ -33,8 +33,7 @@ end
 
 The acquired and the held-out k-space of a case in [`HELDOUT_CASES`](@ref), each with its NFFT plan
 and density weights, normalized as the case's own k-space is (`norm_ksp` over all spokes or arms,
-before the acquired ones are selected). `k` is (sample, spoke, coil) for the radial slice and
-(sample, arm, coil, frame) for the spiral series.
+before the acquired ones are selected). `k` is (sample, spoke, coil).
 """
 struct HeldOut
     kA::Array{ComplexF32}
@@ -91,8 +90,8 @@ function _check_acquired(c::BenchCase, k, traj)
     return nothing
 end
 
-# Both assemble the k-space exactly as BenchUtils' _prepare_breast_radial / _prepare_speech_spiral
-# do, then keep what those leave out.
+# Assembles the k-space exactly as BenchUtils' _prepare_breast_radial does, then keeps what that
+# leaves out.
 function _assemble_heldout(c::BenchCase)
     s = _heldout_source(c)
     raw = Base.invokelatest(BenchUtils._mritestdata().load_raw, BenchUtils._handle(s))
@@ -117,32 +116,6 @@ function _assemble_heldout(c::BenchCase)
         _check_acquired(c, k[:, sel, :], traj[:, :, sel])
         ho = (last(sel) + 1):size(k, 2)
         return k[:, ho, :], traj[:, :, ho], BenchUtils.ramp_dcf(traj[:, :, ho])
-    elseif c.id == "real_cine_multichannel_radial"
-        narms, frame0 = 13, 104
-        nt = size(c.kspace, 4)
-        nsamp = Int(raw.profiles[1].head.number_of_samples)
-        ncoil = size(raw.profiles[1].data, 2)
-        k = Array{ComplexF32}(undef, nsamp, narms, ncoil, nt)
-        traj = Array{Float32}(undef, 2, nsamp, narms)
-        dcf = Array{Float32}(undef, nsamp, narms)
-        for f in 1:nt
-            g = f + frame0
-            ps = raw.profiles[((g - 1) * narms + 1):(g * narms)]
-            ps = ps[sortperm([Int(_idx(p).kspace_encode_step_1) for p in ps])]
-            for (a, p) in enumerate(ps)
-                k[:, a, :, f] .= p.data
-                if f == 1
-                    traj[:, :, a] .= p.traj[1:2, :]
-                    dcf[:, a] .= p.traj[3, :]
-                end
-            end
-        end
-        k = norm_ksp(k)
-        arms = [findfirst(a -> traj[:, :, a] == c.traj[:, :, j], 1:narms) for j in axes(c.traj, 3)]
-        any(isnothing, arms) && error("$(c.id): an acquired arm is not among the dataset's $narms arms")
-        _check_acquired(c, k[:, arms, :, :], traj[:, :, arms])
-        ho = setdiff(1:narms, arms)
-        return k[:, ho, :, :], traj[:, :, ho], dcf[:, ho]
     end
     throw(ArgumentError("$(c.id) has no held-out data"))
 end

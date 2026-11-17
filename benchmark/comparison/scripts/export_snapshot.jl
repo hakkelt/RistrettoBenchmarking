@@ -87,7 +87,13 @@ function same_metric(r)
     return r.case_id in get(get(RUNS, r.run_id, Dict{String, Any}()), "heldout_cases", String[])
 end
 
-latest = latest_per_case(current_release_rows(filter(r -> measured(r) && same_metric(r), rows)); prefer_source = "slurm")
+# Cases the harness no longer runs (`EXCLUDED_CASES` in _setup.jl); their recorded rows are left out.
+const EXCLUDED_CASES = ("real_cine_multichannel_radial",)
+
+latest = latest_per_case(
+    current_release_rows(filter(r -> !(r.case_id in EXCLUDED_CASES) && measured(r) && same_metric(r), rows));
+    prefer_source = "slurm",
+)
 isempty(latest) && (@info "no source=\"slurm\" rows match; nothing exported (rerun on the cluster first)"; exit(0))
 
 # Per toolkit, the versions of the runs behind its rows.

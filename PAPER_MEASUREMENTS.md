@@ -24,13 +24,13 @@ State on 2026-11-17; every table names its commit and node.
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
 - **Part 6.** Real-case calibration done (see "Part 6 real-data rerun"). The CPU rerun of the real
   radial rows, the multislice rows the 2-hour job lost, and the 2d_1ch L1-wavelet race are queued on the
-  `cpu` partition (jobs 15171063, 15171925, 15171971, 15171978, 15172029); the snapshot export, the Ristretto
+  `cpu` partition (jobs 15171063, 15171925, 15171971, 15172244); the snapshot export, the Ristretto
   push and the submodule pin wait for them.
 - **Part 6, BART GPU rows.** BART's GPU time subtracts a once-measured CUDA start-up (316-383 ms) and clamps
   at 1e-5 s, so a few short BART GPU rows read 0.01 ms. Whether to mark those as not measured is open.
-- **Part 6, real spiral cine.** Its temporal rows (low rank, LLR, temporal TV) have no converged accuracy on
-  this case (see below) and are reported at their fixed budget only; per-frame rotating arms, which would make
-  them well-posed, need per-frame trajectories in every toolkit wrapper and were not done.
+- **Part 6, real spiral cine.** Dropped from the comparison (`EXCLUDED_CASES`): its temporal rows have no
+  converged accuracy (see below). Per-frame rotating arms, which would make them well-posed, need per-frame
+  trajectories in every toolkit wrapper and were not done. The comparison has no real non-Cartesian dynamic case.
 - **Part 1, item 9.** The reported POGM/OptISTA failure was not reproduced; only the forms listed
   there were tried.
 - **Part 1, item 10.** The printed snippet is derived from the measured call, not run on its own.
@@ -761,17 +761,20 @@ branch: `c569c10` to `9a0bf67`.
   and the race runs the L1-wavelet row alone (`97a1b89`), whose error is stable (λ = 0.1: 0.723 → 0.728).
   This also explains the earlier PDHG result on this case: Ristretto's preconditioned PDHG converges fastest
   and so scores worst (temporal TV PDHG: 1.08 against SigPy's 0.745 on the GPU).
+- The spiral case is therefore dropped from the comparison: the harness skips it (`EXCLUDED_CASES` in
+  `_setup.jl`), the snapshot export leaves out its rows, and its λ file is removed. Its queued CPU jobs
+  (15171978, 15172029) were cancelled; the breast race is resubmitted alone as 15172244. The GPU rows of
+  15171977 and the spiral rows of 15172028 are not in the snapshots.
 
 **Runs**
 - GPU (test partition A100, x1001c4s3b0n1): 15165156/15165157 (2D Cartesian), 15168097, 15169641,
   15169654 (Cartesian cine), 15169944 and 15170791 (3D), 15171970 (breast fixed-budget rows), 15171977
   (spiral fixed-budget rows), 15172028 (both radial races), 15172065 (2d_1ch L1-wavelet race).
   - Breast TV race to 0.452: Ristretto 5 iterations in 51 ms, BART 80 in 284 ms, SigPy 12 in 596 ms.
-  - Spiral L1-wavelet race to 0.701: every toolkit reaches it at 10 iterations.
 - CPU (`matrix.sh`, isolated NUMA domains, 1/2/4/8/16 threads): 15165154, 15165155, 15165818 (2D Cartesian),
   15169653 (Cartesian cine), 15169943 and 15170790 (3D). 15169640 (multislice) hit its 2-hour limit before
   the 1-thread race and most 16-thread rows; 15171063 reruns those. Queued: 15171971 (breast fixed-budget),
-  15171978 (spiral fixed-budget), 15172029 (both radial races), 15171925 (2d_1ch L1-wavelet race).
+  15172244 (breast race), 15171925 (2d_1ch L1-wavelet race).
   The radial rows of 15168096 and 15169640 used image NRMSE and are superseded.
 
 **Pending (needs a decision)** (superseded by the real-data rerun above)

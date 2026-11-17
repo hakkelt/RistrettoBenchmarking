@@ -531,15 +531,25 @@ const TOOLKIT_VERSIONS = let
 end
 
 """
+    EXCLUDED_CASES
+
+Catalog cases no section runs. The real spiral speech series (`real_cine_multichannel_radial`)
+acquires the same 3 of 13 arms in every frame, and each frame is ill-conditioned on its own, so the
+error of every penalty acting along time (low rank, LLR, temporal TV) rises with the iteration
+count at every λ: the case measures where a solver stops, not how fast it reaches an accuracy.
+`export_snapshot.jl` leaves out rows of these cases recorded before they were excluded.
+"""
+const EXCLUDED_CASES = ("real_cine_multichannel_radial",)
+
+"""
     HELDOUT_CASES
 
 The cases scored by `heldout_error` (`_scoring.jl`) instead of `mag_nrmse` against `c.reference`:
 the real radial breast slice (the undersampled acquisition is the first 128 of 288 spokes, the other
-160 are held out) and the real spiral speech series (3 of 13 arms per frame acquired, the other 10
-held out). Every run file records them (`heldout_cases`), so a row's error metric can be told from
-its run.
+160 are held out). Every run file records them (`heldout_cases`), so a row's error metric can be
+told from its run.
 """
-const HELDOUT_CASES = ("real_2d_multichannel_radial", "real_cine_multichannel_radial")
+const HELDOUT_CASES = ("real_2d_multichannel_radial",)
 
 """
     flush_results!(name) -> path or nothing

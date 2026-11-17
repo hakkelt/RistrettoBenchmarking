@@ -133,7 +133,7 @@ if [ "$PACK" = 1 ]; then
     # (EPYC 7763, 20 tasks on 8 domains, 2026-09-24): 3D 1.42x geomean (up to 3.2x), cine 1.24x,
     # multislice 1.18x (up to 4.0x), against 1.03-1.07x for the 2D and radial cases.
     heavy_ids="shepp_logan_3d_8ch_cartesian shepp_logan_multislice_8ch_cartesian torso_cine_8ch_cartesian torso_cine_8ch_radial"
-    real_heavy_ids="real_3d_multichannel_cartesian real_multislice_multichannel_cartesian real_cine_multichannel_cartesian real_cine_multichannel_radial"
+    real_heavy_ids="real_3d_multichannel_cartesian real_multislice_multichannel_cartesian real_cine_multichannel_cartesian"
     case_patterns=""
     [ "${RISTRETTO_BENCH_REAL_DATA:-}" = 1 ] && heavy_ids="$heavy_ids $real_heavy_ids"
     for a in "${PASS_ARGS[@]}"; do
