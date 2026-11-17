@@ -39,6 +39,8 @@
 # point to calibrate; every catalog case carries `RISTRETTO_BENCH_SNR_DB` noise for that reason.
 #
 # One case per process parallelises trivially: `benchmark/slurm/calibrate.sh` submits an array job.
+# With `--device=cuda` (`benchmark/slurm/calibrate_gpu.sh`) every toolkit that runs on the GPU is
+# swept there and the others are left out, as in the GPU sections; their curves stay as stored.
 include(joinpath(@__DIR__, "_setup.jl"))
 include(joinpath(@__DIR__, "_toolkits.jl"))
 include(joinpath(@__DIR__, "_methods.jl"))
@@ -124,7 +126,7 @@ function nrmse_at(c::BenchCase, method::Symbol, tk::Symbol, λ::Real, ρ)
     # A PDHG row runs as many iterations as its ADMM row applies the operator (`PDHG_ITERATIONS`).
     maxit = haskey(PDHG_METHODS, method) ? IT_CAL * CG_ITERATIONS : IT_CAL
     x = if tk === :ristretto
-        parent(ristretto_reconstructor(c, method; λ, rho = something(ρ, admm_rho(c)), maxit)())
+        parent(ristretto_reconstructor(c, method; λ, rho = something(ρ, admm_rho(c)), maxit, device = RISTRETTO_DEVICE)())
     elseif tk === :bart
         last(bart_run(c, method; λ, maxit, ρ = something(ρ, CMP_RHO)))
     else
@@ -354,7 +356,7 @@ function write_calibration!(c::BenchCase, fresh::Dict{String, Any})
             "case_id" => c.id, "data_source" => c.source, "iterations" => IT_CAL,
             "rho_decades" => RHO_DECADES,
             "small" => small_mode(), "image_n" => image_n(), "cine_frames" => cine_frames(),
-            "backend" => USE_MKL ? "mkl" : "openblas", "threads" => NUM_THREADS,
+            "backend" => USE_MKL ? "mkl" : "openblas", "threads" => NUM_THREADS, "device" => String(DEVICE),
             "git" => Dict(pairs(git_ref(normpath(joinpath(@__DIR__, "..", "..", ".."))))),
         )
         # Written aside and moved into place, so a failed write cannot truncate the case's file.

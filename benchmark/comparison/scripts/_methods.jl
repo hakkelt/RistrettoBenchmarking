@@ -54,11 +54,13 @@ end
 `results/lambda_small/`, so a smoke calibration of the shrunken cases never overwrites the real one.
 An image size other than the default (`RISTRETTO_BENCH_N`) gets its own directory too,
 `results/lambda_n<size>/` (`results/lambda_small_n<size>/` in small mode), since the best λ
-changes with the size.
+changes with the size. `RISTRETTO_BENCH_LAMBDA_DIR` replaces all of these with a directory of its
+own, to calibrate somewhere the sections do not read (comparing two calibrations, say).
 """
 const LAMBDA_DIR = let base = small_mode() ? "lambda_small" : "lambda"
     isempty(get(ENV, "RISTRETTO_BENCH_N", "")) || (base *= "_n$(image_n())")
-    normpath(joinpath(@__DIR__, "..", "results", base))
+    dir = get(ENV, "RISTRETTO_BENCH_LAMBDA_DIR", "")
+    normpath(isempty(dir) ? joinpath(@__DIR__, "..", "results", base) : dir)
 end
 
 """
