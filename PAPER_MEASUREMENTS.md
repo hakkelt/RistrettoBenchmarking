@@ -24,8 +24,11 @@ State on 2026-11-19; every table names its commit and node.
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
 - **Part 6.** Done (see "Part 6 real-data rerun"): every real case is calibrated and measured on the CPU
   (1-16 threads) and the GPU, and the snapshots are exported from those runs. The 2d_1ch L1-wavelet race
-  is not informative: every toolkit is below its target (0.1348) at its first check, after 3 iterations, so
-  that row compares the cost of 3 iterations.
+  is left out (`EXCLUDED_RACES` in `_setup.jl`; the export drops its rows): every toolkit's error is
+  0.1215 after one iteration (test job 15224019: 0.12150-0.12157 at 1, 2 and 3 iterations), below the
+  target (0.1348) and below the worst toolkit's best calibrated error (MRIReco, 0.1226), so no reachable
+  target separates the toolkits. The other 2d_1ch race rows also all finish at their ladder's first count
+  (3, or 10 on the long ladder).
 - **Part 6, BART GPU rows.** Done. BART's GPU time had a once-per-process CUDA start-up estimate
   subtracted (181-597 ms between processes), which clamped 20 of 89 rows at 0.01 ms. The harness now
   times the whole `pics -g` call (`b0f3498`), and every BART GPU row was remeasured that way (test

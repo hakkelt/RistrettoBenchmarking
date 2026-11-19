@@ -543,6 +543,18 @@ count at every λ: the case measures where a solver stops, not how fast it reach
 const EXCLUDED_CASES = ("real_cine_multichannel_radial",)
 
 """
+    EXCLUDED_RACES
+
+(case, method) pairs the accuracy race leaves out. On the real single-coil knee
+(`real_2d_1ch_cartesian`), every toolkit's L1-wavelet error after one iteration (0.1215) is already
+below the worst toolkit's best calibrated error (0.1226), and changes by less than 1e-4 over the next
+two. Every target all toolkits can reach is therefore met at the first rung, and the race would time
+a fixed iteration count. `export_snapshot.jl` leaves out race rows of these pairs recorded before they were
+excluded.
+"""
+const EXCLUDED_RACES = (("real_2d_1ch_cartesian", :wavelet),)
+
+"""
     HELDOUT_CASES
 
 The cases scored by `heldout_error` (`_scoring.jl`) instead of `mag_nrmse` against `c.reference`:

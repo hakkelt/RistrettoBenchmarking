@@ -102,9 +102,13 @@ end
 
 # Cases the harness no longer runs (`EXCLUDED_CASES` in _setup.jl); their recorded rows are left out.
 const EXCLUDED_CASES = ("real_cine_multichannel_radial",)
+# (case, method label) pairs the accuracy race no longer runs (`EXCLUDED_RACES` in _setup.jl); their
+# recorded race rows are left out.
+const EXCLUDED_RACES = (("real_2d_1ch_cartesian", "L1-Wavelet"),)
+excluded_race(r) = r.category == "Accuracy race" && any(((id, m),) -> r.case_id == id && startswith(r.method, m * " ("), EXCLUDED_RACES)
 
 latest = latest_per_case(
-    current_release_rows(filter(r -> !(r.case_id in EXCLUDED_CASES) && measured(r) && same_metric(r), rows));
+    current_release_rows(filter(r -> !(r.case_id in EXCLUDED_CASES) && !excluded_race(r) && measured(r) && same_metric(r), rows));
     prefer_source = SOURCE,
 )
 isempty(latest) && (@info "no source=\"$SOURCE\" rows match; nothing exported"; exit(0))

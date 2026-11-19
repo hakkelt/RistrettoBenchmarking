@@ -37,10 +37,11 @@ regularized_methods(c::BenchCase) =
 
 The methods the accuracy race runs on case `c`: every regularized method of a single-slice
 Cartesian case and of the Cartesian cine, and only the first (TV, or global low rank for the cine)
-elsewhere, where one row already answers the question and each ladder is expensive.
+elsewhere, where one row already answers the question and each ladder is expensive. The pairs in
+`EXCLUDED_RACES` are left out.
 """
 function race_methods(c::BenchCase)
-    ms = regularized_methods(c)
+    ms = filter(m -> !((c.id, m) in EXCLUDED_RACES), regularized_methods(c))
     (c.trajectory === :cartesian && c.family in (:single_slice, :cine)) && return ms
     return ms[1:1]
 end
