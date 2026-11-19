@@ -8,7 +8,7 @@ venvs, logs) are in `/project/c_mrrecon/paper-measurements`, called "the working
 
 ## Not done or not verified
 
-State on 2026-11-17; every table names its commit and node.
+State on 2026-11-19; every table names its commit and node.
 
 - **Part 2.4 / start-up numbers.** The JuliaC and static-BART start-up rows are login-node
   measurements only. The harness numbers on a compute node, at the Part 6 commit, are not done.
@@ -22,17 +22,14 @@ State on 2026-11-17; every table names its commit and node.
   alternation, no Toeplitz, NFFT library defaults, and BLAS-free (see 4b).
 - **Part 5.** MRpro's L1-wavelet fails at the odd size (255²), a ptwt limitation. The planning
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
-- **Part 6.** Real-case calibration done (see "Part 6 real-data rerun"). The CPU rerun of the real
-  radial rows, the multislice rows the 2-hour job lost, and the 2d_1ch L1-wavelet race are queued on the
-  `cpu` partition (jobs 15171063, 15171925, 15171971, 15172244, 15172446; GPU 15172445 for the real_3d race); the snapshot export, the Ristretto
-  push and the submodule pin wait for them.
+- **Part 6.** Done (see "Part 6 real-data rerun"): every real case is calibrated and measured on the CPU
+  (1-16 threads) and the GPU, and the snapshots are exported from those runs. The 2d_1ch L1-wavelet race
+  is not informative: every toolkit is below its target (0.1348) at its first check, after 3 iterations, so
+  that row compares the cost of 3 iterations.
 - **Part 6, BART GPU rows.** Done. BART's GPU time had a once-per-process CUDA start-up estimate
   subtracted (181-597 ms between processes), which clamped 20 of 89 rows at 0.01 ms. The harness now
   times the whole `pics -g` call (`b0f3498`), and every BART GPU row was remeasured that way (test
   partition, jobs 15172687 and 15172688); the export still adds the logged estimate back to any older row.
-- **Snapshots committed before the queued CPU jobs.** The CPU snapshots lack the breast rows, the
-  multislice 1-thread race and 16-thread rows, the 2d_1ch L1-wavelet race at its calibrated target, and
-  the real_3d race; the export is repeated when 15171063, 15171925, 15171971, 15172244 and 15172446 finish.
 - **Part 6, real spiral cine.** Dropped from the comparison (`EXCLUDED_CASES`): its temporal rows have no
   converged accuracy (see below). Per-frame rotating arms, which would make them well-posed, need per-frame
   trajectories in every toolkit wrapper and were not done. The comparison has no real non-Cartesian dynamic case.
@@ -778,12 +775,12 @@ branch: `c569c10` to `9a0bf67`.
   - Breast TV race to 0.452: Ristretto 5 iterations in 51 ms, BART 80 in 284 ms, SigPy 12 in 596 ms.
 - CPU (`matrix.sh`, isolated NUMA domains, 1/2/4/8/16 threads): 15165154, 15165155, 15165818 (2D Cartesian),
   15169653 (Cartesian cine), 15169943 and 15170790 (3D). 15169640 (multislice) hit its 2-hour limit before
-  the 1-thread race and most 16-thread rows; 15171063 reruns those. Queued: 15171971 (breast fixed-budget),
+  the 1-thread race and most 16-thread rows; 15171063 reruns those. 15171971 (breast fixed-budget),
   15172244 (breast race), 15171925 (2d_1ch L1-wavelet race), 15172446 (real_3d race, which no earlier
   real-data job ran; its GPU counterpart is 15172445).
   The radial rows of 15168096 and 15169640 used image NRMSE and are superseded.
 
-**Pending (needs a decision)** (superseded by the real-data rerun above)
+**Formerly pending** (done by the real-data rerun above)
 - Calibrate λ (and ρ) on the real cases themselves (`calibrate_lambda.jl --data=real`, one file per real
   case, which `load_lambda` prefers over the analogue's). Then rerun the sparsity, dynamic and accuracy-race
   sections on `--data=real`, on the CPU at 1-16 threads and on the GPU.

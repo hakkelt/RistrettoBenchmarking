@@ -94,55 +94,55 @@
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
             "framework": "BART (OpenBLAS)",
-            "method": "L1-Wavelet (NRMSE≤0.1993, 3 it)",
+            "method": "L1-Wavelet (NRMSE≤0.1348, 3 it)",
             "nrmse_gt": 0.12149862945079803,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 227.574
+            "time_ms": 254.58199999999997
         },
         {
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
             "framework": "MRIReco",
-            "method": "L1-Wavelet (NRMSE≤0.1993, 3 it)",
-            "nrmse_gt": 0.1215463129551785,
+            "method": "L1-Wavelet (NRMSE≤0.1348, 3 it)",
+            "nrmse_gt": 0.12154631305056648,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 458.080806
+            "time_ms": 464.87219000000005
         },
         {
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
             "framework": "MRpro",
-            "method": "L1-Wavelet (NRMSE≤0.1993, 3 it)",
+            "method": "L1-Wavelet (NRMSE≤0.1348, 3 it)",
             "nrmse_gt": 0.12151255659756847,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 81.96552899999999
+            "time_ms": 91.80698199999999
         },
         {
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
             "framework": "Ristretto (OpenBLAS)",
-            "method": "L1-Wavelet (NRMSE≤0.1993, 3 it)",
+            "method": "L1-Wavelet (NRMSE≤0.1348, 3 it)",
             "nrmse_gt": 0.12151676416397095,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 68.233043
+            "time_ms": 72.349357
         },
         {
             "case_id": "real_2d_1ch_cartesian",
             "category": "Accuracy race",
             "data_source": "FASTMRI:singlecoil_val/file1000107",
             "framework": "SigPy",
-            "method": "L1-Wavelet (NRMSE≤0.1993, 3 it)",
+            "method": "L1-Wavelet (NRMSE≤0.1348, 3 it)",
             "nrmse_gt": 0.12152374860506895,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 152.821113
+            "time_ms": 148.995356
         },
         {
             "case_id": "real_2d_1ch_cartesian",
@@ -1168,6 +1168,435 @@
             "time_ms": 2757.2364359999997
         },
         {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Accuracy race",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "Total Variation (NRMSE≤0.4519, 12 it)",
+            "nrmse_gt": 0.4502049112923768,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 48544.668524
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Accuracy race",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "Total Variation (NRMSE≤0.4519, 5 it)",
+            "nrmse_gt": 0.45146296438384864,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 3502.542336
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Accuracy race",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "Total Variation (NRMSE≤0.4519, 80 it)",
+            "nrmse_gt": 0.44890686597827856,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 22390.961
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "CG-SENSE",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.5141256758145447,
+            "nrmse_ristretto": 0.008371802046895027,
+            "threads": 1,
+            "time_ms": 3007.7729999999997
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "CG-SENSE",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MIRT",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.5172084111846988,
+            "nrmse_ristretto": 0.015320337264751746,
+            "threads": 1,
+            "time_ms": 3356.919961
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "CG-SENSE",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRIReco",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.5141576931293036,
+            "nrmse_ristretto": 0.008070521181517635,
+            "threads": 1,
+            "time_ms": 1376.1659530000002
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "CG-SENSE",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRpro",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.5145824527894879,
+            "nrmse_ristretto": 0.005776176108296936,
+            "threads": 1,
+            "time_ms": 844.362549
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "CG-SENSE",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.5152016645662063,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 1739.591757
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "CG-SENSE",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.5141647789902969,
+            "nrmse_ristretto": 0.008019928712868487,
+            "threads": 1,
+            "time_ms": 4196.304252
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Non-Cartesian",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.5461366686472865,
+            "nrmse_ristretto": 0.005354938097298145,
+            "threads": 1,
+            "time_ms": -1.0
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Non-Cartesian",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MIRT",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.5461672264247467,
+            "nrmse_ristretto": 1.7579018780247786e-5,
+            "threads": 1,
+            "time_ms": 89.336466
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Non-Cartesian",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRIReco",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.5097178908270797,
+            "nrmse_ristretto": 0.21733234925355346,
+            "threads": 1,
+            "time_ms": 716.158917
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Non-Cartesian",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRpro",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.5461674335579533,
+            "nrmse_ristretto": 1.7879495746193865e-5,
+            "threads": 1,
+            "time_ms": 300.37577799999997
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Non-Cartesian",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.5461674079579044,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 71.66991300000001
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Non-Cartesian",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS) (m=3, σ=1.25)",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.5461648096358116,
+            "nrmse_ristretto": 0.0001338319416390732,
+            "threads": 1,
+            "time_ms": 27.459572
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Non-Cartesian",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.5461758013028608,
+            "nrmse_ristretto": 0.002848444338920268,
+            "threads": 1,
+            "time_ms": 165.018226
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.4471296954403932,
+            "nrmse_ristretto": 0.028804631903767586,
+            "threads": 1,
+            "time_ms": 68609.10699999999
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRIReco",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.44888549835308,
+            "nrmse_ristretto": 0.03526097235407793,
+            "threads": 1,
+            "time_ms": 14227.189298000001
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.4494221659511087,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 8901.136608
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.4480465521321782,
+            "nrmse_ristretto": 0.041050954617348354,
+            "threads": 1,
+            "time_ms": 86755.89912300001
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.4470780716042363,
+            "nrmse_ristretto": 0.028192518278956413,
+            "threads": 1,
+            "time_ms": 129405.45199999999
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRpro",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.5659629405135105,
+            "nrmse_ristretto": 0.30957044921149646,
+            "threads": 1,
+            "time_ms": 92535.88341600001
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.4484402137429121,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 15607.01681
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.46401919522455776,
+            "nrmse_ristretto": 0.11429026297356344,
+            "threads": 1,
+            "time_ms": 91871.42744700001
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.5257156875584319,
+            "nrmse_ristretto": 0.07808509469032288,
+            "threads": 1,
+            "time_ms": 11772.954
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRIReco",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.5304306440026084,
+            "nrmse_ristretto": 0.03261315026044416,
+            "threads": 1,
+            "time_ms": 2655.781925
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRpro",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.5302298097918872,
+            "nrmse_ristretto": 0.06118819051315879,
+            "threads": 1,
+            "time_ms": 9908.648785000001
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.5285233049052624,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 2612.340161
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.5267244983682531,
+            "nrmse_ristretto": 0.04698201435677089,
+            "threads": 1,
+            "time_ms": 19465.354487
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.4469957220145216,
+            "nrmse_ristretto": 0.03349163755774498,
+            "threads": 1,
+            "time_ms": 66116.698
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.4474595099017583,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 9906.27466
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.44802803608467057,
+            "nrmse_ristretto": 0.04223663537798277,
+            "threads": 1,
+            "time_ms": 79867.850042
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "BART (OpenBLAS)",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.44699197002482266,
+            "nrmse_ristretto": 0.03429647162556648,
+            "threads": 1,
+            "time_ms": 131641.789
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "MRpro",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.5644923870530592,
+            "nrmse_ristretto": 0.306384090098127,
+            "threads": 1,
+            "time_ms": 86029.104566
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.44666287371855734,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 17130.480241
+        },
+        {
+            "case_id": "real_2d_multichannel_radial",
+            "category": "Sparsity",
+            "data_source": "FASTMRI:fastMRI_breast_IDS_001_010/fastMRI_breast_006_2 (central partition, 128 of 288 spokes)",
+            "framework": "SigPy",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.46462034051855317,
+            "nrmse_ristretto": 0.11926821779212447,
+            "threads": 1,
+            "time_ms": 72638.0097
+        },
+        {
+            "case_id": "real_3d_multichannel_cartesian",
+            "category": "Accuracy race",
+            "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "Total Variation (NRMSE≤0.341, 10 it)",
+            "nrmse_gt": 0.28361767530441284,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 24471.11218
+        },
+        {
+            "case_id": "real_3d_multichannel_cartesian",
+            "category": "Accuracy race",
+            "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
+            "framework": "SigPy",
+            "method": "Total Variation (NRMSE≤0.341, 5 it)",
+            "nrmse_gt": 0.2957275814275388,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 49402.628051
+        },
+        {
+            "case_id": "real_3d_multichannel_cartesian",
+            "category": "Accuracy race",
+            "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
+            "framework": "BART (OpenBLAS)",
+            "method": "Total Variation (NRMSE≤0.341, 50 it)",
+            "nrmse_gt": 0.29656198620796204,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 33124.689
+        },
+        {
             "case_id": "real_3d_multichannel_cartesian",
             "category": "Base",
             "data_source": "MRIDATA:52c2fd53-d233-4444-8bfd-7c454240d314",
@@ -2115,6 +2544,39 @@
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
+            "category": "Accuracy race",
+            "data_source": "M4RAW:multicoil_train/2022062402_T203",
+            "framework": "BART (OpenBLAS)",
+            "method": "Total Variation (NRMSE≤0.2348, 20 it)",
+            "nrmse_gt": 0.22971836342505533,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 5989.171
+        },
+        {
+            "case_id": "real_multislice_multichannel_cartesian",
+            "category": "Accuracy race",
+            "data_source": "M4RAW:multicoil_train/2022062402_T203",
+            "framework": "Ristretto (OpenBLAS)",
+            "method": "Total Variation (NRMSE≤0.2348, 3 it)",
+            "nrmse_gt": 0.20804743468761444,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 1454.3371590000002
+        },
+        {
+            "case_id": "real_multislice_multichannel_cartesian",
+            "category": "Accuracy race",
+            "data_source": "M4RAW:multicoil_train/2022062402_T203",
+            "framework": "SigPy",
+            "method": "Total Variation (NRMSE≤0.2348, 3 it)",
+            "nrmse_gt": 0.22964569980423138,
+            "nrmse_ristretto": 0.0,
+            "threads": 1,
+            "time_ms": 3749.272816
+        },
+        {
+            "case_id": "real_multislice_multichannel_cartesian",
             "category": "Base",
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "BART (OpenBLAS)",
@@ -2254,7 +2716,7 @@
             "nrmse_gt": 0.21011954547422254,
             "nrmse_ristretto": 0.07614191105435296,
             "threads": 1,
-            "time_ms": 58268.297000000006
+            "time_ms": 57774.403999999995
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2262,10 +2724,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "MRIReco",
             "method": "Anisotropic TV (20 it)",
-            "nrmse_gt": 0.20894983820699056,
-            "nrmse_ristretto": 0.02543413875007783,
+            "nrmse_gt": 0.20894983797084626,
+            "nrmse_ristretto": 0.02543413856038317,
             "threads": 1,
-            "time_ms": 14251.764258999998
+            "time_ms": 14183.489656
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2276,7 +2738,7 @@
             "nrmse_gt": 0.2079373002052307,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 6727.98729
+            "time_ms": 6507.269637
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2287,7 +2749,7 @@
             "nrmse_gt": 0.20657288096515158,
             "nrmse_ristretto": 0.0879350019157927,
             "threads": 1,
-            "time_ms": 26015.789621000004
+            "time_ms": 25912.316386
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2296,9 +2758,9 @@
             "framework": "BART (OpenBLAS)",
             "method": "Anisotropic TV (PDHG) (200 it)",
             "nrmse_gt": 0.2123136054312451,
-            "nrmse_ristretto": 0.06664366678691155,
+            "nrmse_ristretto": 0.06664366527341585,
             "threads": 1,
-            "time_ms": 76045.22899999999
+            "time_ms": 72511.51800000001
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2306,10 +2768,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "MRpro",
             "method": "Anisotropic TV (PDHG) (200 it)",
-            "nrmse_gt": 0.2143340860444871,
-            "nrmse_ristretto": 0.054162522100705685,
+            "nrmse_gt": 0.2143351005615562,
+            "nrmse_ristretto": 0.05416869492128056,
             "threads": 1,
-            "time_ms": 30109.168142
+            "time_ms": 28993.382921
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2320,7 +2782,7 @@
             "nrmse_gt": 0.2076808363199234,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 14842.256013
+            "time_ms": 16364.488011
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2328,10 +2790,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "SigPy",
             "method": "Anisotropic TV (PDHG) (200 it)",
-            "nrmse_gt": 0.21802956697767123,
-            "nrmse_ristretto": 0.07931231921275736,
+            "nrmse_gt": 0.21803204591138206,
+            "nrmse_ristretto": 0.0793182441741724,
             "threads": 1,
-            "time_ms": 41804.618877
+            "time_ms": 36186.09402599999
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2342,7 +2804,7 @@
             "nrmse_gt": 0.234195650393776,
             "nrmse_ristretto": 0.15992661414320308,
             "threads": 1,
-            "time_ms": 12350.845000000001
+            "time_ms": 11432.017000000002
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2350,10 +2812,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "MRIReco",
             "method": "L1-Wavelet (20 it)",
-            "nrmse_gt": 0.2274659616542913,
-            "nrmse_ristretto": 0.08689196439949705,
+            "nrmse_gt": 0.22746570604633284,
+            "nrmse_ristretto": 0.08689186939478778,
             "threads": 1,
-            "time_ms": 7107.6265809999995
+            "time_ms": 6629.629918
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2364,7 +2826,7 @@
             "nrmse_gt": 0.23295339628660627,
             "nrmse_ristretto": 0.14574696465773895,
             "threads": 1,
-            "time_ms": 5939.895602
+            "time_ms": 5387.062053
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2375,7 +2837,7 @@
             "nrmse_gt": 0.2332746535539627,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 5641.256693
+            "time_ms": 5445.5580279999995
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2383,10 +2845,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "SigPy",
             "method": "L1-Wavelet (20 it)",
-            "nrmse_gt": 0.22777632520284505,
-            "nrmse_ristretto": 0.14587254136302438,
+            "nrmse_gt": 0.22777648454385296,
+            "nrmse_ristretto": 0.14587283671856213,
             "threads": 1,
-            "time_ms": 6898.82959
+            "time_ms": 6044.704206
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2395,9 +2857,9 @@
             "framework": "BART (OpenBLAS)",
             "method": "TGV (20 it)",
             "nrmse_gt": 0.2046830226481038,
-            "nrmse_ristretto": 0.07804433329373951,
+            "nrmse_ristretto": 0.07804433376285519,
             "threads": 1,
-            "time_ms": 103516.18099999998
+            "time_ms": 97458.68599999999
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2408,7 +2870,7 @@
             "nrmse_gt": 0.20791007578372955,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 16550.85276
+            "time_ms": 15000.825033
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2417,9 +2879,9 @@
             "framework": "BART (OpenBLAS)",
             "method": "Total Variation (20 it)",
             "nrmse_gt": 0.2056932955213563,
-            "nrmse_ristretto": 0.07536591930939102,
+            "nrmse_ristretto": 0.07536591956677116,
             "threads": 1,
-            "time_ms": 62844.63199999999
+            "time_ms": 57392.605
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2427,10 +2889,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "Ristretto (OpenBLAS)",
             "method": "Total Variation (20 it)",
-            "nrmse_gt": 0.2071080356836319,
+            "nrmse_gt": 0.2071080505847931,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 6768.73778
+            "time_ms": 7057.705153999999
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2439,9 +2901,9 @@
             "framework": "SigPy",
             "method": "Total Variation (20 it)",
             "nrmse_gt": 0.20374921036308957,
-            "nrmse_ristretto": 0.07501830826199818,
+            "nrmse_ristretto": 0.07501830958589226,
             "threads": 1,
-            "time_ms": 25167.509201
+            "time_ms": 25210.776677000005
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2450,9 +2912,9 @@
             "framework": "BART (OpenBLAS)",
             "method": "Total Variation (PDHG) (200 it)",
             "nrmse_gt": 0.20857319595879217,
-            "nrmse_ristretto": 0.07594717823127832,
+            "nrmse_ristretto": 0.07594717843729269,
             "threads": 1,
-            "time_ms": 72030.10699999999
+            "time_ms": 70631.165
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2460,10 +2922,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "MRpro",
             "method": "Total Variation (PDHG) (200 it)",
-            "nrmse_gt": 0.21507948219736298,
-            "nrmse_ristretto": 0.10428378559644844,
+            "nrmse_gt": 0.2150793910007436,
+            "nrmse_ristretto": 0.10428391709090305,
             "threads": 1,
-            "time_ms": 28523.956048
+            "time_ms": 29599.731355
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2474,7 +2936,7 @@
             "nrmse_gt": 0.207565575838089,
             "nrmse_ristretto": 0.0,
             "threads": 1,
-            "time_ms": 11748.30974
+            "time_ms": 13252.870882
         },
         {
             "case_id": "real_multislice_multichannel_cartesian",
@@ -2482,10 +2944,10 @@
             "data_source": "M4RAW:multicoil_train/2022062402_T203",
             "framework": "SigPy",
             "method": "Total Variation (PDHG) (200 it)",
-            "nrmse_gt": 0.21594186188016817,
-            "nrmse_ristretto": 0.0805105936831017,
+            "nrmse_gt": 0.21594536526568153,
+            "nrmse_ristretto": 0.08051966210633835,
             "threads": 1,
-            "time_ms": 30371.652755
+            "time_ms": 29035.637561999996
         },
         {
             "case_id": "shepp_logan_2d_1ch_cartesian",
@@ -5900,20 +6362,26 @@
         ],
         "dates": [
             "2026-11-16",
-            "2026-11-17"
+            "2026-11-18"
         ],
         "gpu": [],
-        "heldout_cases": [],
+        "heldout_cases": [
+            "real_2d_multichannel_radial"
+        ],
         "hostnames": [
             "x1000c0s5b0n1",
             "x1000c1s2b1n0",
             "x1000c1s5b0n0",
+            "x1000c2s4b1n1",
+            "x1000c3s0b0n0",
+            "x1000c3s1b1n0",
+            "x1000c3s2b1n1",
             "x1000c3s4b0n1",
             "x1000c5s1b1n1",
+            "x1000c6s0b1n1",
             "x1000c7s0b1n1",
             "x1001c1s1b0n0",
             "x1001c3s3b0n0",
-            "x1001c3s3b0n1",
             "x1001c5s1b0n1"
         ],
         "julia_version": [
