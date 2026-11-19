@@ -23,12 +23,18 @@ State on 2026-11-19; every table names its commit and node.
 - **Part 5.** MRpro's L1-wavelet fails at the odd size (255²), a ptwt limitation. The planning
   check at 512² was run on the login node only, and Ristretto's planning score was not changed.
 - **Part 6.** Done (see "Part 6 real-data rerun"): every real case is calibrated and measured on the CPU
-  (1-16 threads) and the GPU, and the snapshots are exported from those runs. The 2d_1ch L1-wavelet race
-  is left out (`EXCLUDED_RACES` in `_setup.jl`; the export drops its rows): every toolkit's error is
-  0.1215 after one iteration (test job 15224019: 0.12150-0.12157 at 1, 2 and 3 iterations), below the
-  target (0.1348) and below the worst toolkit's best calibrated error (MRIReco, 0.1226), so no reachable
-  target separates the toolkits. The other 2d_1ch race rows also all finish at their ladder's first count
-  (3, or 10 on the long ladder).
+  (1-16 threads) and the GPU, and the snapshots are exported from those runs. The 2d_1ch race
+  is left out (`EXCLUDED_RACE_CASES` in `_setup.jl`; the export drops its rows); its fixed-budget rows stay.
+  The zero-filled image's NRMSE (0.1215) is below every race target (0.1305-0.1348), so every row
+  finishes at its ladder's first count:
+  - L1 wavelet: every toolkit at 0.12150-0.12157 after 1, 2 and 3 iterations (test job 15224019),
+    below the worst toolkit's best calibrated error (MRIReco, 0.1226).
+  - TV, anisotropic TV, TGV and the PDHG rows: every toolkit at 0.1215-0.1239 after one iteration
+    (test job 15227939); BART's TV rises to 0.1257 by 10 iterations, MRpro's TV PDHG to 0.1264.
+  - Raising the undersampling does not help (test job 15232709, Ristretto, λ swept 0.1-100× the
+    calibrated value at 150 iterations): the best gain over zero-filled is 2.8% at R = 2.5 (zero-filled
+    0.1215), 4.2% at R = 4 (0.1466), 2.4% at R = 5 (0.1586) and 1.5% at R = 6 (0.1642), and the
+    L1 wavelet never beats zero-filled. The race target needs a gain above about 10%.
 - **Part 6, BART GPU rows.** Done. BART's GPU time had a once-per-process CUDA start-up estimate
   subtracted (181-597 ms between processes), which clamped 20 of 89 rows at 0.01 ms. The harness now
   times the whole `pics -g` call (`b0f3498`), and every BART GPU row was remeasured that way (test

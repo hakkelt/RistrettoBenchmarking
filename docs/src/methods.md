@@ -46,9 +46,9 @@ The **accuracy race** therefore climbs a ladder of iteration counts per toolbox
 target. The target is 1.10 × the worst toolbox's best calibrated error, so that every toolbox can reach
 it; the ADMM and PDHG rows of one TV share the larger of their two targets. On the radial breast case,
 where the noise floor is close to every toolbox's best error, the target is 1.01 × the worst best error
-of the toolboxes in that row. The race leaves out the L1-wavelet row of the single-coil knee: there
-every toolbox's error after one iteration is already below the worst toolbox's best error, so any
-target they can all reach is met at the first count.
+of the toolboxes in that row. The race leaves out the single-coil knee: there the zero-filled image is
+already within 3% of the best regularized error at any λ (raising the undersampling to R = 4-6 keeps
+the gap below 5%), so every target all toolboxes can reach is met at the first count.
 
 The **fixed-budget** tables run every method at a set number of iterations (10 for CG-SENSE, 20 for
 ADMM and FISTA, 200 for PDHG) and report time and error side by side. They show what a call with
