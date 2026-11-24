@@ -1,0 +1,893 @@
+{
+    "backend": "mkl",
+    "benchmarks": [
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (NRMSE≤0.05859, 8 it)",
+            "nrmse_gt": 0.05495797097682953,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 60.23762
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (PDHG) (NRMSE≤0.05859, 150 it)",
+            "nrmse_gt": 0.02192820981144905,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 254.031031
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (NRMSE≤0.1993, 20 it)",
+            "nrmse_gt": 0.18595869839191437,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 75.481503
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "TGV (NRMSE≤0.02509, 30 it)",
+            "nrmse_gt": 0.022805973887443542,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 840.4604860000001
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (NRMSE≤0.09241, 8 it)",
+            "nrmse_gt": 0.056077927350997925,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 61.726644
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (PDHG) (NRMSE≤0.09241, 150 it)",
+            "nrmse_gt": 0.05527792498469353,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 233.898631
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Base",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Adjoint",
+            "nrmse_gt": 0.36340391635894775,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 0.739779
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.010876168496906757,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 147.21325900000002
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.008680906146764755,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 339.989966
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.18595869839191437,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 75.864891
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "TGV (20 it)",
+            "nrmse_gt": 0.03227654844522476,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 570.785276
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.0156486127525568,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 151.72662400000002
+        },
+        {
+            "case_id": "shepp_logan_2d_1ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.027725165709853172,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 307.434561
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (NRMSE≤0.04141, 8 it)",
+            "nrmse_gt": 0.040892139077186584,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 268.953862
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (PDHG) (NRMSE≤0.04141, 300 it)",
+            "nrmse_gt": 0.021906539797782898,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1930.422607
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (NRMSE≤0.2653, 30 it)",
+            "nrmse_gt": 0.2302989512681961,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 209.654956
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "TGV (NRMSE≤0.0168, 30 it)",
+            "nrmse_gt": 0.015272101387381554,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1580.929771
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (NRMSE≤0.08046, 8 it)",
+            "nrmse_gt": 0.0717877596616745,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 266.13858400000004
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (PDHG) (NRMSE≤0.08046, 150 it)",
+            "nrmse_gt": 0.03573501110076904,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 882.542011
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Base",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Adjoint",
+            "nrmse_gt": 0.4806307256221771,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 4.355008
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "CG-SENSE",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.3773038685321808,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 34.542972999999996
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.00882838387042284,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 665.735878
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.09662657231092453,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1289.177406
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.27718159556388855,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 156.968952
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "TGV (20 it)",
+            "nrmse_gt": 0.02390180341899395,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1092.610531
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.014622668735682964,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 633.5738829999999
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.02088039368391037,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1164.036081
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian__regular",
+            "category": "K-Space",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "GRAPPA (RSS)",
+            "nrmse_gt": 0.041984956711530685,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 22.367538999999997
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_cartesian__regular",
+            "category": "K-Space",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "GRAPPA (Sensitivity)",
+            "nrmse_gt": 0.03865910321474075,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 20.5245
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (NRMSE≤0.1138, 5 it)",
+            "nrmse_gt": 0.0956709086894989,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1350.8791170000002
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "CG-SENSE",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.2694946825504303,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 241.08833399999997
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Non-Cartesian",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.39290767908096313,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 24.915495999999997
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Non-Cartesian",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL) (m=3, σ=1.25)",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.3928973972797394,
+            "nrmse_ristretto": 0.0001375413703499362,
+            "threads": 2,
+            "time_ms": 8.594844
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.020109325647354126,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 2491.4231560000003
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.016267692670226097,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 5486.738866
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.27757149934768677,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 626.692099
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.02739620767533779,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 2497.602037
+        },
+        {
+            "case_id": "shepp_logan_2d_8ch_radial",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.031100677326321602,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 5389.106893
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (NRMSE≤0.1516, 5 it)",
+            "nrmse_gt": 0.1189572662115097,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 29821.281922000002
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "Base",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Adjoint",
+            "nrmse_gt": 0.43823298811912537,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 943.7053920000001
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "CG-SENSE",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.29357945919036865,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 7672.421655
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.007446514908224344,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 95495.75828400001
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.08036793023347855,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 181966.29963000002
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.2167533040046692,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 27239.430516999997
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.020856749266386032,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 93144.831757
+        },
+        {
+            "case_id": "shepp_logan_3d_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.03472905233502388,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 161860.054459
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (NRMSE≤0.1033, 8 it)",
+            "nrmse_gt": 0.07764109969139099,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 2005.0925359999999
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Base",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Adjoint",
+            "nrmse_gt": 0.48553046584129333,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 23.819406
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "CG-SENSE",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.4009600877761841,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 273.479691
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (20 it)",
+            "nrmse_gt": 0.013413905166089535,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 5061.804469
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Anisotropic TV (PDHG) (200 it)",
+            "nrmse_gt": 0.1440376192331314,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 9999.324569
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.28323304653167725,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1004.341799
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "TGV (20 it)",
+            "nrmse_gt": 0.03544657304883003,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 8644.105747
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (20 it)",
+            "nrmse_gt": 0.01646324247121811,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 4947.46658
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian",
+            "category": "Sparsity",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Total Variation (PDHG) (200 it)",
+            "nrmse_gt": 0.018138207495212555,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 9559.558747000001
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian__regular",
+            "category": "K-Space",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "GRAPPA (RSS)",
+            "nrmse_gt": 0.054835110902786255,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 142.657434
+        },
+        {
+            "case_id": "shepp_logan_multislice_8ch_cartesian__regular",
+            "category": "K-Space",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "GRAPPA (Sensitivity)",
+            "nrmse_gt": 0.07895445078611374,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 137.102273
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Global Low-Rank (NRMSE≤0.07498, 5 it)",
+            "nrmse_gt": 0.07346494495868683,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 3886.5998369999998
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (NRMSE≤0.1824, 20 it)",
+            "nrmse_gt": 0.17354606091976166,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 2901.980292
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Locally Low-Rank (NRMSE≤0.06021, 20 it)",
+            "nrmse_gt": 0.05735712870955467,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 14070.912698
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Temporal TV (NRMSE≤0.01589, 10 it)",
+            "nrmse_gt": 0.011158299632370472,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 6698.800961
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Temporal TV (PDHG) (NRMSE≤0.01589, 200 it)",
+            "nrmse_gt": 0.00783394742757082,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 26370.541735
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Base",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Adjoint",
+            "nrmse_gt": 0.26091453433036804,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 351.32507699999996
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "CG-SENSE",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.18579238653182983,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 1066.443675
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Global Low-Rank (20 it)",
+            "nrmse_gt": 0.06502604484558105,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 13117.558692999999
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.17354606091976166,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 3003.171894
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Locally Low-Rank (20 it)",
+            "nrmse_gt": 0.05735708028078079,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 14061.454983000001
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Temporal TV (20 it)",
+            "nrmse_gt": 0.006111409515142441,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 13469.332288
+        },
+        {
+            "case_id": "torso_cine_8ch_cartesian",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Temporal TV (PDHG) (200 it)",
+            "nrmse_gt": 0.007833946496248245,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 26873.075936999998
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Accuracy race",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Global Low-Rank (NRMSE≤0.1248, 5 it)",
+            "nrmse_gt": 0.11688940972089767,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 11491.407032
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "CG-SENSE",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "CG-SENSE (10 it)",
+            "nrmse_gt": 0.1392054706811905,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 3606.400135
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Global Low-Rank (20 it)",
+            "nrmse_gt": 0.10841277986764908,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 41332.246081
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "L1-Wavelet (20 it)",
+            "nrmse_gt": 0.14061468839645386,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 8083.943555999999
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Locally Low-Rank (20 it)",
+            "nrmse_gt": 0.0877271443605423,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 42012.082632000005
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Temporal TV (20 it)",
+            "nrmse_gt": 0.06444410234689713,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 41999.649507
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Dynamic",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "Temporal TV (PDHG) (200 it)",
+            "nrmse_gt": 0.06988777220249176,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 92651.842859
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Non-Cartesian",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL)",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.2241867184638977,
+            "nrmse_ristretto": 0.0,
+            "threads": 2,
+            "time_ms": 253.47049700000002
+        },
+        {
+            "case_id": "torso_cine_8ch_radial",
+            "category": "Non-Cartesian",
+            "data_source": "synthetic",
+            "framework": "Ristretto (MKL) (m=3, σ=1.25)",
+            "method": "DCF Adjoint (Gridding)",
+            "nrmse_gt": 0.22418105602264404,
+            "nrmse_ristretto": 0.00010106520494446158,
+            "threads": 2,
+            "time_ms": 149.49334
+        }
+    ],
+    "run": {
+        "blas_vendor": [
+            "libmkl_rt.so"
+        ],
+        "cpu_model": [
+            "Intel(R) Core(TM) i5-5300U CPU @ 2.30GHz"
+        ],
+        "cpu_threads": [
+            "2"
+        ],
+        "dates": [
+            "2026-10-15",
+            "2026-10-15"
+        ],
+        "gpu": [],
+        "heldout_cases": [],
+        "hostnames": [
+            "tamas-laptop"
+        ],
+        "julia_version": [
+            "1.13.1"
+        ],
+        "toolkit_versions": {
+            "Ristretto": [
+                "0.1.0 (1cd4695)"
+            ]
+        }
+    },
+    "schema_version": 3,
+    "threads": 2
+}
